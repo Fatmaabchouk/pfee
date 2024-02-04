@@ -1,0 +1,106 @@
+<!-- ... Vos autres balises HTML ... -->
+
+<header class="header">
+    <div class="alert">
+      <div class="container">
+        <p class="alert-text">LIVRAISON GRATUITE POUR TOUTES LES COMMANDES EN TUNISIE DE 50 DT ET PLUS</p>
+      </div>
+    </div>
+  
+    <div class="header-top" data-header>
+      <div class="container">
+        <div class="header-actions">
+          
+          
+          <!-- ... Autres éléments ... -->
+          <div class="my-dropdown my-text-end">
+            <a href="#" class="my-d-block my-link-dark my-text-decoration-none my-dropdown-toggle" id="my-dropdownUser1"
+              data-bs-toggle="my-dropdown" aria-expanded="false">
+              <img src="/images/avatar.png" alt="Photo de profil" width="45" height="45" class="my-rounded-circle">
+            </a>
+            <ul class="my-dropdown-menu my-text-small my-text-center" aria-labelledby="my-dropdownUser1">
+              <% if(utilisateur) { %>
+                <li>
+                  <div class="my-text-center">
+                    <img src="/images/avatar.png" alt="Photo de profil" width="50" height="50" class="my-rounded-circle">
+                    <h4><%= utilisateur.nom %></h4>
+                   
+                  </div>
+                </li>
+                <li>
+                  <form action="/deconnexion" method="post">
+                    <button type="submit">Déconnexion</button>
+                  </form>
+                  <form action="/acc" method="get">
+                    <button type="submit">Mon Compte</button>
+                  </form>
+                </li>
+              <% } else { %>
+                <li>
+                  <a href="/connexion">Connexion</a>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+    
+            <button class="header-action-btn" aria-label="cart item">
+              <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+       
+  
+        <a href="#" class="logo">
+          <img src="/images/thumbnail/logo.jpg" alt="logo" width="60" height="60" class="my-rounded-circle">
+        </a>
+        <div class="input-wrapper">
+          <input type="search" name="search" placeholder="Search product" class="search-field">
+          <button class="search-submit" aria-label="search">
+            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+       
+      </div>
+    </div>
+  
+  
+  </header>
+  <div class="col">
+    <div class="container">
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li>
+            <a href="#home" class="navbar-link has-after">Home</a>
+          </li>
+          <li>
+            <a href="#collection" class="navbar-link has-after">Collection</a>
+          </li>
+          <li>
+            <a href="#shop" class="navbar-link has-after">Shop</a>
+          </li>
+          <li>
+            <a href="#offer" class="navbar-link has-after">Offer</a>
+          </li>
+          <li>
+            <a href="#blog" class="navbar-link has-after">Blog</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Ajoutez cette balise pour charger Ionicons -->
+  <script src="https://unpkg.com/ionicons@5.0.2/dist/ionicons/ionicons.js"></script>
+  
+  <!-- ... Le reste de votre code ... -->
+  <!-- ... Vos autres balises HTML ... -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdownButton = document.getElementById('my-dropdownUser1');
+    const dropdownMenu = document.querySelector('.my-dropdown-menu');
+
+    dropdownButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      dropdownMenu.classList.toggle('show');
+    });
+  });
+</script>

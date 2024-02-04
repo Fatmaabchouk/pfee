@@ -1,0 +1,33 @@
+/* Style pour la section des services */
+.custom-services {
+    background-color: #f4f4f4; /* Changer la couleur de fond selon vos besoins */
+    padding: 20px;
+  }
+  
+  /* Style pour la liste des services */
+  .custom-service-list {
+    list-style: none; /* Supprimer les puces de la liste */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    flex-direction: row; /* Aligner les éléments horizontalement */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+  }
+  
+  /* Style pour chaque élément de service */
+  .custom-service-item {
+    text-align: center; /* Centrer le contenu dans chaque élément */
+    flex-grow: 1; /* Permettre à chaque élément de prendre autant d'espace que possible */
+  }
+  
+  /* Style pour l'icône et le titre */
+  .custom-item-icon {
+    margin-bottom: 10px; /* Espacement entre l'icône et le titre */
+  }
+  
+  /* Style pour le titre */
+  .custom-item-title {
+    font-size: 16px; /* Taille de police pour le titre */
+    margin: 0; /* Supprimer les marges par défaut */
+  }
+  

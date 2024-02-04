@@ -1,0 +1,142 @@
+<!-- cours.html -->
+<div class="col">
+  <div class="card shadow-sm">
+    <img src="<%= cours.lienThumbnail %>" alt="Thumbnail" width="100%" height="225">
+    <div class="card-body">
+      <h6 class="card-text"><%= cours.titre %></h6>
+      <h5 class="cat-title"><%= cours.minititre %></h5>
+      <div class="emm">
+      <input type="number" id="quantity<%= cours.id %>" min="1" max="10" value="1">
+      <h8 id="pricePerKilo"><%= cours.mintitre %></h8></div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button onclick="addToCart('<%= cours.titre %>', '<%= cours.mintitre %>', '<%= cours.lienThumbnail %>', <%= cours.prixParKilo %>, <%= cours.id %>)" class="btn btn-sm btn-outline-secondary">
+            <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon> Panier
+          </button>
+        </div>
+        
+    
+
+        
+
+      </div>
+      <small class="text-muted"> <ion-icon name="bus-outline"></ion-icon> livraison </small>
+    </div>
+  </div>
+  <!-- Ajoutez ceci dans la section body de cours.html -->
+  <div id="customDialog" class="custom-dialog">
+    <p>
+      Vous avez ajouté <span id="dialogQuantity"></span> kg de <span id="dialogProductTitle"></span> à votre panier.
+      Le total est de <span id="dialogTotalPrice"></span> DT.
+      Que souhaitez-vous faire?
+    </p>
+    <img id="dialogImage" src="" alt="" width="100%">
+    <button id="commanderBtn">Commander</button>
+    <button id="continuerBtn">Continuer mes achats</button>
+  </div>
+</div>
+
+<script>
+function addToCart(productTitle, pricePerKilo, imageSrc, prixParKilo, courseId) {
+  const quantityElement = document.getElementById("quantity" + courseId);
+
+  // Vérifier si l'élément avec l'ID "quantity" existe
+  if (!quantityElement) {
+    alert("Élément 'quantity' introuvable.");
+    return;
+  }
+
+  const quantity = parseFloat(quantityElement.value);
+
+  // Vérifier si la quantité est un nombre valide
+  if (isNaN(quantity) || quantity <= 0) {
+    alert("Veuillez entrer une quantité valide.");
+    return;
+  }
+
+  // Calculer le total en fonction de la quantité et du prix par kilo
+  const totalPrice = quantity * prixParKilo;
+
+  // Utiliser la fonction confirm pour demander à l'utilisateur s'il veut ajouter au panier
+  const confirmation = confirm(`
+      Vous avez ajouté ${quantity} kg de ${productTitle} à votre panier.
+      Le total est de ${totalPrice.toFixed(2)} DT.
+      Que souhaitez-vous faire?
+      \n\n
+      Image de l'article :
+      \n
+      <img src="${imageSrc}" alt="${productTitle}" width="100%">
+  `);
+
+  // Si l'utilisateur a cliqué sur "OK"
+  if (confirmation) {
+    // Stocker les informations du panier dans le localStorage
+    const cartItem = {
+      productTitle: productTitle,
+      pricePerKilo: pricePerKilo,
+      imageSrc: imageSrc,
+      quantity: quantity,
+      totalPrice: totalPrice.toFixed(2),
+    };
+
+    // Vérifier si le panier existe déjà dans le localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Ajouter le nouvel article au panier
+    cart.push(cartItem);
+
+    // Mettre à jour le localStorage avec le nouveau panier
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Afficher la boîte de dialogue personnalisée
+    document.getElementById("dialogQuantity").innerText = quantity;
+    document.getElementById("dialogProductTitle").innerText = productTitle;
+    document.getElementById("dialogTotalPrice").innerText = totalPrice.toFixed(2) + " DT";
+    document.getElementById("dialogImage").src = imageSrc;
+
+    showDialog();
+  } else {
+    // Si l'utilisateur a cliqué sur "Annuler"
+    alert("Ajout au panier annulé.");
+  }
+}
+
+// Fonction pour mettre à jour la somme totale
+function updateTotalSum() {
+  const cartContents = getCartContents();
+  let totalSum = 0;
+
+  // Calculer la somme totale
+  cartContents.forEach((item) => {
+    totalSum += parseFloat(item.totalPrice);
+  });
+
+  // Mettre à jour le texte de la somme totale
+  document.getElementById("totalPrice").textContent = totalSum.toFixed(2) + ' DT';
+}
+
+// ...
+</script>
+
+<!-- Ajoutez ceci à la fin de cours.html ou dans un fichier séparé script.js -->
+<script>
+  // Fonction pour afficher la boîte de dialogue
+  function showDialog() {
+    console.log("showDialog() called");
+    const customDialog = document.getElementById('customDialog');
+    customDialog.style.display = 'block';
+  
+    const commanderBtn = document.getElementById('commanderBtn');
+    const continuerBtn = document.getElementById('continuerBtn');
+  
+    commanderBtn.addEventListener('click', function() {
+      console.log("Commander button clicked");
+      window.location.href = 'pannier';
+    });
+  
+    continuerBtn.addEventListener('click', function() {
+      console.log("Continuer button clicked");
+      customDialog.style.display = 'none';
+    });
+  }
+</script>

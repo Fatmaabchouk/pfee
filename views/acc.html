@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture video</title>
+
+    <link href="/assests/syles-personnel/acc.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/header.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <%- include("header.html",{utilisateur}) %>
+        <section class="text-center container">
+         
+                <div class="page-container clearfix" id="PageContainer">
+        
+                        <div class="main-content shop-page-account">
+                            <div class="container">
+                                <div class="container block-page-login" style="margin: 32px 0;">
+                                    <div id="primary"></div>
+                                    <h1 class="page-title text-center">Account</h1>
+                                    <hr>
+            
+                                    <div class="row">
+                                        <div class="col-lg-auto col-xs-12 col-sm-4 col-md-lg-3">
+                                            <div class="wrapper_tabcontent customer">
+                                                <a href="#" class="active"  >
+                                                    <button>
+                                                        <i class="fas fa-bars"></i>
+                                                        Dashboard
+                                                    </button>
+                                                </a>
+            
+                                                <a href="/checkout">
+                                                    <button>
+                                                        <i class="fas fa-check-circle"></i>
+                                                        Check Out
+                                                    </button>
+                                                </a>
+            
+                                                <a href="/addresses">
+                                                    <button>
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        View Addresses
+                                                    </button>
+                                                </a>
+            
+                                                <a href="/wishlist">
+                                                    <button>
+                                                        <i class="fas fa-heart"></i>
+                                                        View Wishlist
+                                                    </button>
+                                                </a>
+            
+                                                <a href="/login">
+                                                    <button>
+                                                        <i class="fas fa-sign-out-alt"></i>
+                                                        Logout
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+            
+                                        <div class="account-content col">
+                                           <p class="title-customer">
+                                            <p class="title-customer">
+                                                <% if(utilisateur) { %>
+                                                    "Account" <span> <h4><%= utilisateur.nom %></h4></span>
+                                                  <% } else { %>
+                                                    "Account" <span> <h4>Guest</h4></span>  <!-- Ou tout autre traitement souhaité pour le cas Guest -->
+                                                  <% } %>
+                                            </p>
+                                            
+            </p>
+            </br> 
+                                            <div class="order-history">
+                                            <h4>Order History</h4>
+                              <button id="makeOrderButton">
+                <p class="none">
+                    <a href="/" onclick="makeOrderClick()">
+                        <i class="fas fa-shopping-cart"></i> MAKE YOUR FIRST ORDER
+                    </a>
+                </p>
+            </button>
+            <!-- Inclure Handlebars.js -->
+           
+            
+            
+            
+            <!-- profile.hbs -->
+            
+            
+            You haven't placed any orders yet.</p> </div>
+            <div class="account_details"> 
+                                        <p>Account Details:</p>
+            
+                                            <form action="/update-account" method="post">
+                        <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" value= " <%= utilisateur.nom %>"  readonly>
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" value=" <%= utilisateur.nom %>" readonly>
+            
+                       
+            
+                              <label for="EEmail">Email:</label>
+                            <input type="EEmail" id="EEmail" name="EEmail" value="<%= utilisateur.email %>" >
+            
+                                                <label for="phone">Phone:</label>
+                                                <input type="tel" id="phone" name="phone"  required>
+            
+                                                <label for="zip">Zip:</label>
+                                                <input type="text" id="zip" name="zip" required>
+            
+                                                <label for="Adress1">Address 1:</label>
+                                                <input type="text" id="Adress1" name="Adress1" required>
+            
+                                                <label for="Adress2">Address 2:</label>
+                                                <input type="text" id="Adress2" name="Adress2" required>
+            
+                                                <!-- Ajoutez un bouton de soumission si nécessaire -->
+                                                
+                                                <button type="submit">Update Account</button>
+                                            <!-- Ajoutez ceci à votre fichier handlebars -->
+           
+            
+                                            </form> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+        
+        
+        
+        
+        
+        
+        </main>
+        
+          </section>
+    </main>
+    <%- include("footer.html") %>
+    
+    <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

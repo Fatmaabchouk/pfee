@@ -1,0 +1,155 @@
+/* Styles généraux */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Couleur de fond générale */
+    color: #333; /* Couleur du texte principale */
+}
+
+/* Styles du conteneur principal */
+.page-title.text-center {
+    text-align: center;
+    color: #0c0303;
+    font-size: 38px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    line-height: 1;
+    border-bottom: 2px solid #ebebeb;
+    padding-bottom: 15px;
+}
+
+/* Styles des boutons et liens */
+.wrapper_tabcontent.customer button {
+    margin-bottom: 10px;
+    background-color: #d4e1ee;
+    color: #0c0303;
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: flex;
+}
+
+.wrapper_tabcontent.customer button:hover {
+    background-color: #fd48c9;
+}
+
+.wrapper_tabcontent.customer i {
+    margin-right: 8px;
+}
+
+.wrapper_tabcontent.customer a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Styles de la section Account */
+.account-content.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    margin-left: 20px; /* Espace entre les deux divs */
+}
+
+.account-content.col p {
+    margin-bottom: 10px;
+}
+
+.account-content.col form {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-content.col label {
+    margin-bottom: 5px;
+}
+
+.account-content.col input {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.account-content.col button {
+    background-color: #fbc4ea;
+    color: #160f0f;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.account-content.col button:hover {
+    background-color: #fd48c9;
+}
+
+.account-content p.title-customer {
+    line-height: 45px;
+    color: #0c0303;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+/* Styles de la section Order History */
+.order-history {
+    margin-bottom: 65px;
+}
+
+.order-history h4 {
+    color: #0c0303;
+    margin: 0 0 10px;
+    display: flex;
+    position: relative;
+    text-align: center;
+    letter-spacing: -.03em;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 35px;
+}
+
+.order-history p.none {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    margin-bottom: 10px;
+}
+
+.order-history p.none a {
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
+.fas {
+    margin-right: 10px;
+    font-weight: 900;
+}
+
+.order-history p.none :hover {
+    color: rgb(254, 73, 224);
+}
+
+/* Styles de la section Account Details */
+.account_details p {
+    color: black;
+    margin: 0 0 10px;
+    display: flex;
+    position: relative;
+    text-align: center;
+    letter-spacing: -.03em;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 35px;
+}
+
+.account-content.col form {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-width: 1px 0 0 1px;
+    margin: 1.5em 0 1.75em;
+    width: 100%;
+}

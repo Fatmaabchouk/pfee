@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+  <!-- Inclure le lien vers la bibliothèque Ionicons correctement -->
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@6.1.0/dist/ionicons/css/ionicons.min.css" integrity="sha384-cmcJuQ/pkYiJ1g1txmLq7TMtm/7cXtkOW5PJX1+t0BoI1cjvj1sWdDxE0bBl8+sdA" crossorigin="anonymous">
+
+
+    <link href="/assests/syles-personnel/pannier.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <main>
+        <h4>Bienvenue,<%= utilisateur.nom %></h4>
+        <section id="wrapper">
+            <aside id="notifications">
+                <div class="container">
+                    <!-- Ajoutez ici le contenu de votre aside -->
+                </div>
+            </aside>
+            <div class="container">
+                <nav data-depth="1" class="breadcrumb hidden-sm-down">
+                    <ol>
+                        <li>
+                            <a href="/">Accueil</a>
+                        </li>
+                    </ol>
+                </nav>
+                <div id="content-wrapper" class="js-content-wrapper">
+                    <section id="main">
+                        <div class="cart-grid row">
+                            <div class="cart-grid-body col-xs-12 col-lg-8">
+                                <div id="cartContents" class="mt-3 card cart-container">
+                                    <div class="card-block">
+                                        <h1 class="h1">Panier</h1>
+                                        <div class="card-block">
+                                            <div id="cartContents" class="mt-3 card cart-container">
+                                                <ul class="cart-items">
+                                                    <!-- Ajoutez d'autres éléments du panier ici -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <hr class="separator">
+                                        <div class="cart-overview js-cart" data-refresh-url="">
+                                            <ul class="cart-items">
+                                                <!-- Ajoutez d'autres éléments du panier ici -->
+                                            </ul>
+                                        </div>
+                                        <!-- Ajoutez ceci dans la section body de pannier.html, après la div .cart-overview -->
+                                        <div class="somme">
+                                            <h3>Total: <span id="totalPrice">0.00 DT</span></h3>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        // Fonction pour afficher le contenu du panier et calculer la somme totale
+                                        function displayCartContents() {
+                                            const cartContents = getCartContents();
+                                            const cartContentsDiv = document.querySelector(".cart-overview.js-cart ul.cart-items");
+                                            const cartContainer = document.getElementById("cartContents");
+                                            const totalPriceSpan = document.getElementById("totalPrice");
+
+                                            cartContentsDiv.innerHTML = '';
+
+                                            let totalSum = 0;
+
+                                            if (cartContents.length > 0) {
+                                                // Afficher les articles du panier
+                                                cartContents.forEach((item, index) => {
+                                                    const cartItem = document.createElement("li");
+                                                    cartItem.className = "cart-item";
+                                                    cartItem.innerHTML = `
+                                                        <div class="product-line-grid">
+                                                            <div class="product-line-grid-left col-md-3 col-xs-4">
+                                                                <span class="product-image media-middle">
+                                                                    <img src="${item.imageSrc}" alt="${item.productTitle}">
+                                                                </span>
+                                                            </div>
+                                                            <div class="product-line-grid-body col-md-4 col-xs-8">
+                                                                <div class="product-line-info">
+                                                                    <a class="label">${item.productTitle}</a>
+                                                                </div>
+                                                                <div class="product-line-info product-price h5">
+                                                                    <div class="current-price">${item.totalPrice} DT</div>
+                                                                </div>
+                                                                <button class="remove-item-btn" onclick="removeCartItem(${index})">
+                                                                    <i class="material-icons">delete</i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    `;
+                                                    cartContentsDiv.appendChild(cartItem);
+
+                                                    // Ajouter le prix de l'article à la somme totale
+                                                    totalSum += parseFloat(item.totalPrice);
+                                                });
+                                            } else {
+                                                // Panier vide
+                                                cartContainer.innerHTML = '<h1 class="h1">Panier</h1><p>Votre panier est vide.</p>';
+                                            }
+
+                                            // Mettre à jour le texte de la somme totale
+                                            totalPriceSpan.textContent = totalSum.toFixed(2) + ' DT';
+                                        }
+
+                                        // Fonction pour supprimer un article du panier
+                                        function removeCartItem(index) {
+                                            const cartContents = getCartContents();
+                                            cartContents.splice(index, 1);
+                                            updateCart(cartContents);
+                                            displayCartContents();
+                                        }
+
+                                        // Appeler la fonction pour afficher le contenu du panier lors du chargement de la page
+                                        window.onload = function () {
+                                            displayCartContents();
+                                        };
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <a class="label" href="./">
+            <ion-icon name="arrow-back-outline"></ion-icon> Continuer mes achats
+        </a>
+        <% include("footer.html") %>
+    </main>
+
+    
+    <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Fonction pour extraire les informations du panier depuis le localStorage
+        function getCartContents() {
+            return JSON.parse(localStorage.getItem("cart")) || [];
+        }
+
+        // Fonction pour mettre à jour le panier dans le localStorage
+        function updateCart(cart) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    </script>
+</body>
+
+</html>

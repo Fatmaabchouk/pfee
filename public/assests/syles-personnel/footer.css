@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .footer-brand {
+    max-width: 300px;
+  }
+  
+  .footer-brand .logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-text {
+    margin-top: 10px;
+  }
+  
+  .social-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-link {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-list-title {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .footer-link {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .footer-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-icon {
+    margin-right: 10px;
+  }
+  
+  .contact-link {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .newsletter-text {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .footer-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-input {
+    width: 200px;
+    padding: 8px;
+  }
+  
+  .footer-form-btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .footer-bottom {
+    background-color: #222;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .copyright {
+    margin: 0;
+  }
+  
+  .copyright-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .footer-bottom-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .footer-bottom-link {
+    color: #fff;
+    text-decoration: none;
+  }
+  

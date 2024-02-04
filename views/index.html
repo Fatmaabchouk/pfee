@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+
+    <link href="/assests/syles-personnel/header.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/index.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    
+   
+  
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.2/dist/css/ionicons.min.css" integrity="...">
+
+</head>
+<body>
+  
+    
+    <%- include("header.html",{utilisateur}) %>
+    <main>
+   
+
+      <!-- 
+    - - #HERO
+  -->
+
+  <section class="section hero" id="home" aria-label="hero" data-section>
+    <div class="container">
+
+      <ul class="has-scrollbar">
+
+        <li class="scrollbar-item">
+          <div class="hero-card has-bg-image"  style="background-image: url('/images/thumbnail/post.png');">
+
+            <div class="card-content">
+
+              <h1 class="h1 hero-title">
+
+
+
+                Sublimez votre style avec nos accessoires irrésistibles 
+
+</h1>
+<p class="hero-text">
+ une touche parfaite pour chaque occasion. Faites de chaque achat d'accessoire une expérience unique et tendance.
+
+</p>
+<p class="price">
+
+À partir de 20 DT
+</p>
+<a href="#" class="btn btn-primary">Achetez maintenant</a>
+
+</div>
+</div>
+</li>
+<li class="scrollbar-item">
+<div class="hero-card has-bg-image" style="background-image: url('./assets/images/hero-banner-2.jpg')">
+
+  <div class="card-content">
+
+    <h1 class="h1 hero-title">
+
+ 
+      Sublimez votre style avec nos accessoires irrésistibles
+
+</h1>
+<p class="hero-text">
+  une touche parfaite pour chaque occasion. Faites de chaque achat d'accessoire une expérience unique et tendance.
+</p>
+<p class="price">
+
+  À partir de 20 DT
+</p>
+<a href="#" class="btn btn-primary">Achetez maintenant</a>
+
+</div>
+</div>
+</li>
+<li class="scrollbar-item">
+  <div class="hero-card has-bg-image" style="background-image: url('./assets/images/hero-banner-3.jpg')">
+  <div class="card-content">
+  <h1 class="h1 hero-title">
+  
+   
+    Sublimez votre style avec nos accessoires irrésistibles
+  
+  </h1>
+  <p class="hero-text">
+    une touche parfaite pour chaque occasion. Faites de chaque achat d'accessoire une expérience unique et tendance.
+  </p>
+  <p class="price">
+  
+    À partir de 20 DT
+  </p>
+  <a href="#" class="btn btn-primary">Achetez maintenant</a>
+  
+  
+  </div>
+  </div>
+  </li>
+
+</ul>
+</div>
+</section>
+
+<%- include("service.html") %>
+<div class="album py-5 bg-light">
+   
+  <div class="ui centered container three column grid category-slider">
+    <h3>Categories</h3>
+<div class="row categories-list">
+<div class="center aligned colum">
+<a class="card-img-text-box" href="#">
+<div class="img-container">
+<img src="<%= em.lienlegume %>" alt loading="lazy">
+</div>
+<div class="text-box">
+  <p class="subtitle">20 offres</p>
+  <h5 class="cat-title"> legumeq</h5>
+  <p class="text-small"> legumes frais , bio , circuit court..</p>
+</div> </a> </div><div class="center aligned colum">
+  <a class="card-img-text-box" href="#">
+    <div class="img-container">
+      <img src="<%= em.lienfruit %>" alt loading="lazy">
+      </div>
+      <div class="text-box">
+        <p class="subtitle">20 offres</p>
+        <h5 class="cat-title"> Fruits</h5>
+        <p class="text-small"> Fruits frais , bio , circuit court..</p>
+      </div> </a> </div>
+</div>
+
+</div>
+
+
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <% cours.forEach((cour) => { %>
+            <%- include("cours_item.html", { cours: cour }) %>
+        <% }) %>
+        <% console.log(cours); %>
+
+      </div>
+      
+      </div>
+  </div>
+</section>
+<%- include("shop.html") %>
+
+
+</main>
+<%- include("footer.html") %>
+
+    
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body></html>
