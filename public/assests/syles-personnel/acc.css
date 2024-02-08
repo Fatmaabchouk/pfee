@@ -22,7 +22,7 @@ body {
 /* Styles des boutons et liens */
 .wrapper_tabcontent.customer button {
     margin-bottom: 10px;
-    background-color: #d4e1ee;
+    background-color: #b5e9c4;
     color: #0c0303;
     padding: 10px;
     border: none;
@@ -34,7 +34,7 @@ body {
 }
 
 .wrapper_tabcontent.customer button:hover {
-    background-color: #fd48c9;
+    background-color: #75fd48;
 }
 
 .wrapper_tabcontent.customer i {
@@ -74,7 +74,7 @@ body {
 }
 
 .account-content.col button {
-    background-color: #fbc4ea;
+    background-color: #c8fcc7;
     color: #160f0f;
     padding: 10px;
     border: none;
@@ -83,7 +83,7 @@ body {
 }
 
 .account-content.col button:hover {
-    background-color: #fd48c9;
+    background-color: #48fd78;
 }
 
 .account-content p.title-customer {
@@ -130,7 +130,7 @@ body {
 }
 
 .order-history p.none :hover {
-    color: rgb(254, 73, 224);
+    color: rgb(101, 229, 152);
 }
 
 /* Styles de la section Account Details */
@@ -152,4 +152,12 @@ body {
     border-width: 1px 0 0 1px;
     margin: 1.5em 0 1.75em;
     width: 100%;
+}
+.container.block-page-login{
+    margin: 38px 23px;
+    display: table-column;
+    margin-left: 450px;
+}
+.row{
+    display: flex;
 }

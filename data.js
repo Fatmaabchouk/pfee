@@ -55,8 +55,7 @@ defaultHashedPW =await bcrypt.hash("1234" , salt);
       minititre: "prix moyen:",
       mintitre: "2Dt/Kg",
       prixParKilo: 2, // Ajout du prix par kilo
-      desc: `Gérer vos données avec la base de données non relationnelle MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+     
       lienThumbnail: "/images/thumbnail/felfel.jpg",
     },
     {
@@ -65,46 +64,34 @@ defaultHashedPW =await bcrypt.hash("1234" , salt);
       minititre: "prix moyen:",
       mintitre: "2Dt/Kg",
       prixParKilo: 2, // Ajout du prix par kilo
-      desc: `Dans ce cours, vous apprendrez les notions fondamentales sur l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+   
       lienThumbnail: "/images/thumbnail/seneriya.jpg",
     },
   
 { 
-      titre: "NodeJs pour débutants",
-      desc: `Dans ce cous vous apprendrez les notions fondamentales sur 
-          l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+      titre: "",
+
       lienThumbnail: "/images/thumbnail/nodejs.jpg",
     },
     {
-      titre: "Créer une API avec NodeJs et MongoDB",
-      desc: `Dans ce cous vous apprendrez les notions fondamentales sur 
-          l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+      titre: "",
+    
       lienThumbnail: "/images/thumbnail/restapi.jpg",
     },
     {
-      titre: "Créer des applications NodeJs Sécurisées",
-      desc: `Dans ce cous vous apprendrez les notions fondamentales sur 
-          l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+      titre: "",
+     
       lienThumbnail: "/images/thumbnail/safenodejs.jpg",
     },
     {
-      titre: "Cloner Youtube avec Flutter Web",
-      desc: `Dans ce cous vous apprendrez les notions fondamentales sur 
-          l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-      lienVideo: "public/video/mongoose.mp4",
+      titre: "",
       lienThumbnail: "/images/thumbnail/youtubeclone.jpg",
     },
   
   {
-    titre: "Cloner Youtube avec Flutter Webb",
-    desc: `Dans ce cous vous apprendrez les notions fondamentales sur 
-        l'utilisation de la bibliothèque mongoose pour gérer la base de données MongoDB`,
-    lienVideo: "public/video/mongoose.mp4",
-    lienThumbnail: "/images/thumbnail/youtubeclone.jpg",
+    titre: "",
+   
+    lienThumbnail: "",
   },
  ]
  module.exports = { cours };

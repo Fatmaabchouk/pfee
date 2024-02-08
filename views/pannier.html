@@ -10,7 +10,10 @@
   <link rel="stylesheet" href="https://unpkg.com/ionicons@6.1.0/dist/ionicons/css/ionicons.min.css" integrity="sha384-cmcJuQ/pkYiJ1g1txmLq7TMtm/7cXtkOW5PJX1+t0BoI1cjvj1sWdDxE0bBl8+sdA" crossorigin="anonymous">
 
 
-    <link href="/assests/syles-personnel/pannier.css" rel="stylesheet">
+
+  <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+  <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+  <link href="/assests/syles-personnel/pannier.css" rel="stylesheet">
 
 </head>
 
@@ -54,7 +57,16 @@
                                         <!-- Ajoutez ceci dans la section body de pannier.html, après la div .cart-overview -->
                                         <div class="somme">
                                             <h3>Total: <span id="totalPrice">0.00 DT</span></h3>
+                                            <button id="commandButton">Commander</button>
+
+                                            
                                         </div>
+                                        <script>
+                                            document.getElementById('commandButton').addEventListener('click', function() {
+                                                // Rediriger l'utilisateur vers la page acc.html
+                                                window.location.href = 'acc';
+                                            });
+                                        </script>
                                     </div>
 
                                     <script>
@@ -132,11 +144,11 @@
         <a class="label" href="./">
             <ion-icon name="arrow-back-outline"></ion-icon> Continuer mes achats
         </a>
-        <% include("footer.html") %>
+   
     </main>
 
     
-    <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script>
         // Fonction pour extraire les informations du panier depuis le localStorage
@@ -149,6 +161,10 @@
             localStorage.setItem("cart", JSON.stringify(cart));
         }
     </script>
+    
+<%- include("service.html") %>
+
+<%- include("footer.html") %>
 </body>
 
 </html>

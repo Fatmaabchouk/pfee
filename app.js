@@ -6,6 +6,7 @@ const fs = require("fs");
 const { cours } = require("./data");
 require("dotenv").config();
 const session = require('express-session');
+const flash = require("express-flash");
 const bcrypt = require("bcrypt");
 
 const app = express();
@@ -48,6 +49,7 @@ app.use(session({
     secure:false ,
   }
 }))
+app.use(flash());
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -204,40 +206,50 @@ app.get("/pannier", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("pannier", {utilisateur});
 });
+app.get("/informations", protectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
 
-app.post("/deconnexion" , (req , res)=>{
-  req.session.destroy((err)=>{
-    if(err){
+  if (utilisateur) {
+    // Utilisez l'ID de l'utilisateur pour récupérer les informations spécifiques de la base de données
+    db.query('SELECT nom, email, phone, Adress1, Adress2, zip FROM utulisateurs WHERE id = ?', [utilisateur.id], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des informations de l\'utilisateur : ' + err.message);
+        return res.status(500).send('Erreur serveur');
+      }
 
-      return res.render("index" , {cours ,  utilisateur: null, em });
+      if (results.length > 0) {
+        // Récupérez les informations de la base de données
+        const userInformation = results[0];
+
+        // Passez les informations à la vue et affichez la page informations.html
+        res.render("informations", { utilisateur: userInformation });
+      } else {
+        // Gérer le cas où l'utilisateur n'est pas trouvé dans la base de données
+        res.status(404).send('Utilisateur non trouvé');
+      }
+    });
+  } else {
+    // Gérer le cas où l'utilisateur n'est pas connecté
+    res.redirect("/connexion");
+  }
+});
+
+app.post("/deconnexion", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Erreur lors de la destruction de la session : ' + err.message);
+      res.status(500).send('Erreur serveur');
+      return;
     }
+
     res.clearCookie(process.env.SESSION_NAME);
-    return res.render("index" , {cours ,  utilisateur: null, em });
+    res.redirect("/");
   });
 });
 
 
-app.get("/video", (req, res) => {
-  const range = req.headers.range;
-  if (!range) {
-    res.status(400).send("Require Range header");
-  }
-  const videoPath = "public/videos/drcmind_intro.mp4";
-  const videoSize = fs.statSync("public/videos/drcmind_intro.mp4").size;
-  const CHUNK_SIZE = 10 ** 6;
-  const start = Number(range.replace(/\D/g, ""));
-  const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-  const contentLength = end - start + 1;
-  const headers = {
-    "Content-Range": "bytes " + start + "-" + end + "/" + videoSize,
-    "Accept-Ranges": "bytes",
-    "Content-Length": contentLength,
-    "Content-Type": "video/mp4",
-  };
-  res.writeHead(206, headers);
-  const videoStream = fs.createReadStream(videoPath, { start, end });
-  videoStream.pipe(res);
-});
+
+
 app.post("/update-account", async (req, res) => {
   const { EEmail, phone, zip, Adress1, Adress2 } = req.body;
   const { utilisateur } = res.locals;
@@ -252,25 +264,33 @@ app.post("/update-account", async (req, res) => {
         return res.status(500).send("Erreur interne du serveur");
       }
 
-      if (results.length === 0) {
-        console.log("Rendu du message:", 'Votre email est incorrect');
-        return res.render('acc', {
-          message: 'Votre email est incorrect',
-          // Définissez une valeur par défaut ou gérez-la en conséquence
-        });
-      }
+// ...
 
-      // Mettez à jour les informations de l'utilisateur dans la base de données
-      db.query('UPDATE utulisateurs SET phone = ?, Adress1 = ?, Adress2 = ?, zip = ? WHERE email = ?',
-        [phone, Adress1, Adress2, zip, EEmail], (updateError) => {
-          if (updateError) {
-            console.error(updateError);
-            return res.status(500).send("Erreur interne du serveur");
-          }
-          console.log('Mise à jour du compte réussie');
-          res.redirect("/acc"); // Redirigez vers la page du compte après la mise à jour
-        }
-      );
+if (results.length === 0) {
+ // Utilisez req.flash pour stocker le message d'erreur
+ req.flash("error", "Votre email est incorrect");
+ // Redirigez vers la page du compte
+ return res.redirect("/acc") ;// Assurez-vous de passer également l'objet utilisateur
+  };
+
+
+// ...
+
+
+db.query('UPDATE utulisateurs SET phone = ?, Adress1 = ?, Adress2 = ?, zip = ? WHERE email = ?',
+[phone, Adress1, Adress2, zip, EEmail], (updateError) => {
+  if (updateError) {
+    console.error(updateError);
+    return res.status(500).send("Erreur interne du serveur");
+  }
+
+  req.flash("error", "Mise à jour du compte réussie");
+  // Redirigez vers la page du compte
+  return res.redirect("/acc") ;
+}
+);
+
+
     });
   } catch (error) {
     console.error('Erreur lors de la mise à jour du compte : ' + error.message);

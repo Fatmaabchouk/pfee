@@ -11,9 +11,17 @@
 
 .hero-card
 {
-  background-color: var(--light-gray);
-  padding: 165px 0px;
+  background-color: #f4f5f8;
+  padding:26px 150px;
   background-position: 40%;
+  display: flex;
+}
+.hero-card2
+{
+  background-color: #0CD1F1;;
+  padding:26px 150px;
+  background-position: 40%;
+  display: flex;
 }/*-----------------------------------*\
   #ybayenn tessswira lkolll
 \*-----------------------------------*/

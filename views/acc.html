@@ -3,61 +3,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture video</title>
+    <title>Compte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-rd9ujgYFTB8+Ju+QIn7P5APuLTrgeMM4M3So7ypp8Y3XQOMB3s5dhFTFzTmrRtJ4Nc0osfjK5tr3qbZ3uRTtAg==" crossorigin="anonymous" />
 
     <link href="/assests/syles-personnel/acc.css" rel="stylesheet">
-    <link href="/assests/syles-personnel/header.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
 </head>
 <body>
     <main>
-        <%- include("header.html",{utilisateur}) %>
+        <h4>Bienvenue,<%= utilisateur.nom %></h4>
         <section class="text-center container">
          
                 <div class="page-container clearfix" id="PageContainer">
         
                         <div class="main-content shop-page-account">
                             <div class="container">
-                                <div class="container block-page-login" style="margin: 32px 0;">
+                                <div class="container block-page-login" >
                                     <div id="primary"></div>
-                                    <h1 class="page-title text-center">Account</h1>
+                                    <h1 class="page-title text-center">Compte</h1>
                                     <hr>
             
                                     <div class="row">
                                         <div class="col-lg-auto col-xs-12 col-sm-4 col-md-lg-3">
                                             <div class="wrapper_tabcontent customer">
-                                                <a href="#" class="active"  >
-                                                    <button>
-                                                        <i class="fas fa-bars"></i>
-                                                        Dashboard
-                                                    </button>
-                                                </a>
+                                                
             
-                                                <a href="/checkout">
+                                                <a href="pannier">
                                                     <button>
                                                         <i class="fas fa-check-circle"></i>
-                                                        Check Out
+                                                        Pannier
                                                     </button>
                                                 </a>
             
-                                                <a href="/addresses">
+                                                <a href="/informations">
                                                     <button>
                                                         <i class="fas fa-map-marker-alt"></i>
-                                                        View Addresses
+                                                        Voir les informations
                                                     </button>
                                                 </a>
             
-                                                <a href="/wishlist">
-                                                    <button>
-                                                        <i class="fas fa-heart"></i>
-                                                        View Wishlist
-                                                    </button>
-                                                </a>
+                                               
             
-                                                <a href="/login">
-                                                    <button>
+                                                
+                                                 
                                                         <i class="fas fa-sign-out-alt"></i>
-                                                        Logout
-                                                    </button>
+                                                        <form action="/deconnexion" method="post">
+                                                            <button type="submit">Déconnexion</button>
+                                                          </form>
+                                                 
                                                 </a>
                                             </div>
                                         </div>
@@ -66,20 +59,20 @@
                                            <p class="title-customer">
                                             <p class="title-customer">
                                                 <% if(utilisateur) { %>
-                                                    "Account" <span> <h4><%= utilisateur.nom %></h4></span>
+                                                    "Compte" <span> <h4><%= utilisateur.nom %></h4></span>
                                                   <% } else { %>
-                                                    "Account" <span> <h4>Guest</h4></span>  <!-- Ou tout autre traitement souhaité pour le cas Guest -->
+                                                    "Compte" <span> <h4>Invité</h4></span>  <!-- Ou tout autre traitement souhaité pour le cas Guest -->
                                                   <% } %>
                                             </p>
                                             
             </p>
             </br> 
                                             <div class="order-history">
-                                            <h4>Order History</h4>
+                                            <h4>Historique des commandes</h4>
                               <button id="makeOrderButton">
                 <p class="none">
                     <a href="/" onclick="makeOrderClick()">
-                        <i class="fas fa-shopping-cart"></i> MAKE YOUR FIRST ORDER
+                        <i class="fas fa-shopping-cart"></i>  FAITES VOTRE PREMIÈRE COMMANDE
                     </a>
                 </p>
             </button>
@@ -91,15 +84,15 @@
             <!-- profile.hbs -->
             
             
-            You haven't placed any orders yet.</p> </div>
+            Vous n'avez encore passé aucune commande.</p> </div>
             <div class="account_details"> 
-                                        <p>Account Details:</p>
+                                        <p>Détails du compte :</p>
             
                                             <form action="/update-account" method="post">
-                        <label for="firstName">First Name:</label>
+                        <label for="firstName">Prenom</label>
             <input type="text" id="firstName" name="firstName" value= " <%= utilisateur.nom %>"  readonly>
             
-            <label for="lastName">Last Name:</label>
+            <label for="lastName">Nom:</label>
             <input type="text" id="lastName" name="lastName" value=" <%= utilisateur.nom %>" readonly>
             
                        
@@ -107,7 +100,7 @@
                               <label for="EEmail">Email:</label>
                             <input type="EEmail" id="EEmail" name="EEmail" value="<%= utilisateur.email %>" >
             
-                                                <label for="phone">Phone:</label>
+                                                <label for="phone">Telephone:</label>
                                                 <input type="tel" id="phone" name="phone"  required>
             
                                                 <label for="zip">Zip:</label>
@@ -121,11 +114,23 @@
             
                                                 <!-- Ajoutez un bouton de soumission si nécessaire -->
                                                 
-                                                <button type="submit">Update Account</button>
-                                            <!-- Ajoutez ceci à votre fichier handlebars -->
-           
+                                                <button type="submit">Mettre à jour le compte</button>
+                                            <!-- Ajoutez cette section où vous souhaitez afficher le message dans votre fichier acc.html -->
+
+  
             
-                                            </form> </div>
+                                            </form>
+<!-- Ajoutez cette section où vous souhaitez afficher le message dans votre fichier acc.html -->
+<div class="message-container">
+    <% if (messages.error) { %>
+      <script>
+        alert("<%= messages.error[0] %>"); // Utilisez JavaScript pour afficher une alerte avec le message
+      </script>
+    <% } %>
+  </div>
+  
+  
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
@@ -144,6 +149,6 @@
     </main>
     <%- include("footer.html") %>
     
-    <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

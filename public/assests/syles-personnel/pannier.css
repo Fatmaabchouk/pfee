@@ -115,3 +115,6 @@ main {
 }
 
 /* Ajoutez d'autres styles personnalisés selon vos besoins */
+.card-block{
+    display:flex;
+}
