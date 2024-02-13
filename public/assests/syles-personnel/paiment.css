@@ -1,0 +1,109 @@
+/* Style de base pour la page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.abcd {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 14px rgb(41 213 47 / 62%);
+}
+main{
+    display: flex;
+}
+
+/* Style pour la section des informations du compte */
+.account-details-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+
+.account-details-form p {
+    margin: 3px 59px;
+    color: #222;
+    margin-top: -24px;}
+
+/* Style pour les liens */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Ajoutez ceci dans votre fichier d'informations.css ou tout autre fichier CSS que vous utilisez */
+/* Ajoutez ceci dans votre fichier d'informations.css ou tout autre fichier CSS que vous utilisez */
+
+.edit-link {
+    float: right;
+    margin-top: 28px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #34db87;
+}
+
+
+    .next-link {
+        float: right;
+        text-decoration: none;
+        margin-top: -20px;
+   
+}
+
+.edit-link ion-icon {
+    margin-right: 5px;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}
+.account-details-form {
+    margin-bottom: 20px; /* Ajoutez la marge basse que vous souhaitez */
+}
+/* informations.css */
+.circle-icon {
+    display: inline-block;
+    width: 30px; /* Ajustez la largeur selon vos besoins */
+    height: 30px; /* Ajustez la hauteur selon vos besoins */
+    border-radius: 50%;
+    
+    color: #fff; /* Couleur du texte à l'intérieur du cercle */
+    text-align: center;
+    line-height: 30px; /* Centrez verticalement le texte */
+    margin-right: 10px; /* Ajustez la marge entre le cercle et le texte */
+}
+
+.somme{
+    
+    max-width: 816px;
+    margin: 465px auto;
+    background-color: #fff;
+    padding: 44px;
+    border-radius: 59px;
+    box-shadow: 0 0 14px rgb(41 213 47 / 62%);
+    margin-top: 51px;
+
+}
+.circle-icon-1 { background-color: #63d35f; }
+.circle-icon-2 { background-color: #1fe46b; }
+.circle-icon-3 { background-color: #4ac46c; }
+.h2-color-1 { color:#333; }
+.h2-color-2 { color: #07180d; }
+.h2-color-3 { color: #110f0f; }
+ion-icon.md.hydrated{
+    color: #34db87;
+}
+.h10{
+    size: 1px;
+
+}

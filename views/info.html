@@ -1,0 +1,39 @@
+<!-- informations.html -->
+<html lang="en">
+<head>
+    <link href="/assests/syles-personnel/informations.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
+    <!-- Les balises meta et le titre restent les mêmes -->
+</head>
+<body>
+    <main>
+        
+        <!-- Le reste du code HTML de votre page -->
+        <div class="account-details-form">
+            <a href="acc" class="edit-link"><ion-icon name="create"></ion-icon> Modifier</a>
+            <h2 class="h2-color-1">
+                <div class="circle-icon circle-icon-1">s</div> INFORMATIONS PERSONNELLES
+            </h2>
+            <p>Prénom: <%= utilisateur.nom %></p>
+            <p>Nom: <%= utilisateur.nom %></p>
+            <p>Email: <%= utilisateur.email %></p>
+            <p>Téléphone: <%= utilisateur.phone %></p>
+            <p>Code postal: <%= utilisateur.zip %></p>
+            <p>Adresse 1: <%= utilisateur.Adress1 %></p>
+            <p>Adresse 2: <%= utilisateur.Adress2 %></p>
+            <a href="/" class="edit-link"><ion-icon name="home"></ion-icon> Accueil</a>
+        </div>
+       
+      
+        <!-- Le reste du code HTML de votre page -->
+    </main>
+        
+    <%- include("service.html") %>
+    <%- include("footer.html") %>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!-- commande.html -->
+<html lang="en">
+<head>
+    <link href="/assests/syles-personnel/commande.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
+    <script>
+        // Function to fetch the cart contents and update the order details
+        function updateOrderDetails() {
+            const cartContents = getCartContents();
+            let orderDetails = document.getElementById("orderDetails");
+
+            if (cartContents.length > 0 && orderDetails) {
+                // Clear existing content
+                orderDetails.innerHTML = "";
+
+                // Add each item in the cart to the order details
+                cartContents.forEach((item) => {
+                    let productItem = document.createElement("div");
+                    productItem.classList.add("product-item");
+
+                    let productName = document.createElement("p");
+                    productName.textContent = `Produit: ${item.name}`;
+
+                    let productPrice = document.createElement("p");
+                    productPrice.textContent = `Prix: ${item.price.toFixed(2)} DT`;
+
+                    // You can add more details based on your product structure
+
+                    productItem.appendChild(productName);
+                    productItem.appendChild(productPrice);
+
+                    orderDetails.appendChild(productItem);
+                });
+            }
+        }
+
+        // Function to get cart contents from localStorage
+        function getCartContents() {
+            return JSON.parse(localStorage.getItem("cart")) || [];
+        }
+
+        // Call the updateOrderDetails function when the page loads
+        window.onload = function () {
+            updateOrderDetails();
+        };
+    </script>
+</head>
+<body>
+    <main>
+        <div class="abcd">
+            <!-- Le reste du code HTML de votre page -->
+            <div class="order-summary">
+                <h2>Récapitulatif de la commande</h2>
+                <div id="orderDetails">
+                    <!-- Les détails de la commande seront affichés ici -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include("service.html") %>
+    <%- include("footer.html") %>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

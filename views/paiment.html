@@ -1,0 +1,144 @@
+<!-- informations.html -->
+<html lang="en">
+<head>
+    <link href="/assests/syles-personnel/paiment.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
+    <script>
+        // Variables to store the previous delivery method
+        let previousDeliveryMethod = "standard";
+
+        // Function to update the total sum based on the chosen delivery method
+        function updateTotalSumBasedOnDelivery() {
+            const deliveryForm = document.getElementById("deliveryForm");
+            const selectedDeliveryMethod = deliveryForm.querySelector('input[name="deliveryMethod"]:checked').value;
+
+            // Check if the delivery method has changed
+            if (selectedDeliveryMethod !== previousDeliveryMethod) {
+                let cartContents = getCartContents();
+                let subtotal = 0;
+
+                // Calculate subtotal based on the chosen delivery method
+                if (cartContents.length > 0) {
+                    cartContents.forEach((item) => {
+                        subtotal += parseFloat(item.totalPrice);
+                    });
+                }
+
+                let deliveryCost = selectedDeliveryMethod === "express" ? 10.00 : 5.00;
+
+                // Update the displayed total sum, subtotal, and delivery cost
+                displayTotalSum(subtotal, deliveryCost);
+
+                // Update the previous delivery method
+                previousDeliveryMethod = selectedDeliveryMethod;
+            }
+        }
+
+        // Function to fetch the cart contents and update the total sum
+        function updateTotalSum() {
+            let cartContents = getCartContents();
+            let subtotal = 0;
+
+            // Calculate subtotal based on the default delivery method (e.g., standard)
+            if (cartContents.length > 0) {
+                cartContents.forEach((item) => {
+                    subtotal += parseFloat(item.totalPrice);
+                });
+            }
+
+            let deliveryCost = previousDeliveryMethod === "express" ? 10.00 : 5.00;
+
+            // Update the displayed total sum, subtotal, and delivery cost
+            displayTotalSum(subtotal, deliveryCost);
+        }
+
+        // Function to get cart contents from localStorage
+        function getCartContents() {
+            return JSON.parse(localStorage.getItem("cart")) || [];
+        }
+
+        // Function to display the total sum, subtotal, and delivery cost
+        function displayTotalSum(subtotal, deliveryCost) {
+            const subtotalSpan = document.getElementById("subtotal");
+            const deliveryCostSpan = document.getElementById("deliveryCost");
+            const totalSumSpan = document.getElementById("totalPrice");
+
+            if (subtotalSpan && deliveryCostSpan && totalSumSpan) {
+                subtotalSpan.textContent = `Sous-total: ${subtotal.toFixed(2)} DT`;
+                deliveryCostSpan.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
+                totalSumSpan.textContent = `Total: ${(subtotal + deliveryCost).toFixed(2)} DT`;
+            }
+        }
+
+        // Call the updateTotalSum function when the page loads
+        window.onload = function () {
+            updateTotalSum();
+        };
+
+        // Add event listener to the delivery form after the page has loaded
+        window.addEventListener('DOMContentLoaded', function () {
+            const deliveryForm = document.getElementById("deliveryForm");
+            deliveryForm.addEventListener("change", updateTotalSumBasedOnDelivery);
+        });
+    </script>
+
+   
+</head>
+<body>
+    <main>
+        <div class="abcd">
+            <!-- Le reste du code HTML de votre page -->
+            <div class="account-details-form">
+                <a href="acc" class="edit-link"><ion-icon name="create"></ion-icon> Modifier</a>
+                <h2 class="h2-color-1">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon> INFORMATIONS PERSONNELLES
+                </h2>
+            </div>
+            <div class="account-details-form">
+                <h2 class="h2-color-2">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon> MODE DE LIVRAISON
+                </h2>
+            </div>
+            <div class="account-details-form">
+                <h2 class="h2-color-3">
+                    <div class="circle-icon circle-icon-3">3</div> Paiement   
+                    </br> </br>
+                    <label>
+                        <input type="radio" name="deliveryMethod" value="express" checked>
+                        Paiement à la livraison   </h2>
+                        </br> <p>     Payer en argent comptant à la livraison.</p>
+                    </label>
+                    
+             
+            </div>
+            <button id="commandButton" onclick="redirectToCommande()">
+                Commander
+                <a href="commande" class="edit-link"></a>
+            </button>
+            
+            <script>
+                function redirectToCommande() {
+                    window.location.href = "commande";
+                }
+            </script>
+            
+            
+        </div>
+        </div>
+        <div class="somme">
+            <h3 id="subtotal">Sous-total: 0.00 DT</h3>
+            <h3 id="deliveryCost">Frais de livraison: 0.00 DT</h3><hr>
+            <h3 id="totalPrice">Total: 0.00 DT
+</h3>
+        </div>
+        <!-- Le reste du code HTML de votre page -->
+    </main>
+    <%- include("service.html") %>
+    <%- include("footer.html") %>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

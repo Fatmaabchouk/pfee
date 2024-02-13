@@ -101,6 +101,7 @@ app.get("/", (req, res) => {
 app.get("/connexion", (req, res) => {
   res.render("connexion");
 });
+
 app.post("/connexion", async (req, res) => {
   const { email, password } = req.body;
 
@@ -205,6 +206,22 @@ app.post("/inscription", async (req, res) => {
 app.get("/pannier", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("pannier", {utilisateur});
+});
+app.get("/modelivraison", protectionRoute ,  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("modelivraison", {utilisateur});
+});
+app.get("/paiment", protectionRoute ,  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("paiment", {utilisateur});
+});
+app.get("/commande", protectionRoute ,  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("commande", {utilisateur});
+});
+app.get("/info", protectionRoute ,  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("info", {utilisateur});
 });
 app.get("/informations", protectionRoute, (req, res) => {
   const { utilisateur } = res.locals;

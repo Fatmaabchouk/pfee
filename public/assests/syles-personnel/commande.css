@@ -1,0 +1,36 @@
+/* commande.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.abcd {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.order-summary {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-item {
+    margin-bottom: 15px;
+}
+
+.product-item p {
+    margin: 0;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Add more styles based on your design preferences */
