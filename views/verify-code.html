@@ -1,0 +1,15 @@
+<!-- verify-code.html -->
+<form method="POST" action="/verify-code">
+  <label for="code">Code de vérification :</label>
+  <input type="text" id="code" name="code" required>
+  <input type="hidden" name="email" value="<%= email %>">
+  <button type="submit">Vérifier le code</button>
+  <button type="submit">Renvoyer le code de récupération</button>
+
+  <a href="reset-password">Annuler</a>
+</form>
+<% if (messages.error) { %>
+  <div class="alert alert-danger">
+    <%= messages.error %>
+  </div>
+<% } %>

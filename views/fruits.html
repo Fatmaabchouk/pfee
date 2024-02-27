@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fruits</title>
+
+    <link href="/assests/syles-personnel/header.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/index.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    
+   
+  
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.2/dist/css/ionicons.min.css" integrity="...">
+
+</head>
+<body>
+  
+    
+    <%- include("header.html",{utilisateur}) %>
+    <main>
+   
+
+
+
+<div class="album py-5 bg-light">
+   
+
+
+
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <% cours.forEach((cour) => { %>
+            <%- include("cours_item.html", { cours: cour }) %>
+        <% }) %>
+        <% console.log(cours); %>
+
+      </div>
+      
+      </div>
+  </div>
+</section>
+
+
+
+</main>
+<%- include("footer.html") %>
+
+    
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body></html>

@@ -1,0 +1,96 @@
+body {
+    background-color: rgb(238, 234, 230);
+    color: var(--gray-web);
+    font-size: 1.6rem;
+    font-weight: var(--fw-500);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.login-signup-container {
+    display: flex;
+    box-shadow: 13px 26px 22px 0px rgba(255, 165, 0, 0.8);
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/images/thumbnail/ff.jpg');
+    max-width: 595px;
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.login-form-container {
+    width: 80%;
+    position: relative;
+    height: 682px;
+   
+}
+
+.header-content {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+.login-form {
+    background: rgb(255 216 0 / 24%);
+    padding: 9px;
+    border-radius: 33px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+.form-inner {
+    width: 100%;
+    margin: 0 auto;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.forgot {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgba(156, 163, 175, 1);
+    margin: 8px 0 14px 0;
+}
+
+.forgot a {
+    color: #22051e;
+    font-size: 16px;
+}
+
+/* Add this style to position the top photo */
+.top-photo {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+button.w-100.btn.btn-lg.btn-primary{ 
+
+  padding: 0.5rem 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 61px;
+  color: #fff;
+  background-color: rgb(89 63 19 / 80%);
+  border-color: rgb(37 23 28 / 91%);
+  margin-left: 156px;
+}
+a
+    {
+        color: rgb(46 255 0);
+    
+}
+.alert.alert-danger{
+    color: maroon;
+    margin-left: 508px;
+
+}

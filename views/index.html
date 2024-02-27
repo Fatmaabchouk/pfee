@@ -10,6 +10,10 @@
     <link href="/assests/syles-personnel/index.css" rel="stylesheet">
     <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/shoppi.css" rel="stylesheet">
+
+
+   
     
    
   
@@ -42,7 +46,8 @@
 
 
 
-              قفة offre des ingrédients frais et irrésistibles, parfaits pour rehausser le goût de vos plats en toute occasion.
+             <p class="koffa">القفة</p>
+            <p class="offre" > offre des ingrédients frais et irrésistibles, parfaits pour rehausser le goût de vos plats en toute occasion.</p>
 </h1>
 
 <p class="price">
@@ -102,30 +107,56 @@
 </section>
 
 <%- include("service.html") %>
+
+<%- include("shoppi.html") %>
+
 <div class="album py-5 bg-light">
    
   <div class="ui centered container three column grid category-slider">
-    <h3>Categories</h3>
+    <div class="cat">
+    <h3 class="categoris" style="font-size: 60px;
+    color: black;">Categories</h3></div>
 <div class="row categories-list">
-<div class="center aligned colum">
-<a class="card-img-text-box" href="#">
-<div class="img-container">
-<img src="images/thumbnail/legumes.png" alt loading="lazy">
-</div>
-<div class="text-box">
-  <p class="subtitle">20 offres</p>
-  <h5 class="cat-title"> legumeq</h5>
-  <p class="text-small"> legumes frais , bio , circuit court..</p>
-</div> </a> </div><div class="center aligned colum">
-  <a class="card-img-text-box" href="#">
-    <div class="img-container">
-      <img src="images/thumbnail/Fruits.png" alt loading="lazy">
+  <div class="center aligned colum" id="legumeDiv">
+    <a class="card-img-text-box" href="legumes">
+      <div class="img-container">
+        <img src="images/thumbnail/legumes.png" alt loading="lazy">
       </div>
       <div class="text-box">
         <p class="subtitle">20 offres</p>
-        <h5 class="cat-title"> Fruits</h5>
-        <p class="text-small"> Fruits frais , bio , circuit court..</p>
-      </div> </a> </div>
+        <h5 class="cat-title"> Legumes</h5>
+        <p class="text-small"> legumes frais , bio , circuit court..</p>
+      </div>
+    </a>
+  </div>
+  
+  <script>
+    // Ajouter un gestionnaire d'événements au clic sur la div
+    document.getElementById("legumeDiv").addEventListener("click", function() {
+      // Redirection vers legume.html
+      window.location.href = "lgumes";
+    });
+  </script><div class="center aligned colum" id="fruitsDiv">
+  <a class="card-img-text-box" href="fruits">
+    <div class="img-container">
+      <img src="images/thumbnail/Fruits.png" alt loading="lazy">
+    </div>
+    <div class="text-box">
+      <p class="subtitle">20 offres</p>
+      <h5 class="cat-title"> Fruits</h5>
+      <p class="text-small"> Fruits frais, bio, circuit court..</p>
+    </div>
+  </a>
+</div>
+
+<script>
+  // Ajouter un gestionnaire d'événements au clic sur la div
+  document.getElementById("fruitsDiv").addEventListener("click", function() {
+    // Redirection vers fruits.html
+    window.location.href = "fruits";
+  });
+</script>
+
 </div>
 
 </div>
@@ -133,17 +164,14 @@
 
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <% cours.forEach((cour) => { %>
-            <%- include("cours_item.html", { cours: cour }) %>
-        <% }) %>
-        <% console.log(cours); %>
+        
 
       </div>
       
       </div>
   </div>
 </section>
-<%- include("shop.html") %>
+
 
 
 </main>

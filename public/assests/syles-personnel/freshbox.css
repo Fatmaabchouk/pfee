@@ -1,0 +1,68 @@
+/* Style pour la section Hero */
+.hero1 {
+    padding: 50px 0; /* Ajoutez un padding en haut et en bas pour espacement */
+    background-color: #f4f4f4; /* Ajoutez une couleur de fond */
+    text-align: center; /* Centre le contenu horizontalement */
+}
+
+/* Style pour le conteneur de la carte Hero */
+.hero-card1 {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px; /* Ajoutez une bordure arrondie à la carte */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoutez une légère ombre */
+}
+
+/* Style pour l'image à l'intérieur de la carte Hero */
+.hero-card1 img {
+    width: 100%;
+    height: 100%; /* Assurez-vous que la hauteur de l'image est à 100% pour qu'elle s'adapte correctement */
+    object-fit: cover; /* Assurez-vous que l'image couvre complètement la zone */
+    display: block;
+}
+
+/* Style pour le contenu de la carte Hero */
+.card-content1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Ajoutez une légère couleur de fond */
+    padding: 20px;
+}
+
+/* Style pour le titre Hero */
+.hero-title1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Couleur du texte */
+}
+
+/* Style pour la description de l'offre */
+.offre1 {
+    font-size: 16px;
+    color: #555; /* Couleur du texte */
+}
+
+/* Style pour l'étiquette de prix */
+.price1 {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #e74c3c; /* Couleur du texte */
+}
+
+/* Style pour le bouton Achetez maintenant */
+.btn-primary1 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary1:hover {
+    background-color: #2980b9;
+}

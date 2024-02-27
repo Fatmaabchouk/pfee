@@ -1,0 +1,19 @@
+<!-- nouveau-mot-de-passe.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau Mot de Passe</title>
+</head>
+<body>
+  <h1>Nouveau Mot de Passe</h1>
+  <form action="/update-password" method="post">
+    <label for="newPassword">Nouveau Mot de Passe :</label>
+    <input type="password" id="newPassword" name="newPassword" required>
+    <input type="hidden" name="email" value="<%= email %>">
+    <br>
+    <button type="submit">Enregistrer le Nouveau Mot de Passe</button>
+  </form>
+</body>
+</html>

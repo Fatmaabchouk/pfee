@@ -1,0 +1,20 @@
+<!-- numero.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrer le numéro de téléphone</title>
+</head>
+<body>
+  <h1>Entrer le numéro de téléphone</h1>
+  <form action="/send-code" method="post">
+    <label for="phone">Numéro de téléphone :</label>
+    <input type="tel" id="phone" name="phone" required>
+    <a href="reset-password" >Envoyer le code par email</a>
+    <a href="verify-code1">Verify Code by SMS</a>
+
+  </form>
+</body>
+</html>

@@ -78,10 +78,9 @@
       --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
     
     }
-    *,
-  *::before,
-  *::after {
-    margin: 0;
+
+  *{
+    margin: 0px;
     padding: 0;
     box-sizing: border-box;
   }
@@ -260,12 +259,12 @@
   
   .has-scrollbar:hover::-webkit-scrollbar-track,
   .has-scrollbar:focus-within::-webkit-scrollbar-track {
-    background-color: hsl(0, 0%, 98%);
+    background-color: white;
   }
   
   .has-scrollbar:hover::-webkit-scrollbar-thumb,
   .has-scrollbar:focus-within::-webkit-scrollbar-thumb {
-    background-color: hsl(0, 8%, 70%);
+    background-color: white;
   }
   
   
@@ -278,8 +277,8 @@
 }
 
 .alert {
-  background-color:#052e06;
-  color:#85e186;
+  background-color: #f77117f5;
+  color: #020202;
   font-size: var(--fs-7);
   text-transform: uppercase;
   font-weight: var(--fw-700);
@@ -293,7 +292,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #c4e5c8;
+  background-color: white;
   padding-block: 7px;
   z-index: 4;
 }
@@ -321,6 +320,7 @@
 
 .input-wrapper {
   display: flex;
+  background-color: #f28a2754;
  /* Vous pouvez ajuster la valeur en pixels selon vos besoins */
 
 }
@@ -335,12 +335,7 @@
   cursor: pointer;
 }
 
-.logo p {
-  color: rgb(78, 11, 60);
-  background-color: rgb(197, 115, 178);
-  font-family: monospace;
-  font-style: italic;
-}
+
 
 
 
@@ -348,6 +343,7 @@
  .header-action-btn {
   font-size: 35px;
   transition: var(--transition-1);
+  color:#f28a27;
 
 }
 .header-actions .my-dropdown {
@@ -384,7 +380,8 @@
 
 .col {
   text-align: center;
-  background-color: white;
+  background-color:white;
+  color: #020202;
 }
 
 .col .container {
@@ -400,4 +397,7 @@ h4 {
   color: #13b934;
   padding-left: 0rem;
   padding-right: 12rem;
+}
+ion-icon.md.hydrated{
+  color: #f28a27;
 }

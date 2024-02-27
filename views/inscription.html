@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inscription</title>
-
-    <link href="/assets/syles_personnel/signin.css" rel="stylesheet">
-  </head>
+    <link href="/assests/syles-personnel/connexion.css" rel="stylesheet">
   <body class="text-center">
     
 <main class="form-signin w-100 m-auto">
+  <div class="login-signup-container">
+      
+    <div class="login-form-container">
+      <div class="login-form"> 
+        <h2>القفة</h2>
   <form action="/inscription" method="post">
     
     <h1 class="h3 mb-3 fw-normal">Inscrivez-vous</h1>
@@ -32,7 +35,12 @@
     <button class="w-100 btn btn-lg btn-primary" type="submit">Inscripion</button>
     <p><a href="/connexion">Connectez-vous </a> Si vous avez déjà un compte</p>
 
-  </form>
+  </form></div> </div> </div><% if (messages.error) { %>
+    <div class="alert alert-danger">
+      <%= messages.error %>
+    </div>
+  <% } %>
+  
 </main>
 
   </body>

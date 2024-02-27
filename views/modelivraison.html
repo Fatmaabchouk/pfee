@@ -6,82 +6,93 @@
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
     <script>
-        // Variables to store the previous delivery method
-        let previousDeliveryMethod = "standard";
+          // Variables to store the previous delivery method
+          let previousDeliveryMethod = "standard";
 
-        // Function to update the total sum based on the chosen delivery method
-        function updateTotalSumBasedOnDelivery() {
-            const deliveryForm = document.getElementById("deliveryForm");
-            const selectedDeliveryMethod = deliveryForm.querySelector('input[name="deliveryMethod"]:checked').value;
+// Function to update the total sum based on the chosen delivery method
+function updateTotalSumBasedOnDelivery() {
+    const deliveryForm = document.getElementById("deliveryForm");
+    const selectedDeliveryMethod = deliveryForm.querySelector('input[name="deliveryMethod"]:checked').value;
 
-            // Check if the delivery method has changed
-            if (selectedDeliveryMethod !== previousDeliveryMethod) {
-                let cartContents = getCartContents();
-                let subtotal = 0;
+    // Check if the delivery method has changed
+    if (selectedDeliveryMethod !== previousDeliveryMethod) {
+        let cartContents = getCartContents();
+        let subtotal = 0;
 
-                // Calculate subtotal based on the chosen delivery method
-                if (cartContents.length > 0) {
-                    cartContents.forEach((item) => {
-                        subtotal += parseFloat(item.totalPrice);
-                    });
-                }
-
-                let deliveryCost = selectedDeliveryMethod === "express" ? 10.00 : 5.00;
-
-                // Update the displayed total sum, subtotal, and delivery cost
-                displayTotalSum(subtotal, deliveryCost);
-
-                // Update the previous delivery method
-                previousDeliveryMethod = selectedDeliveryMethod;
-            }
+        // Calculate subtotal based on the chosen delivery method
+        if (cartContents.length > 0) {
+            cartContents.forEach((item) => {
+                subtotal += parseFloat(item.totalPrice);
+            });
         }
 
-        // Function to fetch the cart contents and update the total sum
-        function updateTotalSum() {
-            let cartContents = getCartContents();
-            let subtotal = 0;
+        let deliveryCost = selectedDeliveryMethod === "express" ? 10.00 : 5.00;
 
-            // Calculate subtotal based on the default delivery method (e.g., standard)
-            if (cartContents.length > 0) {
-                cartContents.forEach((item) => {
-                    subtotal += parseFloat(item.totalPrice);
-                });
-            }
+        // Update the displayed total sum, subtotal, and delivery cost
+        displayTotalSum(subtotal, deliveryCost);
 
-            let deliveryCost = previousDeliveryMethod === "express" ? 10.00 : 5.00;
+        // Update the previous delivery method
+        previousDeliveryMethod = selectedDeliveryMethod;
+    }
+}
 
-            // Update the displayed total sum, subtotal, and delivery cost
-            displayTotalSum(subtotal, deliveryCost);
-        }
+// Function to fetch the cart contents and update the total sum
+function updateTotalSum() {
+    let cartContents = getCartContents();
+    let subtotal = 0;
 
-        // Function to get cart contents from localStorage
-        function getCartContents() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
-        }
-
-        // Function to display the total sum, subtotal, and delivery cost
-        function displayTotalSum(subtotal, deliveryCost) {
-            const subtotalSpan = document.getElementById("subtotal");
-            const deliveryCostSpan = document.getElementById("deliveryCost");
-            const totalSumSpan = document.getElementById("totalPrice");
-
-            if (subtotalSpan && deliveryCostSpan && totalSumSpan) {
-                subtotalSpan.textContent = `Sous-total: ${subtotal.toFixed(2)} DT`;
-                deliveryCostSpan.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
-                totalSumSpan.textContent = `Total: ${(subtotal + deliveryCost).toFixed(2)} DT`;
-            }
-        }
-
-        // Call the updateTotalSum function when the page loads
-        window.onload = function () {
-            updateTotalSum();
-        };
-
-        // Add event listener to the delivery form after the page has loaded
-        window.addEventListener('DOMContentLoaded', function () {
-            const deliveryForm = document.getElementById("deliveryForm");
-            deliveryForm.addEventListener("change", updateTotalSumBasedOnDelivery);
+    // Calculate subtotal based on the default delivery method (e.g., standard)
+    if (cartContents.length > 0) {
+        cartContents.forEach((item) => {
+            subtotal += parseFloat(item.totalPrice);
         });
+    }
+
+    let deliveryCost = previousDeliveryMethod === "express" ? 10.00 : 5.00;
+
+    // Update the displayed total sum, subtotal, and delivery cost
+    displayTotalSum(subtotal, deliveryCost);
+}
+
+// Function to get cart contents from localStorage
+function getCartContents() {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+// Function to display the total sum, subtotal, and delivery cost
+function displayTotalSum(subtotal, deliveryCost) {
+    const subtotalSpan = document.getElementById("subtotal");
+    const deliveryCostSpan = document.getElementById("deliveryCost");
+    const totalSumSpan = document.getElementById("totalPrice");
+
+    if (subtotalSpan && deliveryCostSpan && totalSumSpan) {
+        subtotalSpan.textContent = `Sous-total: ${subtotal.toFixed(2)} DT`;
+        deliveryCostSpan.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
+        totalSumSpan.textContent = `Total: ${(subtotal + deliveryCost).toFixed(2)} DT`;
+    }
+}
+
+// Call the updateTotalSum function when the page loads
+window.onload = function () {
+    updateTotalSum();
+};
+
+// Add event listener to the delivery form after the page has loaded
+window.addEventListener('DOMContentLoaded', function () {
+    const deliveryForm = document.getElementById("deliveryForm");
+    deliveryForm.addEventListener("change", updateTotalSumBasedOnDelivery);
+});
+
+// Fonction pour rediriger vers la page de paiement
+function redirectToPaiement() {
+    const selectedDeliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked').value;
+    const deliveryCost = selectedDeliveryMethod === "express" ? 10.00 : 5.00;
+
+    // Ajoutez deliveryCost à l'URL lors de la redirection vers la page de paiement
+    window.location.href = `paiment?deliveryCost=${deliveryCost}`;
+}
+</script>
+
     </script>
 
    
@@ -111,7 +122,9 @@
                     </label>
                 </form>
             </div>
-            <a href="paiment" class="next-link"><ion-icon name="arrow-forward-circle"></ion-icon> Suivant</a>
+            <button onclick="redirectToPaiement()">Payer maintenant</button>
+
+
 
             <div class="account-details-form">
                 <h2 class="h2-color-3">

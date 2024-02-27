@@ -1,33 +1,63 @@
+:root{ 
+
+
+--ff-playfair-display:'playfair Display ',serif;
+--fs-4: 1.8rem;}
 /* Style pour la section des services */
 .custom-services {
-    background-color: #7bdaa0; /* Changer la couleur de fond selon vos besoins */
-    padding: 41px;
+   
+    background-image: url(../images/partner-left-bg.png);
+    background-color:#573F3F;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-blend-mode: soft-light;
+}
+  .my-container{
+
+    margin-inline:auto ;
+    padding-inline:15px ;
+
   }
   
   /* Style pour la liste des services */
   .custom-service-list {
-    list-style: none; /* Supprimer les puces de la liste */
-    margin: 0;
-    padding: 0;
-    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
-    flex-direction: row; /* Aligner les éléments horizontalement */
-    justify-content: space-between; /* Espacement égal entre les éléments */
+    min-width: 768px;
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    gap: 15px;
+
   }
   
   /* Style pour chaque élément de service */
   .custom-service-item {
-    text-align: center; /* Centrer le contenu dans chaque élément */
-    flex-grow: 1; /* Permettre à chaque élément de prendre autant d'espace que possible */
+    justify-content: center;
+    min-width: 480px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
   }
   
   /* Style pour l'icône et le titre */
   .custom-item-icon {
-    margin-bottom: 10px; /* Espacement entre l'icône et le titre */
+    background-color:#f7711738;
+    max-width: max-content;
+    padding: 20px;
+    border-radius: 50%;/* Espacement entre l'icône et le titre */
+  }
+  img{
+    height: auto;
+    display: block;
   }
   
   /* Style pour le titre */
   .custom-item-title {
-    font-size: 16px; /* Taille de police pour le titre */
-    margin: 0; /* Supprimer les marges par défaut */
-  }
+   color: white;
+}
+.h3{
+  font-family: var(--ff-playfair-display);
+  font-size: 30px;
+  line-height: 48.75px;
+  color: #ff7d00e0;
+}
   
