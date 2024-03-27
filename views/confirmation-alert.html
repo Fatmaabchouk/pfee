@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation</title>
+  <style>
+    /* Add your styling for the confirmation alert */
+  </style>
+</head>
+<body>
+
+  <div>
+    <p><%= message %></p>
+
+    <button onclick="sendCode('<%= userId %>')">Oui</button>
+    <button onclick="closeAlert()">Non</button>
+  </div>
+  
+ <!-- confirmation-alert.html -->
+<!-- Ajoutez votre code existant -->
+
+<script>
+  function sendCode(userId) {
+    fetch(`/generate-and-send-code/${userId}`, { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Redirigez vers l'itinéraire verify-code1 avec userId
+          window.location.href = `/verify-code1/${userId}`;
+        } else {
+          console.error('Erreur lors de l\'envoi du code :', data.error);
+          // Gérez l'erreur si nécessaire
+        }
+      })
+      .catch(error => {
+        console.error('Erreur :', error);
+        // Gérez l'erreur si nécessaire
+      });
+  }
+
+  function closeAlert() {
+    // Redirigez vers reset-password1 si l'utilisateur clique sur Non
+    window.location.href = "/reset-password1";
+  }
+</script>
+
+</body>
+</html>

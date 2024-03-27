@@ -6,20 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier</title>
-  <!-- Inclure le lien vers la bibliothèque Ionicons correctement -->
-  <link rel="stylesheet" href="https://unpkg.com/ionicons@6.1.0/dist/ionicons/css/ionicons.min.css" integrity="sha384-cmcJuQ/pkYiJ1g1txmLq7TMtm/7cXtkOW5PJX1+t0BoI1cjvj1sWdDxE0bBl8+sdA" crossorigin="anonymous">
+    <!-- Inclure le lien vers la bibliothèque Ionicons correctement -->
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@6.1.0/dist/ionicons/css/ionicons.min.css"
+        integrity="sha384-cmcJuQ/pkYiJ1g1txmLq7TMtm/7cXtkOW5PJX1+t0BoI1cjvj1sWdDxE0bBl8+sdA" crossorigin="anonymous">
 
-
-
-  <link href="/assests/syles-personnel/service.css" rel="stylesheet">
-  <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
-  <link href="/assests/syles-personnel/pannier.css" rel="stylesheet">
-
+    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
+    <link href="/assests/syles-personnel/pannier.css" rel="stylesheet">
 </head>
 
 <body>
     <main>
-        <h4>Bienvenue,<%= utilisateur.nom %></h4>
+        <h4>Bienvenue, <%= utilisateur.nom %></h4>
         <section id="wrapper">
             <aside id="notifications">
                 <div class="container">
@@ -38,101 +36,45 @@
                     <section id="main">
                         <div class="cart-grid row">
                             <div class="cart-grid-body col-xs-12 col-lg-8">
-                                <div id="cartContents" class="mt-3 card cart-container">
+                                <div class="mt-3 card cart-container">
                                     <div class="card-block">
                                         <h1 class="h1">Panier</h1>
-                                        <div class="card-block">
-                                            <div id="cartContents" class="mt-3 card cart-container">
-                                                <ul class="cart-items">
-                                                    <!-- Ajoutez d'autres éléments du panier ici -->
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <hr class="separator">
                                         <div class="cart-overview js-cart" data-refresh-url="">
                                             <ul class="cart-items">
-                                                <!-- Ajoutez d'autres éléments du panier ici -->
-                                            </ul>
-                                        </div>
-                                        <!-- Ajoutez ceci dans la section body de pannier.html, après la div .cart-overview -->
-                                        <div class="somme">
-                                            <h3>Total: <span id="totalPrice">0.00 DT</span></h3>
-                                            <button id="commandButton">Commander</button>
-
-                                            
-                                        </div>
-                                        <script>
-                                            document.getElementById('commandButton').addEventListener('click', function() {
-                                                // Rediriger l'utilisateur vers la page acc.html
-                                                window.location.href = 'informations';
-                                            });
-                                        </script>
-                                    </div>
-
-                                    <script>
-                                        // Fonction pour afficher le contenu du panier et calculer la somme totale
-                                        function displayCartContents() {
-                                            const cartContents = getCartContents();
-                                            const cartContentsDiv = document.querySelector(".cart-overview.js-cart ul.cart-items");
-                                            const cartContainer = document.getElementById("cartContents");
-                                            const totalPriceSpan = document.getElementById("totalPrice");
-
-                                            cartContentsDiv.innerHTML = '';
-
-                                            let totalSum = 0;
-
-                                            if (cartContents.length > 0) {
-                                                // Afficher les articles du panier
-                                                cartContents.forEach((item, index) => {
-                                                    const cartItem = document.createElement("li");
-                                                    cartItem.className = "cart-item";
-                                                    cartItem.innerHTML = `
-                                                        <div class="product-line-grid">
-                                                            <div class="product-line-grid-left col-md-3 col-xs-4">
-                                                                <span class="product-image media-middle">
-                                                                    <img src="${item.imageSrc}" alt="${item.productTitle}">
-                                                                </span>
+                                                <% produits.forEach(item => { %>
+                                                <li class="cart-item">
+                                                    <div class="product-line-grid">
+                                                        <div class="product-line-grid-left col-md-3 col-xs-4">
+                                                            <a href="/produit/<%= item.produit_id %>">
+                                                                <img src="<%= item.lienThumbnail %>"
+                                                                    alt="<%= item.titre %>" />
+                                                            </a>
+                                                        </div>z
+                                                        <div class="product-line-grid-body col-md-4 col-xs-8">
+                                                            <h5 class="product-title"><%= item.titre %></h5>
+                                                            <p class="product-minititre"><%= item.minititre %></p>
+                                                        </div>
+                                                        <div class="product-line-grid-right col-md-5 col-xs-12">
+                                                            <div class="product-price-container">
+                                                                <span class="product-quantity">Quantité: <%= item.quantite %></span>
+                                                                <span class="product-total-price">Prix total: <%= item.prix_total %> DT</span>
+                                                                <div class="current-price"><%= item.prix_total %> DT</div>
                                                             </div>
-                                                            <div class="product-line-grid-body col-md-4 col-xs-8">
-                                                                <div class="product-line-info">
-                                                                    <a class="label">${item.productTitle}</a>
-                                                                </div>
-                                                                <div class="product-line-info product-price h5">
-                                                                    <div class="current-price">${item.totalPrice} DT</div>
-                                                                </div>
-                                                                <button class="remove-item-btn" onclick="removeCartItem(${index})">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
+                                                            <div class="remove-button-container">
+                                                                <!-- Modifier le bouton pour appeler la fonction removeCartItem -->
+                                                                <button type="button" class="remove-button" onclick="removeCartItem('<%= item.produit_id %>')">Supprimer</button>
                                                             </div>
                                                         </div>
-                                                    `;
-                                                    cartContentsDiv.appendChild(cartItem);
+                                                    </div>
+                                                </li>
+                                                <% }); %>
+                                            </ul>
+                                        </div>
+                                        <!-- Ajouter une div pour afficher la somme totale -->
+                                        <div id="totalPriceContainer" class="total-price-container">Somme totale: 0.00 DT</div>
+                                        <button id="commandButton">Commander</button>
 
-                                                    // Ajouter le prix de l'article à la somme totale
-                                                    totalSum += parseFloat(item.totalPrice);
-                                                });
-                                            } else {
-                                                // Panier vide
-                                                cartContainer.innerHTML = '<h1 class="h1">Panier</h1><p>Votre panier est vide.</p>';
-                                            }
-
-                                            // Mettre à jour le texte de la somme totale
-                                            totalPriceSpan.textContent = totalSum.toFixed(2) + ' DT';
-                                        }
-
-                                        // Fonction pour supprimer un article du panier
-                                        function removeCartItem(index) {
-                                            const cartContents = getCartContents();
-                                            cartContents.splice(index, 1);
-                                            updateCart(cartContents);
-                                            displayCartContents();
-                                        }
-
-                                        // Appeler la fonction pour afficher le contenu du panier lors du chargement de la page
-                                        window.onload = function () {
-                                            displayCartContents();
-                                        };
-                                    </script>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,31 +82,56 @@
                 </div>
             </div>
         </section>
-
         <a class="label" href="./">
             <ion-icon name="arrow-back-outline"></ion-icon> Continuer mes achats
         </a>
-   
     </main>
 
-    
-
-
-    <script>
-        // Fonction pour extraire les informations du panier depuis le localStorage
-        function getCartContents() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
-        }
-
-        // Fonction pour mettre à jour le panier dans le localStorage
-        function updateCart(cart) {
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
-    </script>
     
 <%- include("service.html") %>
 
 <%- include("footer.html") %>
-</body>
 
-</html>
+<script>
+    // Fonction pour calculer la somme totale des prix des articles
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+        // Sélectionner toutes les balises div avec la classe current-price
+        const currentPriceElements = document.querySelectorAll('.current-price');
+        // Boucler à travers chaque balise pour récupérer le prix et l'ajouter à la somme totale
+        currentPriceElements.forEach(element => {
+            // Récupérer le texte à l'intérieur de la balise et convertir en nombre
+            const price = parseFloat(element.textContent.replace(' DT', ''));
+                    // Ajouter le prix à la somme totale
+                    totalPrice += price;
+        });
+        // Retourner la somme totale formatée
+        return totalPrice.toFixed(2);
+    }
+
+    // Fonction pour mettre à jour la somme totale affichée
+    function updateTotalPrice() {
+        // Récupérer la somme totale calculée
+        const totalPrice = calculateTotalPrice();
+        // Sélectionner l'élément où afficher la somme totale
+        const totalPriceContainer = document.getElementById('totalPriceContainer');
+        // Mettre à jour le contenu de l'élément avec la somme totale
+        totalPriceContainer.textContent = `Somme totale: ${totalPrice} DT`;
+    }
+
+    // Appeler la fonction pour mettre à jour la somme totale au chargement de la page
+    updateTotalPrice();
+</script>
+<script>
+
+document.getElementById('commandButton').addEventListener('click', function() {
+    console.log("Commander button clicked");
+    // Récupérer le total depuis le texte de l'élément span
+    const totalPrice = document.getElementById("totalPriceContainer").innerText;
+    // Stocker le total dans sessionStorage
+    sessionStorage.setItem("totalPrice", totalPrice);
+    // Rediriger vers la page d'informations
+    window.location.href = 'informations';
+});
+
+</script>

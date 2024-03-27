@@ -41,14 +41,110 @@
       
       </div>
   </div>
-</section>
+  <div class="col" id="legumesContainer">
+    <!-- Les éléments ajoutés seront affichés ici -->
+  </div>
+  
+
 
 
 
 </main>
+
+<!-- Dans le code HTML que vous avez fourni -->
+<% if (utilisateur && utilisateur.nom === "admin") { %>
+
+<% } %>
+<script>
+  function ajouterCours() {
+      const legumesContainer = document.getElementById('legumesContainer');
+
+      // Créer une nouvelle div.col contenant le formulaire
+      const nouvelleCol = document.createElement('div');
+      nouvelleCol.classList.add('col');
+
+      const formulaireHTML = `
+          <div class="card shadow-sm">
+              <div class="card-body">
+                  <form id="nouveauCoursForm">
+                      <div class="form-group">
+                          <label for="image">Sélectionner une image</label>
+                          <input type="file" id="image" class="form-control-file">
+                      </div>
+                      <div class="form-group">
+                          <label for="titre">Titre</label>
+                          <input type="text" id="titre" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="minititre">Mini-titre</label>
+                          <input type="text" id="minititre" class="form-control">
+                      </div>
+                      <!-- Ajoutez d'autres champs de formulaire selon vos besoins -->
+                      <button type="submit" class="btn btn-primary">Ajouter</button>
+                  </form>
+              </div>
+          </div>
+      `;
+
+      nouvelleCol.innerHTML = formulaireHTML;
+      legumesContainer.appendChild(nouvelleCol);
+
+      // Ajouter un écouteur d'événement pour le formulaire
+      document.getElementById('nouveauCoursForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // Empêche la soumission par défaut du formulaire
+
+          // Vous pouvez ajouter ici la logique pour traiter le formulaire et ajouter le nouveau cours
+
+          // Après avoir ajouté le nouveau cours, vous pouvez réinitialiser le formulaire ou effectuer d'autres actions nécessaires
+      });
+  }
+</script>
+<script>
+  
+
+// Fonction pour modifier un cours
+function modifierCours(courseId) {
+  // Récupérer les détails du cours à partir de son ID
+  const cours = getCoursById(courseId);
+
+  // Pré-remplir le formulaire de modification avec les détails du cours
+  document.getElementById('titre').value = cours.titre;
+  document.getElementById('minititre').value = cours.minititre;
+  // ...
+  // Afficher le formulaire de modification
+  document.getElementById('formModification').style.display = 'block';
+}
+
+// Fonction pour supprimer un cours
+function supprimerCours(courseId) {
+  // Envoyer une requête au serveur pour supprimer le cours avec l'ID donné
+  fetch(`/supprimerCours/${courseId}`, {
+    method: 'DELETE',
+  })
+  .then(response => {
+    if (response.ok) {
+      // Rafraîchir la page après suppression réussie
+      window.location.reload();
+    } else {
+      throw new Error('Erreur lors de la suppression du cours.');
+    }
+  })
+  .catch(error => {
+    console.error('Erreur :', error);
+    alert('Une erreur est survenue lors de la suppression du cours. Veuillez réessayer.');
+  });
+}
+
+// Fonction pour récupérer les détails du cours par son ID
+function getCoursById(courseId) {
+  // Logique pour récupérer les détails du cours par son ID (par exemple, parcourir la liste des cours)
+  // Retourner les détails du cours trouvé
+}
+
+</script>
+
 <%- include("footer.html") %>
 
-    
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body></html>

@@ -1,4 +1,4 @@
-/* Ajoutez ce style dans le fichier pannier.css */
+/* Ajoutez ces styles dans le fichier pannier.css */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -56,7 +56,7 @@ main {
 }
 
 .cart-container {
-    padding: 0px;
+    padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 12px;
@@ -88,6 +88,7 @@ main {
 
 .product-line-grid-left img {
     max-width: 100%;
+    border-radius: 8px;
 }
 
 .product-line-grid-body {
@@ -95,18 +96,17 @@ main {
     padding-left: 15px;
 }
 
-.remove-item-btn {
-    background: none;
+.remove-button {
+    background-color: #dc3545;
+    color: #fff;
     border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 20px;
-    color: #d9534f;
-    padding: 0;
 }
 
-.separator {
-    border-top: 1px solid #ddd;
-    margin-top: 20px;
+.remove-button:hover {
+    background-color: #c82333;
 }
 
 .somme {
@@ -114,7 +114,23 @@ main {
     margin-top: 20px;
 }
 
-/* Ajoutez d'autres styles personnalisés selon vos besoins */
-.card-block{
-    display:flex;
+#totalPrice {
+    font-size: 20px;
+    font-weight: bold;
 }
+
+#commandButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#commandButton:hover {
+    background-color: #0056b3;
+}
+
+/* Ajoutez d'autres styles personnalisés selon vos besoins */

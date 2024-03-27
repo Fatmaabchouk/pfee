@@ -6,8 +6,8 @@
       <h6 class="card-text"><%= cours.titre %></h6>
       <h5 class="cat-title"><%= cours.minititre %></h5>
       <div class="emm">
-        <input type="number" id="quantity<%= cours.id %>" min="1" max="10" value="1">
-        <h8 id="pricePerKilo"><%= cours.mintitre %></h8>
+        <input type="number" id="quantity<%= cours.id %>" min="1" max="10" value="1">kg
+        <h8 id="pricePerKilo"><%= cours.prixParKilo %></h8>
       </div>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
@@ -32,120 +32,79 @@
 </div>
 
 <script>
+document.getElementById('commanderBtn').addEventListener('click', function () {
+  console.log("Commander button clicked");
+  window.location.href = '/pannier';
+});
+
+document.getElementById('continuerBtn').addEventListener('click', function () {
+  console.log("Continuer button clicked");
+  document.getElementById('customDialog').style.display = 'none';
+  const totalPrice = document.getElementById("dialogTotalPrice").innerText;
+  // Stocker le montant total dans une session
+  sessionStorage.setItem("totalPrice", totalPrice);
+  window.location.href = '/pannier';
+});
+
 function addToCart(userId, productTitle, minititre, lienThumbnail, prixParKilo, courseId) {
   const quantity = parseInt(document.getElementById("quantity" + courseId).value);
 
-  // Vérifier si la quantité est un nombre valide
   if (isNaN(quantity) || quantity <= 0) {
     alert("Veuillez entrer une quantité valide.");
     return;
   }
 
-  // Calculer le total en fonction de la quantité et du prix par kilo
   const totalPrice = quantity * parseFloat(prixParKilo);
 
-  // Utiliser la fonction confirm pour demander à l'utilisateur s'il veut ajouter au panier
-  const confirmation = confirm(`
-      Vous avez ajouté ${quantity} kg de ${productTitle} à votre panier.
-      Le total est de ${totalPrice.toFixed(2)} DT.
-      Que souhaitez-vous faire?
-  `);
+  const data = {
+    userId: userId,
+    productTitle: productTitle,
+    minititre: minititre,
+    lienThumbnail: lienThumbnail,
+    prixParKilo: prixParKilo,
+    courseId: courseId,
+    quantity: quantity,
+    totalPrice: totalPrice,
+    // Utilisez l'ID de l'article
+  };
 
- 
-   
+  fetch('/updateCart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    localStorage.setItem("cart", JSON.stringify(result.cart));
 
-
-  // Si l'utilisateur a cliqué sur "OK"
-  if (confirmation) {
-    // Stocker les informations du panier dans le localStorage
-    const cartItem = {
-      userId: userId, // Add user identifier
-      productTitle: productTitle,
-      pricePerKilo: prixParKilo,
-      imageSrc: lienThumbnail,
-      quantity: quantity,
-      totalPrice: totalPrice.toFixed(2),
-    };
-
-    
-
-    // Vérifier si le panier existe déjà dans le localStorage
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-// Filtrer les articles du panier actuel pour l'utilisateur courant
-cart = cart.filter(item => item.userId === userId);
-    // Ajouter le nouvel article au panier
-    cart.push(cartItem);
-
-    // Mettre à jour le localStorage avec le nouveau panier
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    // Afficher la boîte de dialogue personnalisée
     document.getElementById("dialogQuantity").innerText = quantity;
     document.getElementById("dialogProductTitle").innerText = productTitle;
     document.getElementById("dialogTotalPrice").innerText = totalPrice.toFixed(2) + " DT";
     document.getElementById("dialogImage").src = lienThumbnail;
 
     showDialog();
-  } else {
-    // Si l'utilisateur a cliqué sur "Annuler"
-    alert("Ajout au panier annulé.");
-  }
+  })
+  
+  .catch(error => {
+    console.error('Erreur lors de la mise à jour du panier :', error);
+    alert('Une erreur est survenue lors de l\'ajout au panier. Veuillez réessayer.');
+  })
+  
+;
+
+
 }
 
-// Fonction pour mettre à jour la somme totale
-function updateTotalSum() {
-  const cartContents = getCartContents();
-  let totalSum = 0;
-
-  // Calculer la somme totale
-  cartContents.forEach((item) => {
-    totalSum += parseFloat(item.totalPrice);
-  });
-
-  // Mettre à jour le texte de la somme totale
-  document.getElementById("totalPrice").textContent = totalSum.toFixed(2) + ' DT';
+function showDialog() {
+  console.log("showDialog() called");
+  const customDialog = document.getElementById('customDialog');
+  customDialog.style.display = 'block';
+}
+function displayCartContents() {
+    const cartContents = JSON.parse(localStorage.getItem("cart")) || [];
+    // Afficher les articles du panier depuis le localStorage
 }
 
-// ...
-</script>
-
-<!-- Ajoutez ceci à la fin de cours.html ou dans un fichier séparé script.js -->
-<script>
-  // Fonction pour afficher la boîte de dialogue
-  function showDialog() {
-    console.log("showDialog() called");
-    const customDialog = document.getElementById('customDialog');
-    customDialog.style.display = 'block';
-  
-    const commanderBtn = document.getElementById('commanderBtn');
-    const continuerBtn = document.getElementById('continuerBtn');
-  
-    commanderBtn.addEventListener('click', function() {
-      console.log("Commander button clicked");
-      window.location.href = 'pannier';
-    });
-  
-    continuerBtn.addEventListener('click', function() {
-      console.log("Continuer button clicked");
-      customDialog.style.display = 'none';
-    });
-    // ...
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Assurez-vous que le DOM est chargé avant d'attacher des événements
-  const panierButton = document.getElementById('panierButton'); // Remplacez 'panierButton' par l'ID réel de votre bouton
-
-if (panierButton) {
-  panierButton.addEventListener('click', function () {
-    // Assurez-vous que la fonction addToCart est définie et accessible ici
-    addToCart('<%= utilisateur && utilisateur.id %>', '<%= cours.titre %>', '<%= cours.minititre %>', '<%= cours.lienThumbnail %>', <%= cours.prixParKilo %>, '<%= cours.id %>');
-    showDialog(); // Ajoutez cet appel pour afficher la boîte de dialogue
-  });
-}
-
-});
-
-// ...
-
-  }
 </script>

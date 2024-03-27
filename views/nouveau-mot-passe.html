@@ -1,14 +1,26 @@
-<!-- nouveau-mot-de-passe.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nouveau Mot de Passe</title>
+  <script>
+    function validatePassword() {
+      const newPassword = document.getElementById("newPassword").value;
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+      if (!passwordRegex.test(newPassword)) {
+        alert("Le mot de passe doit contenir au moins 6 caractères, une lettre majuscule, une lettre minuscule et un chiffre.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 </head>
 <body>
   <h1>Nouveau Mot de Passe</h1>
-  <form action="/update-password" method="post">
+  <form action="/update-password" method="post" onsubmit="return validatePassword()">
     <label for="newPassword">Nouveau Mot de Passe :</label>
     <input type="password" id="newPassword" name="newPassword" required>
     <input type="hidden" name="email" value="<%= email %>">

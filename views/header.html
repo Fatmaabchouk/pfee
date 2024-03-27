@@ -43,15 +43,18 @@
             </ul>
           </div>
     
-            <button class="header-action-btn" aria-label="cart item">
-              <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
-            </button>
+
+<button id="panierBtn" class="header-action-btn" aria-label="cart item">
+  <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+</button>
+
+            
           </div>
        
   
         <a href="#" class="logo">
-          <img src="/images/thumbnail/logo.jpg" alt="logo" width="60" height="60" class="my-rounded-circle">
-        </a>
+         
+        </a> <img src="/images/thumbnail/logo.jpg" alt="logo" width="60" height="60" class="my-rounded-circle">
         <div class="input-wrapper">
           <input type="search" name="search" placeholder="Search product" class="search-field">
           <button class="search-submit" aria-label="search">
@@ -102,5 +105,12 @@
       event.preventDefault();
       dropdownMenu.classList.toggle('show');
     });
+  });
+</script>
+<!-- Ajoutez ce script à la fin de votre fichier HTML ou dans un fichier externe -->
+<script>
+  document.getElementById('panierBtn').addEventListener('click', function() {
+    // Redirigez l'utilisateur vers la page "pannier"
+    window.location.href = '/pannier';
   });
 </script>

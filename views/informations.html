@@ -7,37 +7,16 @@
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
     <!-- Les balises meta et le titre restent les mêmes -->
     <script>
-        // Function to fetch the cart contents and update the total sum
-        function updateTotalSum() {
-            const cartContents = getCartContents();
-            let totalSum = 0;
-    
-            if (cartContents.length > 0) {
-                cartContents.forEach((item) => {
-                    totalSum += parseFloat(item.totalPrice);
-                });
-            }
-    
-            displayTotalSum(totalSum);
-        }
-    
-        // Function to get cart contents from localStorage
-        function getCartContents() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
-        }
-    
-        // Function to display the total sum
-        function displayTotalSum(totalSum) {
-            const totalPriceSpan = document.getElementById("totalPrice");
-            if (totalPriceSpan) {
-                totalPriceSpan.textContent = totalSum.toFixed(2) + ' DT';
-            }
-        }
-    
-        // Call the updateTotalSum function when the page loads
-        window.onload = function () {
-            updateTotalSum();
-        };
+      window.onload = function () {
+    // Récupérer le total depuis sessionStorage
+    const totalPrice = sessionStorage.getItem("totalPrice");
+    // Afficher le total dans la section "somme"
+    const totalPriceSpan = document.getElementById("totalPrice");
+    if (totalPriceSpan) {
+        totalPriceSpan.textContent = totalPrice;
+    }
+};
+
     </script>
     
 
@@ -91,3 +70,14 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
+<script>
+    function redirectToModelivraison() {
+        // Récupérer le montant total depuis le texte de l'élément span
+        const totalPrice = document.getElementById("totalPrice").innerText;
+        // Stocker le montant total dans sessionStorage
+        sessionStorage.setItem("totalPrice", totalPrice);
+        // Rediriger vers la page modelivraison
+        window.location.href = 'modelivraison.html';
+    }
+</script>
+

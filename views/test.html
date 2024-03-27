@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de test</title>
+    <!-- Ajoutez les liens vers les fichiers CSS nécessaires -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <%- include("header.html",{utilisateur}) %>
+    <main>
+   
+    <div class="container">
+        <div class="row">
+            <!-- Utilisez la même structure de carte que celle utilisée dans la page cours -->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <!-- Affichez l'image sélectionnée -->
+                    <img id="uploadedImage" src="<%= selectedImage %>" alt="Image sélectionnées" width="100%" height="225">
+                    <div class="card-body">
+                        <!-- Affichez le titre du cours -->
+                        <h6 class="card-text"><%= formData.courseTitle %></h6>
+                        <!-- Affichez le mini-titre -->
+                        <h5 class="cat-title"><%= formData.minititre %></h5>
+                        <!-- Affichez la quantité (fixée à 1 pour le moment) -->
+                        <div class="emm">
+                            <input type="number" id="quantity" min="1" max="10" value="1">
+                            <!-- Affichez le prix par kilo -->
+                            <h8 id="pricePerKilo"><%= formData.prixParKilo %> DT</h8>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button onclick="addToCart( '<%= formData.courseTitle %>', '<%= formData.minititre %>', '<%= selectedImage %>', '<%= formData.prixParKilo %> ')" class="btn btn-sm btn-outline-secondary">
+                                    <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon> Panier
+                                </button>
+                                
+                            </div>
+                          </div>
+                          <small class="text-muted"> <ion-icon name="bus-outline"></ion-icon> livraison </small>
+                        </div>
+                      </div>
+                      <div id="customDialog" class="custom-dialog">
+                        <p>
+                          Vous avez ajouté <span id="dialogQuantity"></span> kg de <span id="dialogProductTitle"></span> à votre panier.
+                          Le total est de <span id="dialogTotalPrice"></span> DT.
+                          Que souhaitez-vous faire?
+                        </p>
+                        <img id="dialogImage" src="" alt="" width="100%">
+                        <button id="commanderBtn">Commander</button>
+                        <button id="continuerBtn">Continuer mes achats</button>
+                      </div>
+                    </div>
+                    
+                    <script>
+                     function addToCart(userId, productTitle, minititre, lienThumbnail, prixParKilo, courseId) {
+                      const quantity = parseInt(document.getElementById("quantity" + courseId).value);
+                    
+                      if (isNaN(quantity) || quantity <= 0) {
+                        alert("Veuillez entrer une quantité valide.");
+                        return;
+                      }
+                    
+                      const totalPrice = quantity * parseFloat(prixParKilo);
+                    
+                      const data = {
+                        userId: userId,
+                        productTitle: productTitle,
+                        titre:productTitle,
+                        minititre: minititre,
+                        lienThumbnail: lienThumbnail,
+                        prixParKilo: prixParKilo,
+                        courseId: courseId,
+                        quantity: quantity,
+                        totalPrice: totalPrice
+                      };
+                    
+                      // Envoi de la requête AJAX au serveur pour mettre à jour le panier dans la base de données
+                      fetch('/updateCart', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                      })
+                      .then(response => response.json())
+                      .then(result => {
+                        // Mettre à jour le panier dans le localStorage
+                        localStorage.setItem("cart", JSON.stringify(result.cart));
+                    
+                        // Afficher la boîte de dialogue personnalisée
+                        document.getElementById("dialogQuantity").innerText = quantity;
+                        document.getElementById("dialogProductTitle").innerText = productTitle;
+                        document.getElementById("dialogTotalPrice").innerText = totalPrice.toFixed(2) + " DT";
+                        document.getElementById("dialogImage").src = lienThumbnail;
+                    
+                        showDialog();
+                      })
+                      .catch(error => {
+                        console.error('Erreur lors de la mise à jour du panier :', error);
+                        alert('Une erreur est survenue lors de l\'ajout au panier. Veuillez réessayer.');
+                      });
+                    }
+                    
+                      // Fonction pour afficher la boîte de dialogue
+                      function showDialog() {
+                        console.log("showDialog() called");
+                        const customDialog = document.getElementById('customDialog');
+                        customDialog.style.display = 'block';
+                    
+                        const commanderBtn = document.getElementById('commanderBtn');
+                        const continuerBtn = document.getElementById('continuerBtn');
+                    
+                        commanderBtn.addEventListener('click', function () {
+                          console.log("Commander button clicked");
+                          window.location.href = 'pannier';
+                        });
+                    
+                        continuerBtn.addEventListener('click', function () {
+                          console.log("Continuer button clicked");
+                          customDialog.style.display = 'none';
+                        });
+                        // ...
+                      }
+                    </script>
+                    
+                </main>
