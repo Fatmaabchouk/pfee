@@ -42,14 +42,14 @@
                                         <div class="cart-overview js-cart" data-refresh-url="">
                                             <ul class="cart-items">
                                                 <% produits.forEach(item => { %>
-                                                <li class="cart-item">
+                                                    <li class="cart-item" data-product-id="<%= item.produit_id %>">
                                                     <div class="product-line-grid">
                                                         <div class="product-line-grid-left col-md-3 col-xs-4">
                                                             <a href="/produit/<%= item.produit_id %>">
                                                                 <img src="<%= item.lienThumbnail %>"
                                                                     alt="<%= item.titre %>" />
                                                             </a>
-                                                        </div>z
+                                                        </div>
                                                         <div class="product-line-grid-body col-md-4 col-xs-8">
                                                             <h5 class="product-title"><%= item.titre %></h5>
                                                             <p class="product-minititre"><%= item.minititre %></p>
@@ -61,8 +61,7 @@
                                                                 <div class="current-price"><%= item.prix_total %> DT</div>
                                                             </div>
                                                             <div class="remove-button-container">
-                                                                <!-- Modifier le bouton pour appeler la fonction removeCartItem -->
-                                                                <button type="button" class="remove-button" onclick="removeCartItem('<%= item.produit_id %>')">Supprimer</button>
+                                                                <button type="button" class="remove-button" onclick="removeCartItem('<%= item.id %>')">Supprimer</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -73,6 +72,8 @@
                                         <!-- Ajouter une div pour afficher la somme totale -->
                                         <div id="totalPriceContainer" class="total-price-container">Somme totale: 0.00 DT</div>
                                         <button id="commandButton">Commander</button>
+                                        <button id="clearCartButton" onclick="clearCart()">Vider le panier</button>
+
 
                                     </div>
                                 </div>
@@ -93,6 +94,27 @@
 <%- include("footer.html") %>
 
 <script>
+  
+        document.getElementById('commandButton').addEventListener('click', function() {
+            // Calculer la somme totale
+            const totalPrice = calculateTotalPrice();
+
+            // Vérifier si le total est égal à 0.00 DT
+            if (totalPrice === '0.00') {
+                // Afficher un message indiquant que le panier est vide
+                alert('Votre panier est vide.');
+
+                // Rediriger l'utilisateur vers la page legumes.html
+                window.location.href = '/';
+            } else {
+                // Stocker la somme totale dans sessionStorage
+                sessionStorage.setItem("totalPrice", totalPrice);
+
+                // Rediriger l'utilisateur vers la page informations.html
+                window.location.href = 'informations';
+            }
+        });
+
     // Fonction pour calculer la somme totale des prix des articles
     function calculateTotalPrice() {
         let totalPrice = 0;
@@ -102,8 +124,8 @@
         currentPriceElements.forEach(element => {
             // Récupérer le texte à l'intérieur de la balise et convertir en nombre
             const price = parseFloat(element.textContent.replace(' DT', ''));
-                    // Ajouter le prix à la somme totale
-                    totalPrice += price;
+            // Ajouter le prix à la somme totale
+            totalPrice += price;
         });
         // Retourner la somme totale formatée
         return totalPrice.toFixed(2);
@@ -121,17 +143,56 @@
 
     // Appeler la fonction pour mettre à jour la somme totale au chargement de la page
     updateTotalPrice();
-</script>
-<script>
+    function removeCartItem(cartItemId) {
+    // Requête AJAX pour supprimer l'article du panier
+    fetch('/removeCartItem', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: '<%= utilisateur.id %>',
+            cartItemId: cartItemId
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            // Actualiser la page pour refléter la suppression
+            window.location.reload(); // Cette ligne actualise la page
+        } else {
+            console.error('Erreur lors de la suppression de l\'article du panier');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la suppression de l\'article du panier :', error);
+    });
+}
+function clearCart() {
+    // Requête AJAX pour vider le panier
+    fetch('/clearCart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: '<%= utilisateur.id %>'
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            // Actualiser la page pour refléter le panier vidé
+            window.location.reload();
+        } else {
+            console.error('Erreur lors de la suppression du panier');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la suppression du panier :', error);
+    });
+}
 
-document.getElementById('commandButton').addEventListener('click', function() {
-    console.log("Commander button clicked");
-    // Récupérer le total depuis le texte de l'élément span
-    const totalPrice = document.getElementById("totalPriceContainer").innerText;
-    // Stocker le total dans sessionStorage
-    sessionStorage.setItem("totalPrice", totalPrice);
-    // Rediriger vers la page d'informations
-    window.location.href = 'informations';
-});
 
 </script>
+</body>
+
+</html>

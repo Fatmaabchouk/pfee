@@ -23,6 +23,16 @@
         <input type="file" id="selectedImage"  name="selectedImage"  accept="image/jpeg, image/png, image/jpg">
         <img id="uploadedImage">
         <button id="removeButton">Remove Image</button>
+
+        <!-- Ajout des boutons radio -->
+        <div>
+            <input type="radio" id="legumes" name="type" value="legumes" checked>
+            <label for="legumes">Légumes</label>
+        </div>
+        <div>
+            <input type="radio" id="fruits" name="type" value="fruits">
+            <label for="fruits">Fruits</label>
+        </div>
     
         <button type="button" onclick="addCourse()">Ajouter le cours</button>
     </form>
@@ -45,79 +55,38 @@
             fileInput.value = ""; // Reset the file input
         });
         function addCourse() {
-    const form = document.getElementById('addCourseForm');
-    const formData = new FormData(form);
+            const form = document.getElementById('addCourseForm');
+            const formData = new FormData(form);
 
-    // Effectuez une requête AJAX pour envoyer les données du formulaire au serveur
-    fetch('/addcourse', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.text())
-    .then(result => {
-        alert(result); // Affichez un message de réussite ou gérez le résultat en conséquence
+            // Récupérer la valeur du bouton radio sélectionné
+            const selectedType = document.querySelector('input[name="type"]:checked').value;
 
-        // Stockez les données du formulaire et le chemin de l'image dans la session
-        sessionStorage.setItem('formData', JSON.stringify(Object.fromEntries(formData.entries())));
-        const selectedImage = formData.get('selectedImage');
-        sessionStorage.setItem('selectedImage', selectedImage);
+            // Effectuer une requête AJAX pour envoyer les données du formulaire au serveur
+            fetch('/addcourse', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result); // Afficher un message de réussite ou gérer le résultat en conséquence
 
-        // Redirigez l'utilisateur vers la page test.html après avoir ajouté le cours avec succès
-        window.location.href = 'legumes';
-    })
-    .catch(error => {
-        console.error('Erreur lors de l\'ajout du cours :', error);
-        alert("Erreur lors de l'ajout du cours.");
-    });
-}
+                // Stocker les données du formulaire et le chemin de l'image dans la session
+                sessionStorage.setItem('formData', JSON.stringify(Object.fromEntries(formData.entries())));
+                const selectedImage = formData.get('selectedImage');
+                sessionStorage.setItem('selectedImage', selectedImage);
 
+                // Rediriger l'utilisateur en fonction du type sélectionné
+                if (selectedType === 'legumes') {
+                    window.location.href = 'legumes';
+                } else {
+                    window.location.href = 'fruits';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'ajout du cours :', error);
+                alert("Erreur lors de l'ajout du cours.");
+            });
+        }
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Contrôle des légumes</title>
-</head>
-<body>
-    <h1>Admin - Contrôle des légumes</h1>
-
-    <h2>Ajouter un légume</h2>
-    <form action="/addVegetable" method="post">
-        <input type="text" name="titre" placeholder="Titre">
-        <input type="text" name="minititre" placeholder="Mini-titre">
-        <input type="text" name="lienThumbnail" placeholder="Lien Thumbnail">
-        <input type="number" name="prixParKilo" placeholder="Prix par kilo">
-        <button type="submit">Ajouter</button>
-    </form>
-
-    <h2>Modifier un légume</h2>
-    <form action="/editVegetable" method="post">
-        <select name="vegetableId">
-            <!-- Options pour sélectionner le légume à modifier -->
-        </select>
-        <input type="text" name="newTitre" placeholder="Nouveau titre">
-        <input type="text" name="newMinititre" placeholder="Nouveau mini-titre">
-        <input type="text" name="newLienThumbnail" placeholder="Nouveau lien Thumbnail">
-        <input type="number" name="newPrixParKilo" placeholder="Nouveau prix par kilo">
-        <button type="submit">Modifier</button>
-    </form>
-
-    <h2>Supprimer un légume</h2>
-    <form action="/deleteVegetable" method="post">
-        <select name="vegetableId">
-            <!-- Options pour sélectionner le légume à supprimer -->
-        </select>
-        <button type="submit">Supprimer</button>
-    </form>
-
-    <h2>Afficher les légumes</h2>
-    <!-- Affichage des légumes actuels -->
-    <ul>
-        <!-- Les légumes seront affichés ici -->
-    </ul>
 </body>
 </html>

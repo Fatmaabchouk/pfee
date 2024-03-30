@@ -40,7 +40,9 @@
             <p>Code postal: <%= utilisateur.zip %></p>
             <p>Adresse 1: <%= utilisateur.Adress1 %></p>
             <p>Adresse 2: <%= utilisateur.Adress2 %></p>
-            <a href="modelivraison" class="next-link"><ion-icon name="arrow-forward-circle"></ion-icon> Suivant</a>
+            <a href="#" class="next-link" onclick="redirectToModelivraison()">
+                <ion-icon name="arrow-forward-circle"></ion-icon> Suivant
+            </a>
         </div>
         <div class="account-details-form">
             <h2 class="h2-color-2">
@@ -54,7 +56,7 @@
         </div>
         </div>
         <div class="somme">
-        <h3>Total: <span id="totalPrice">0.00 DT</span></h3>
+        <h3>Total: <span id="totalPrice">0.00 </span>dt</h3>
        
 
         
@@ -72,12 +74,33 @@
 </html>
 <script>
     function redirectToModelivraison() {
-        // Récupérer le montant total depuis le texte de l'élément span
-        const totalPrice = document.getElementById("totalPrice").innerText;
-        // Stocker le montant total dans sessionStorage
-        sessionStorage.setItem("totalPrice", totalPrice);
-        // Rediriger vers la page modelivraison
-        window.location.href = 'modelivraison.html';
+        // Vérifier si les champs d'informations personnelles sont vides
+        const prenom = '<%= utilisateur.nom %>';
+        const nom = '<%= utilisateur.nom %>';
+        const email = '<%= utilisateur.email %>';
+        const telephone = '<%= utilisateur.phone %>';
+        const codePostal = '<%= utilisateur.zip %>';
+        const adresse1 = '<%= utilisateur.Adress1 %>';
+        const adresse2 = '<%= utilisateur.Adress2 %>';
+
+        // Vérifier si au moins un champ est vide
+        if (!prenom || !nom || !email || !telephone || !codePostal || !adresse1 || !adresse2) {
+            // Afficher une alerte demandant à l'utilisateur de compléter ses informations
+            alert('Veuillez compléter toutes vos informations personnelles.');
+            // Rediriger l'utilisateur vers la page acc.html pour mettre à jour ses informations
+            window.location.href = 'acc';
+        } else {
+            // Récupérer le montant total depuis le texte de l'élément span
+            const totalPrice = parseFloat(document.getElementById("totalPrice").innerText);
+
+            // Stocker le montant total dans sessionStorage
+            sessionStorage.setItem("totalPrice", totalPrice);
+
+            // Rediriger vers la page modelivraison
+            window.location.href = 'modelivraison';
+        }
     }
 </script>
+
+
 

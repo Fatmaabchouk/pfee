@@ -128,9 +128,9 @@ app.post("/connexion", async (req, res) => {
   if (email && password) {
     try {
       // Vérifier si l'utilisateur est l'administrateur
-      if (email.toLowerCase() === 'admin@gmail.com' && password === 'admin123') {
+      if (email.toLowerCase() === 'admin1@gmail.com' && password === 'Admin123456') {
         // Rediriger vers la page d'administration
-        return res.redirect("/connexion");
+        return res.redirect("/admin");
       }
 
       // Si ce n'est pas l'administrateur, effectuez la vérification normale
@@ -169,6 +169,7 @@ app.post("/connexion", async (req, res) => {
     req.flash("error", "Veuillez remplir tous les champs.");
     res.redirect("/connexion");
   }
+
 });
 
 const getCoursesFromDatabase = (callback) => {
@@ -199,16 +200,16 @@ const upload = multer({ storage: storage });
 
 // Route pour ajouter un cours
 app.post('/addcourse', upload.single('selectedImage'), (req, res) => {
-  const { courseTitle, minititre,  prixParKilo } = req.body;
+  const { courseTitle, minititre,  prixParKilo,type } = req.body;
   const selectedImage = req.file ? '/images/thumbnail/' + req.file.filename : '';
 
   // Enregistrez les données du formulaire dans la session
-  req.session.formData = { courseTitle, minititre,  prixParKilo, selectedImage };
+  req.session.formData = { courseTitle, minititre,  prixParKilo, selectedImage,type };
   req.session.selectedImage = selectedImage;
   // Enregistrez les données dans la base de données
   db.query(
-      'INSERT INTO cours (titre, minititre,  prixParKilo, lienThumbnail) VALUES (?, ?, ?, ?)',
-      [courseTitle, minititre,  prixParKilo, selectedImage],
+      'INSERT INTO cours (titre, minititre,  prixParKilo, lienThumbnail,type) VALUES (?,?, ?, ?, ?)',
+      [courseTitle, minititre,  prixParKilo, selectedImage,type],
       (err, result) => {
           if (err) {
               console.error('Erreur lors de l\'ajout du cours à la base de données :', err);
@@ -224,15 +225,6 @@ app.post('/addcourse', upload.single('selectedImage'), (req, res) => {
 
 
 
-// Route pour rendre la page de test
-app.get("/test", (req, res) => {
-  const { utilisateur } = res.locals;
-  // Récupérez le chemin de l'image à partir de la session
-  const selectedImage = req.session.selectedImage || ''; // Définissez un chemin par défaut si nécessaire
-  const formData = req.session.formData || {}; // Récupérez les données du formulaire de la session
-
-  res.render("test", { selectedImage, formData , utilisateur}); // Passez le chemin de l'image et les données du formulaire à la vue
-});
 // Route pour enregistrer les données des légumes
 app.post('/enregistrerLegumes', (req, res) => {
   const data = req.body;
@@ -393,29 +385,63 @@ app.post('/updateCart', (req, res) => {
     );
   });
 });
+// Route pour supprimer un article du panier de l'utilisateur
+app.post('/removeCartItem', (req, res) => {
+  const { userId, cartItemId } = req.body;
 
-
-app.get("/fruits", (req, res) => {
-  const { utilisateur } = res.locals;
-  db.query('SELECT * FROM cours', (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
-      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
-      return res.status(500).send('Erreur serveur');
-    }
-    res.render("fruits", { cours: results, utilisateur }); // Passer les données cours à la vue legumes.html
+  // Effectuer la suppression de l'article de la table du panier
+  db.query('DELETE FROM panier WHERE id = ? AND utilisateur_id = ?', [cartItemId, userId], (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la suppression de l\'article du panier : ' + err.message);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      } else {
+          // Envoyer une réponse JSON pour indiquer que l'article a été supprimé avec succès
+          res.json({ success: true });
+      }
   });
 });
+ // Route pour vider le panier de l'utilisateur
+app.post('/clearCart', (req, res) => {
+  const { userId } = req.body;
+
+  
+    // L'utilisateur existe, vous pouvez procéder à la suppression du panier
+    db.query('DELETE FROM panier WHERE utilisateur_id = ?', [userId], (err, result) => {
+      if (err) {
+        console.error('Erreur lors de la suppression du panier : ' + err.message);
+        return res.status(500).json({ error: 'Erreur serveur' });
+      } else {
+        // Supprimer également les éléments du panier de la session de l'utilisateur, le cas échéant
+        req.session.panier = [];
+
+        // Envoyer une réponse JSON pour indiquer que le panier a été vidé avec succès
+        res.json({ success: true });
+      }
+    });
+  });
+
+  app.get("/fruits", (req, res) => {
+    const { utilisateur } = res.locals;
+    db.query('SELECT * FROM cours WHERE type = "fruits"', (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+        // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+        return res.status(500).send('Erreur serveur');
+      }
+      res.render("fruits", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+    });
+  });
+  
 
 app.get("/legumes", (req, res) => {
   const { utilisateur } = res.locals;
-  db.query('SELECT * FROM cours', (err, results) => {
+  db.query('SELECT * FROM cours WHERE type = "legumes"', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
       // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
       return res.status(500).send('Erreur serveur');
     }
-    res.render("legumes", { cours: results, utilisateur }); // Passer les données cours à la vue legumes.html
+    res.render("fruits", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
   });
 });
 
@@ -439,10 +465,7 @@ app.get("/commande", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("commande", {utilisateur});
 });
-app.get("/info", protectionRoute ,  (req, res) => {
-  const {utilisateur} = res.locals;
-  res.render("info", {utilisateur});
-});
+
 app.get("/informations", protectionRoute, (req, res) => {
   const { utilisateur } = res.locals;
 
@@ -470,6 +493,33 @@ app.get("/informations", protectionRoute, (req, res) => {
     res.redirect("/connexion");
   }
 });
+app.get("/info", protectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
+
+  if (utilisateur) {
+    // Utilisez l'ID de l'utilisateur pour récupérer les informations spécifiques de la base de données
+    db.query('SELECT nom, email, phone, Adress1, Adress2, zip FROM utulisateurs WHERE id = ?', [utilisateur.id], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des informations de l\'utilisateur : ' + err.message);
+        return res.status(500).send('Erreur serveur');
+      }
+
+      if (results.length > 0) {
+        // Récupérez les informations de la base de données
+        const userInformation = results[0];
+
+        // Passez les informations à la vue et affichez la page informations.html
+        res.render("info", { utilisateur: userInformation });
+      } else {
+        // Gérer le cas où l'utilisateur n'est pas trouvé dans la base de données
+        res.status(404).send('Utilisateur non trouvé');
+      }
+    });
+  } else {
+    // Gérer le cas où l'utilisateur n'est pas connecté
+    res.redirect("/connexion");
+  }
+});
 
 app.post("/deconnexion", (req, res) => {
   req.session.destroy((err) => {
@@ -485,56 +535,47 @@ app.post("/deconnexion", (req, res) => {
 });
 
 
-
-
 app.post("/update-account", async (req, res) => {
   const { EEmail, phone, zip, Adress1, Adress2 } = req.body;
-  const { utilisateur } = res.locals;
-  console.log('utilisateur:', utilisateur);
-  console.log('EEmail:', EEmail);
+  const userId = req.session.idUtilisateur; // Récupérer l'ID de l'utilisateur depuis la session
 
   try {
-    // Vérifiez si l'email existe dans la base de données
-    db.query('SELECT * FROM utulisateurs WHERE email = ?', [EEmail], async (error, results) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).send("Erreur interne du serveur");
+    // Requête pour obtenir l'e-mail de l'utilisateur à partir de son ID
+    db.query('SELECT email FROM utulisateurs WHERE id = ?', [userId], async (err, rows) => {
+      if (err) {
+        console.error('Erreur lors de la recherche de l\'utilisateur : ' + err.message);
+        req.flash("error", "Erreur serveur");
+        return res.redirect("/acc");
       }
 
-// ...
+      if (rows.length > 0) {
+        const userEmail = rows[0].email;
 
-if (results.length === 0) {
- // Utilisez req.flash pour stocker le message d'erreur
- req.flash("error", "Votre email est incorrect");
- // Redirigez vers la page du compte
- return res.redirect("/acc") ;// Assurez-vous de passer également l'objet utilisateur
-  };
- // Validation du numéro de téléphone
- const phoneRegex = /^\+216\d{8}$/;
- if (!phoneRegex.test(phone)) {
-   req.flash("error", "Votre numéro de téléphone doit commencer par +216 suivi de 8 chiffres");
-   return res.redirect("/acc");
- }
+        // Comparer l'e-mail récupéré avec l'e-mail fourni dans la requête
+        if (userEmail !== EEmail) {
+          req.flash("error", "Votre e-mail est incorrect");
+          return res.redirect("/acc");
+        }
 
+        // Effectuer la mise à jour dans la base de données
+        db.query(
+          'UPDATE utulisateurs SET phone = ?, Adress1 = ?, Adress2 = ?, zip = ? WHERE email = ?',
+          [phone, Adress1, Adress2, zip, EEmail],
+          (updateError) => {
+            if (updateError) {
+              console.error(updateError);
+              req.flash("error", "Erreur interne du serveur");
+              return res.redirect("/acc");
+            }
 
-
-// ...
-
-
-db.query('UPDATE utulisateurs SET phone = ?, Adress1 = ?, Adress2 = ?, zip = ? WHERE email = ?',
-[phone, Adress1, Adress2, zip, EEmail], (updateError) => {
-  if (updateError) {
-    console.error(updateError);
-    return res.status(500).send("Erreur interne du serveur");
-  }
-
-  req.flash("error", "Mise à jour du compte réussie");
-  // Redirigez vers la page du compte
-  return res.redirect("/acc") ;
-}
-);
-
-
+            req.flash("success", "Mise à jour du compte réussie");
+            return res.redirect("/acc");
+          }
+        );
+      } else {
+        req.flash("error", "Utilisateur non trouvé");
+        res.redirect("/acc");
+      }
     });
   } catch (error) {
     console.error('Erreur lors de la mise à jour du compte : ' + error.message);

@@ -6,48 +6,17 @@
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
     <script>
-        // Fonction pour mettre à jour le total à partir des paramètres d'URL et du panier
-        function updateTotalFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const deliveryCost = parseFloat(urlParams.get('deliveryCost')) || 0; // Par défaut, le coût de livraison est 0
+        // Récupérer les valeurs nécessaires depuis la session dès que la page est chargée
+        window.onload = function() {
+            const subtotal = sessionStorage.getItem("subtotal");
+            const deliveryCost = sessionStorage.getItem("deliveryCost");
+            const totalSum = sessionStorage.getItem("totalSum");
 
-            // Obtenez le contenu du panier depuis le stockage local
-            let cartContents = getCartContents();
-            let subtotal = 0;
-
-            // Calculer le sous-total en fonction du panier
-            if (cartContents.length > 0) {
-                cartContents.forEach((item) => {
-                    subtotal += parseFloat(item.totalPrice);
-                });
-            }
-
-            // Mettre à jour l'affichage du sous-total, du coût total et du coût de livraison
-            displayTotalSum(subtotal, deliveryCost);
-        }
-
-        // Appeler la fonction pour mettre à jour le total à partir des paramètres d'URL
-        window.onload = function () {
-            updateTotalFromURL();
+            // Afficher les valeurs dans les éléments HTML correspondants
+            document.getElementById("subtotalValue").textContent = subtotal;
+            document.getElementById("deliveryCostValue").textContent = deliveryCost;
+            document.getElementById("totalSumValue").textContent = totalSum;
         };
-
-        // Fonction pour récupérer le contenu du panier depuis le stockage local
-        function getCartContents() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
-        }
-
-        // Fonction pour afficher le sous-total, le coût total et le coût de livraison
-        function displayTotalSum(subtotal, deliveryCost) {
-            const subtotalSpan = document.getElementById("subtotal");
-            const deliveryCostSpan = document.getElementById("deliveryCost");
-            const totalSumSpan = document.getElementById("totalPrice");
-
-            if (subtotalSpan && deliveryCostSpan && totalSumSpan) {
-                subtotalSpan.textContent = `Sous-total: ${subtotal.toFixed(2)} DT`;
-                deliveryCostSpan.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
-                totalSumSpan.textContent = `Total: ${(subtotal + deliveryCost).toFixed(2)} DT`;
-            }
-        }
     </script>
 
    
@@ -95,10 +64,11 @@
         </div>
         </div>
         <div class="somme">
-            <h3 id="subtotal">Sous-total: 0.00 DT</h3>
-            <h3 id="deliveryCost">Frais de livraison: 0.00 DT</h3><hr>
-            <h3 id="totalPrice">Total: 0.00 DT
-</h3>
+            <!-- Utilisez du JavaScript pour afficher les valeurs des paramètres de l'URL -->
+            <h3 id="subtotal">Sous-total: <span id="subtotalValue"></span> DT</h3>
+            <h3 id="deliveryCost">Frais de livraison: <span id="deliveryCostValue"></span> DT</h3>
+            <hr>
+            <div id="totalSum">Total: <span id="totalSumValue"></span> DT</div>
         </div>
         <!-- Le reste du code HTML de votre page -->
     </main>

@@ -5,76 +5,61 @@
     <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
-   
-    <script>
-        // Fonction pour mettre à jour le sous-total, les frais de livraison et le total
-        function updateTotalSum() {
-            const subtotalText = document.getElementById("subtotal").textContent;
-            const subtotal = parseFloat(subtotalText.split(":")[1].trim()); // Récupérer le sous-total
-            
-            const deliveryCostText = document.getElementById("deliveryCost").textContent;
-            const deliveryCost = parseFloat(deliveryCostText.split(":")[1].trim()); // Récupérer les frais de livraison
-            
-            const totalSum = subtotal + deliveryCost;
-            const totalSumElement = document.getElementById("totalPrice1");
-            
-            if (totalSumElement) {
-                totalSumElement.textContent = `Total: ${totalSum.toFixed(2)} DT`;
-            }
+<!-- Les balises meta et les liens CSS restent les mêmes -->
+<script>
+    window.onload = function () {
+        // Récupérer le montant total depuis sessionStorage
+        const totalPrice = parseFloat(sessionStorage.getItem("totalPrice"));
+        // Mettre à jour le sous-total avec le montant total récupéré
+        const subtotalSpan = document.getElementById("subtotal");
+        if (subtotalSpan) {
+            subtotalSpan.textContent = `Sous-total: ${totalPrice.toFixed(2)} DT`;
         }
-    
-        // Fonction pour mettre à jour le sous-total et les frais de livraison basés sur la sélection du mode de livraison
-        function updateTotalSumBasedOnDelivery() {
-            const selectedDeliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked');
-            const deliveryCost = selectedDeliveryMethod.value === "express" ? 10.00 : 5.00; // Calculer les frais de livraison
-    
-            const deliveryCostElement = document.getElementById("deliveryCost");
-            
-            if (deliveryCostElement) {
-                deliveryCostElement.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
-            }
-    
-            updateTotalSum(); // Mettre à jour le total
+        
+        // Appeler la fonction pour mettre à jour le total basé sur la livraison
+        updateTotalSumBasedOnDelivery();
+    };
+
+    // Fonction pour mettre à jour le sous-total et les frais de livraison basés sur la sélection du mode de livraison
+    function updateTotalSumBasedOnDelivery() {
+        const selectedDeliveryMethod = document.querySelector('input[name="deliveryMethod"]:checked');
+        const deliveryCost = parseFloat(selectedDeliveryMethod.dataset.cost); // Récupérer les frais de livraison du dataset de l'élément
+
+        const deliveryCostElement = document.getElementById("deliveryCost");
+        const subtotalValue = parseFloat(document.getElementById("subtotal").textContent.replace("Sous-total: ", ""));
+
+        if (deliveryCostElement) {
+            deliveryCostElement.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
+            deliveryCostElement.dataset.value = deliveryCost; // Mettre à jour la valeur du dataset
         }
+
+        // Calculer la somme totale
+        const totalSum = subtotalValue + deliveryCost;
+        // Afficher la somme totale
+        const totalSumElement = document.getElementById("totalSum");
+        totalSumElement.textContent = `Total: ${totalSum.toFixed(2)} DT`;
+
+        // Stocker la somme totale dans la session
+        sessionStorage.setItem("totalSum", totalSum.toFixed(2));
+        sessionStorage.setItem("subtotal", subtotalValue.toFixed(2));
+    sessionStorage.setItem("deliveryCost", deliveryCost.toFixed(2));
+    }
+
+    function redirectToPaiement() {
+    // Mettre à jour le total avant de rediriger
+    updateTotalSumBasedOnDelivery(); 
+    // Récupérer les valeurs nécessaires depuis la session
+    const subtotal = sessionStorage.getItem("subtotal");
+    const deliveryCost = sessionStorage.getItem("deliveryCost");
+    const totalSum = sessionStorage.getItem("totalSum");
+    // Rediriger vers la page de paiement avec les paramètres appropriés
+    window.location.href = `paiment?subtotal=${subtotal}&deliveryCost=${deliveryCost}&totalSum=${totalSum}`; 
+}
+
+
+</script>
+
     
-        // Fonction pour rediriger vers la page de paiement
-        function redirectToPaiement() {
-            updateTotalSum(); // Mettre à jour le total avant de rediriger
-            window.location.href = 'paiement'; // Rediriger vers la page de paiement
-        }
-    
-        // Appeler la fonction updateTotalSumBasedOnDelivery lors du chargement de la page
-        window.addEventListener('DOMContentLoaded', function () {
-            const totalPrice = parseFloat(sessionStorage.getItem("totalPrice"));
-            
-            if (!isNaN(totalPrice)) {
-                const subtotalSpan = document.getElementById("subtotal");
-                
-                if (subtotalSpan) {
-                    subtotalSpan.textContent = `Sous-total: ${totalPrice.toFixed(2)} DT`;
-                }
-            }
-    
-            const deliveryForm = document.getElementById("deliveryForm");
-            
-            deliveryForm.addEventListener("change", updateTotalSumBasedOnDelivery);
-            updateTotalSumBasedOnDelivery(); // Appel initial pour mettre à jour les valeurs
-        });
-    </script>
-    
-    <script>
-        window.onload = function () {
-            // Récupérer le montant total depuis sessionStorage
-            const totalPrice = sessionStorage.getItem("totalPrice");
-            // Mettre à jour le sous-total avec le montant total récupéré
-            const subtotalSpan = document.getElementById("subtotal");
-            if (subtotalSpan) {
-                subtotalSpan.textContent = `Sous-total: ${totalPrice} `;
-            }
-        };
-    </script>
-    
-   
 </head>
 <body>
     <main>
@@ -92,11 +77,12 @@
                 </h2>
                 <form id="deliveryForm">
                     <label>
-                        <input type="radio" name="deliveryMethod" value="standard" checked>
+                        <!-- Ajoutez l'attribut checked ici -->
+                        <input type="radio" name="deliveryMethod" value="standard" data-cost="5.00" checked onchange="updateTotalSumBasedOnDelivery()">
                         Livraison Standard - 5.00 DT
                     </label>
                     <label>
-                        <input type="radio" name="deliveryMethod" value="express">
+                        <input type="radio" name="deliveryMethod" value="express" data-cost="10.00" onchange="updateTotalSumBasedOnDelivery()">
                         Livraison Express - 10.00 DT
                     </label>
                 </form>
@@ -110,11 +96,12 @@
                     <div class="circle-icon circle-icon-3">3</div> Paiement
                 </h2>
             </div>
+
         </div>
         <div class="somme">
             <h3 id="subtotal">Sous-total: 0.00 DT</h3>
-            <h3 id="deliveryCost">Frais de livraison: 0.00 DT</h3><hr>
-            <h3 id="totalPrice1">Total: 0.00 DT</h3>
+            <h3 id="deliveryCost" data-value="0.00">Frais de livraison: 0.00 DT</h3><hr>
+            <div id="totalSum">Total: 0.00 DT</div>
         </div>
         <!-- Le reste du code HTML de votre page -->
     </main>
