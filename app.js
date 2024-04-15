@@ -32,7 +32,7 @@ const db = mysql.createConnection({
   host:'localhost',
   user: 'root',
   password: '',
-  database: 'utulisateurs',
+  database: 'utulisateur',
 
 });
 db.connect((error)=>{
@@ -114,7 +114,7 @@ app.get("/", (req, res) => {
   const { utilisateur } = res.locals;
 
   getCoursesFromDatabase((courses) => {
-    res.render("index", { cours: courses, utilisateur: utilisateur });
+    res.render("index", { cours: courses, utilisateur: utilisateur   });
   });
 });
 
@@ -128,7 +128,7 @@ app.post("/connexion", async (req, res) => {
   if (email && password) {
     try {
       // Vérifier si l'utilisateur est l'administrateur
-      if (email.toLowerCase() === 'admin1@gmail.com' && password === 'Admin123456') {
+      if (email.toLowerCase() === 'admin11@gmail.com' && password === 'Admin123456') {
         // Rediriger vers la page d'administration
         return res.redirect("/admin");
       }
@@ -450,8 +450,9 @@ app.get("/freshbox", (req, res) => {
   console.log(utilisateur);
   res.render("freshbox", { cours,utilisateur , em});
 });
-app.get("/admin", (req, res) => {
-  res.render("admin");
+app.get("/admin", protectionRoute ,  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("admin", {utilisateur});
 });
 app.get("/modelivraison", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
@@ -461,9 +462,110 @@ app.get("/paiment", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("paiment", {utilisateur});
 });
-app.get("/commande", protectionRoute ,  (req, res) => {
-  const {utilisateur} = res.locals;
-  res.render("commande", {utilisateur});
+app.get("/commande", protectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
+
+  // Vérifiez si l'utilisateur est connecté
+  if (utilisateur) {
+    // Utilisez la référence de commande stockée dans la session pour récupérer les détails de la commande
+    const referenceCommande = req.session.referenceCommande;
+    const idUtilisateur = utilisateur.id; 
+    // Utilisez la référence de commande pour récupérer les détails de la commande depuis la base de données "commande"
+    db.query('SELECT utilisateur_id,  referenceCommande, dateCommande , subtotal, frais_livraison, total FROM commaande WHERE referenceCommande = ?', [referenceCommande], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des informations de commande : ' + err.message);
+        return res.status(500).send('Erreur serveur');
+      }
+
+      if (results.length > 0) {
+        const commandeInfo = results[0];
+        // Récupérez les informations de commande
+        const { utilisateur_id, subtotal, frais_livraison, total } = results[0];
+
+        // Insérez les valeurs dans la table "valider" de la base de données
+        const sql = 'INSERT INTO valider (referenceCommande, id_utilisateur, subtotal, deliveryCost, totalSum) VALUES (?, ?, ?, ?, ?)';
+        const values = [referenceCommande, utilisateur_id, subtotal, frais_livraison, total];
+
+        // Insérer les valeurs dans la table "valider"
+        db.query(sql, values, (err, result) => {
+          if (err) {
+            console.error('Erreur lors de l\'insertion des détails de commande dans la table "valider" : ' + err.message);
+            return res.status(500).send('Erreur serveur');
+          }
+
+          // Passez les informations à la vue et affichez-les sur la page commande
+          return res.render("commande", {
+            referenceCommande: commandeInfo.referenceCommande,
+            dateCommande: commandeInfo.dateCommande,
+            idUtilisateur: utilisateur_id,
+            subtotal: subtotal,
+            fraisLivraison: frais_livraison,
+            total: total
+          });
+        });
+      } else {
+        // Gérer le cas où aucune commande n'est trouvée pour la référence donnée
+        return res.status(404).send('Aucune commande trouvée pour la référence donnée');
+      }
+    });
+  } else {
+    // Gérer le cas où l'utilisateur n'est pas connecté
+    return res.redirect("/connexion");
+  }
+});
+
+
+
+
+
+
+
+
+
+app.get('/articles-commandes', (req, res) => {
+  const { utilisateur } = res.locals;
+  
+  // Extraire l'ID de l'utilisateur de l'objet utilisateur
+  const utilisateurId = utilisateur.id;
+
+  // Requête SQL pour sélectionner les articles dans le panier de l'utilisateur
+  const sqlArticles = `
+    SELECT 
+      p.quantite, 
+      p.titre, 
+      c.prixParKilo,
+      p.prix_total 
+    FROM panier p 
+    INNER JOIN cours c ON p.produit_id = c.id 
+    WHERE p.utilisateur_id = ?
+  `;
+
+  db.query(sqlArticles, [utilisateurId], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la récupération des articles du panier depuis la base de données :', error.message);
+      return res.status(500).json({ error: 'Erreur serveur' });
+    }
+
+    // Récupérer les informations de l'utilisateur depuis la base de données
+    const sqlUtilisateur = 'SELECT nom, phone, Adress1, Adress2, zip FROM utulisateurs WHERE id = ?';
+    db.query(sqlUtilisateur, [utilisateurId], (error, utilisateurInfo) => {
+      if (error) {
+        console.error('Erreur lors de la récupération des informations de l\'utilisateur depuis la base de données :', error.message);
+        return res.status(500).json({ error: 'Erreur serveur' });
+      }
+
+      // Ajouter les informations de l'utilisateur à l'objet de la facture
+      const facture = {
+        articles: results,
+        nomUtilisateur: utilisateurInfo[0].nom,
+        numeroUtilisateur: utilisateurInfo[0].phone,
+        adresseUtilisateur: `${utilisateurInfo[0].Adress1}, ${utilisateurInfo[0].Adress2}`,
+       moyenPaiement: "Comptant à la livraison" ,
+      };
+
+      res.json(facture);
+    });
+  });
 });
 
 app.get("/informations", protectionRoute, (req, res) => {
@@ -520,6 +622,58 @@ app.get("/info", protectionRoute, (req, res) => {
     res.redirect("/connexion");
   }
 });
+// Fonction pour générer une référence de commande unique
+function generateReference() {
+  const date = new Date();
+  const reference = 'CMD' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2) + ('0' + date.getHours()).slice(-2) + ('0' + date.getMinutes()).slice(-2) + ('0' + date.getSeconds()).slice(-2);
+  return reference;
+}
+
+let commandeCounter = 0; // Variable pour suivre le nombre de commandes enregistrées
+
+app.post('/enregistrer-commande', (req, res) => {
+  console.log("Received request body:", req.body); // Log the entire request body to see if values are present
+  const { panier, commandeData } = req.body;
+    
+  const { utilisateur } = res.locals;
+  const { articles, nomUtilisateur, numeroUtilisateur, adresseUtilisateur, moyenPaiement  } = panier; // Modifier cette ligne
+
+  // Extraire les données de commande de commandeData
+  const { subtotal, deliveryCost, totalSum } = commandeData; // Modifier cette ligne
+   
+  req.session.commandeCounter = commandeCounter;
+  req.session.subtotal = subtotal;
+  req.session.deliveryCost = deliveryCost;
+  req.session.totalSum = totalSum;
+
+  // Incrémente le compteur de commande
+  commandeCounter++;
+
+  // Générer une référence de commande unique
+  const referenceCommande = generateReference();
+  req.session.referenceCommande = referenceCommande;
+
+  // Insérer les détails de la commande dans la table "Commande"
+  const sqlInsertCommande = 'INSERT INTO commaande (id_commande, utilisateur_id, quantite, titre, prixParKilo, prix_total, nomUtilisateur, numeroUtilisateur, adresseUtilisateur, referenceCommande, moyenPaiement,subtotal,frais_livraison,total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?)';
+
+  // Insérer les détails de la commande dans la table "Valide"
+  // Parcourir les articles de la commande et les insérer dans les tables "Commande" et "Valide"
+  articles.forEach(article => {
+      const { quantite, titre, prixParKilo, prix_total } = article;
+      // Insérer l'ID de commande à partir de la session
+      db.query(sqlInsertCommande, [req.session.commandeCounter, utilisateur.id, quantite, titre, prixParKilo, prix_total, nomUtilisateur, numeroUtilisateur, adresseUtilisateur, referenceCommande, moyenPaiement, subtotal, deliveryCost, totalSum], (error, result) => {
+          if (error) {
+              console.error('Erreur lors de l\'enregistrement de la commande :', error.message);
+              return res.status(500).json({ error: 'Erreur serveur' });
+          }
+           // Insérer les détails de la commande dans la table "Valide"
+     
+      });
+  });
+
+  // Répondre au client avec la référence de commande générée
+  res.json({ message: 'Commande enregistrée avec succès', referenceCommande: referenceCommande });
+}); 
 
 app.post("/deconnexion", (req, res) => {
   req.session.destroy((err) => {

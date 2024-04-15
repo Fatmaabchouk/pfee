@@ -51,14 +51,11 @@
             
             <button id="commandButton" onclick="redirectToCommande()">
                 Commander
-                <a href="commande" class="edit-link"></a>
             </button>
             
-            <script>
-                function redirectToCommande() {
-                    window.location.href = "commande";
-                }
-            </script>
+            <button id="confirmOrderButton" onclick="confirmOrder()">Confirmer la commande</button>
+
+          
             
             
         </div>
@@ -80,3 +77,67 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
+<script>
+    // Fonction pour générer une référence de commande unique
+    function generateReference() {
+        const date = new Date();
+        const reference = 'CMD' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2) + ('0' + date.getHours()).slice(-2) + ('0' + date.getMinutes()).slice(-2) + ('0' + date.getSeconds()).slice(-2);
+        return reference;
+    }
+
+    // Fonction pour enregistrer la commande
+    function enregistrerCommande(commandeData) {
+        const panier = JSON.parse(sessionStorage.getItem('panier'));
+     
+       fetch('/enregistrer-commande', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ panier: panier, commandeData: commandeData })       
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            sessionStorage.setItem('referenceCommande', data.referenceCommande);
+            window.location.href = "commande";
+        })
+        .catch(error => console.error('Erreur lors de l\'enregistrement de la commande :', error));
+    }
+    function confirmOrder() {
+    const subtotal = document.getElementById("subtotalValue").textContent;
+    const deliveryCost = document.getElementById("deliveryCostValue").textContent;
+    const totalSum = document.getElementById("totalSumValue").textContent;
+
+    const commandeData = {
+        subtotal: subtotal,
+        deliveryCost: deliveryCost,
+        totalSum: totalSum
+    };
+
+    enregistrerCommande(commandeData);
+}
+  // Fonction appelée lors du clic sur le bouton Commander
+function redirectToCommande() {
+    const subtotal = sessionStorage.getItem("subtotal");
+    const deliveryCost = sessionStorage.getItem("deliveryCost");
+    const totalSum = sessionStorage.getItem("totalSum");
+
+    // Créer l'objet à envoyer dans la requête POST
+    const commandeData = {
+        subtotal: subtotal,
+        deliveryCost: deliveryCost,
+        totalSum: totalSum
+    };
+
+    fetch('/articles-commandes')
+    .then(response => response.json())
+    .then(data => {
+        sessionStorage.setItem('panier', JSON.stringify(data));
+        enregistrerCommande(commandeData); // Passer les données de commande à la fonction d'enregistrement de commande
+    })
+    .catch(error => console.error('Erreur lors de la récupération des articles du panier :', error));
+}
+
+
+</script>

@@ -1,68 +1,142 @@
-<!-- commande.html -->
 <html lang="en">
 <head>
-    <link href="/assests/syles-personnel/commande.css" rel="stylesheet">
-    <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
-    <link href="/assests/syles-personnel/service.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
-    <script>
-        // Function to fetch the cart contents and update the order details
-        function updateOrderDetails() {
-            const cartContents = getCartContents();
-            let orderDetails = document.getElementById("orderDetails");
-
-            if (cartContents.length > 0 && orderDetails) {
-                // Clear existing content
-                orderDetails.innerHTML = "";
-
-                // Add each item in the cart to the order details
-                cartContents.forEach((item) => {
-                    let productItem = document.createElement("div");
-                    productItem.classList.add("product-item");
-
-                    let productName = document.createElement("p");
-                    productName.textContent = `Produit: ${item.name}`;
-
-                    let productPrice = document.createElement("p");
-                    productPrice.textContent = `Prix: ${item.price.toFixed(2)} DT`;
-
-                    // You can add more details based on your product structure
-
-                    productItem.appendChild(productName);
-                    productItem.appendChild(productPrice);
-
-                    orderDetails.appendChild(productItem);
-                });
-            }
+    <style>
+        .order-summary {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px;
+            max-width: 600px;
+            margin: auto;
         }
 
-        // Function to get cart contents from localStorage
-        function getCartContents() {
-            return JSON.parse(localStorage.getItem("cart")) || [];
+        .order-summary h2 {
+            text-align: center;
         }
 
-        // Call the updateOrderDetails function when the page loads
-        window.onload = function () {
-            updateOrderDetails();
-        };
-    </script>
+        .invoice {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .invoice th, .invoice td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .invoice th {
+            background-color: #f2f2f2;
+        }
+
+        .invoice tfoot td {
+            border-top: 2px solid #000;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <main>
         <div class="abcd">
-            <!-- Le reste du code HTML de votre page -->
             <div class="order-summary">
-                <h2>Récapitulatif de la commande</h2>
-                <div id="orderDetails">
-                    <!-- Les détails de la commande seront affichés ici -->
-                </div>
+                <h2>Facture</h2>
+                <!-- Informations sur l'utilisateur -->
+                <p><strong>القفة</strong>  email : abchoukfatma18@gmail.com , numero : +21652086967</p>
+                <p>Facture envoyée à : <span id="nomUtilisateur"></span></p>
+                <p> téléphone : <span id="numeroUtilisateur"></span></p> 
+               <p>  adresse:<span id="adresseUtilisateur"></span> </p>
+              <!-- Dans votre fichier commande.html -->
+<p>Référence de commande : <span id="referenceCommande"><%= referenceCommande %></span></p>
+<p>Date de commande : <span id="dateCommande"><%= dateCommande %></span></p>
+<!-- Tableau pour afficher la facture -->
+                <table class="invoice">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire (DT)</th>
+                            <th>Total (DT)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les détails de la commande seront affichés ici -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">Sous-total:</td>
+                            <td id="subtotalValue"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Frais de livraison:</td>
+                            <td id="deliveryCostValue"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Total:</td>
+                            <td id="totalSumValue"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <!-- Mot de remerciement -->
+                <p>Merci</p>
+                <!-- Moyen de paiement -->
+                <p>Moyen de paiement: "Comptant à la livraison"</p>
             </div>
         </div>
     </main>
-    <%- include("service.html") %>
-    <%- include("footer.html") %>
+</body>
+</html>
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<!-- Les balises de liaison JavaScript -->
+<script>
+    window.onload = function() {
+      // Récupérer les valeurs de la session pour afficher le résumé de la commande
+      const subtotal = sessionStorage.getItem("subtotal");
+      const deliveryCost = sessionStorage.getItem("deliveryCost");
+      const totalSum = sessionStorage.getItem("totalSum");
+  
+      // Afficher les valeurs dans les éléments HTML correspondants
+      document.getElementById("subtotalValue").textContent = subtotal;
+      document.getElementById("deliveryCostValue").textContent = deliveryCost;
+      document.getElementById("totalSumValue").textContent = totalSum;
+  
+      // Récupérer les détails de la commande depuis le panier
+   // Récupérer les détails de la commande depuis le panier
+fetch('/articles-commandes')
+  .then(response => response.json())
+  .then(facture => {
+    const commandeDetails = document.querySelector('.invoice tbody');
+    // Afficher les articles commandés
+    facture.articles.forEach(article => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${article.titre}</td>
+        <td>${article.quantite}</td>
+        <td>${article.prixParKilo}</td>
+        <td>${article.prix_total}</td>
+      `;
+      commandeDetails.appendChild(row);
+    });
+
+    // Afficher les informations de l'utilisateur
+    document.getElementById("nomUtilisateur").textContent = facture.nomUtilisateur;
+    document.getElementById("numeroUtilisateur").textContent = facture.numeroUtilisateur;
+    document.getElementById("adresseUtilisateur").textContent = facture.adresseUtilisateur;
+
+    // Vérifier si la date de commande est présente dans la réponse JSON
+    if (facture.dateCommande) {
+      // Formater la date dans le format souhaité
+      const dateCommande = new Date(facture.dateCommande);
+      const formattedDate = dateCommande.toDateString() + " " + dateCommande.toLocaleTimeString();
+      // Assurez-vous que la date est correctement insérée dans le DOM
+      document.getElementById("dateCommande").textContent = formattedDate;
+    }
+  })
+  .catch(error => console.error('Erreur lors de la récupération des articles du panier :', error));
+};
+
+
+  </script>
+  
+  
 </body>
 </html>
