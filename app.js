@@ -14,7 +14,7 @@ const crypto = require('crypto');
 const twilio = require('twilio');
 require('dotenv').config(); 
 const multer = require('multer'); /// Charge les variables d'environnement depuis le fichier .env
-
+const htmlToImage = require('html-to-image');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -628,18 +628,18 @@ function generateReference() {
   const reference = 'CMD' + date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2) + ('0' + date.getHours()).slice(-2) + ('0' + date.getMinutes()).slice(-2) + ('0' + date.getSeconds()).slice(-2);
   return reference;
 }
-
 let commandeCounter = 0; // Variable pour suivre le nombre de commandes enregistrées
 
+// Route pour enregistrer une commande
 app.post('/enregistrer-commande', (req, res) => {
   console.log("Received request body:", req.body); // Log the entire request body to see if values are present
   const { panier, commandeData } = req.body;
     
   const { utilisateur } = res.locals;
-  const { articles, nomUtilisateur, numeroUtilisateur, adresseUtilisateur, moyenPaiement  } = panier; // Modifier cette ligne
+  const { articles, nomUtilisateur, numeroUtilisateur, adresseUtilisateur, moyenPaiement  } = panier;
 
   // Extraire les données de commande de commandeData
-  const { subtotal, deliveryCost, totalSum } = commandeData; // Modifier cette ligne
+  const { subtotal, deliveryCost, totalSum } = commandeData;
    
   req.session.commandeCounter = commandeCounter;
   req.session.subtotal = subtotal;
@@ -667,13 +667,108 @@ app.post('/enregistrer-commande', (req, res) => {
               return res.status(500).json({ error: 'Erreur serveur' });
           }
            // Insérer les détails de la commande dans la table "Valide"
-     
       });
   });
 
-  // Répondre au client avec la référence de commande générée
-  res.json({ message: 'Commande enregistrée avec succès', referenceCommande: referenceCommande });
-}); 
+  // Envoyer un e-mail à l'utilisateur
+  const userEmailQuery = 'SELECT email FROM utulisateurs WHERE id = ?';
+  db.query(userEmailQuery, [utilisateur.id], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la récupération de l\'adresse e-mail de l\'utilisateur :', error.message);
+      return res.status(500).json({ error: 'Erreur serveur' });
+    }
+
+    if (results.length === 0 || !results[0].email) {
+      console.error('Adresse e-mail non trouvée pour l\'utilisateur connecté.');
+      return res.status(400).json({ error: 'Adresse e-mail non trouvée pour l\'utilisateur connecté' });
+    }
+
+    const userEmail = results[0].email;
+    const subject = 'Votre commande a été passée';
+    const text = 'Merci pour votre commande. Votre référence de commande est : ' + referenceCommande  + ''; // Vous pouvez personnaliser ce message
+    sendEmail(userEmail, subject, text);
+
+    // Répondre au client avec la référence de commande générée
+    res.json({ message: 'Commande enregistrée avec succès', referenceCommande: referenceCommande });
+  });
+});
+
+// Function to send email
+function sendEmail(email, subject, text) {
+  const mailOptions = {
+    from: 'abchoukfatma18@gmail.com',
+    to: email,
+    subject: subject,
+    text: text
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
+    } else {
+      console.log('E-mail envoyé :', info.response);
+    }
+  });
+}
+
+
+// Function to send email
+function sendEmail(email, subject, text) {
+  const mailOptions = {
+    from: 'abchoukfatma18@gmail.com',
+    to: email,
+    subject: subject,
+    text: text
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
+    } else {
+      console.log('E-mail envoyé :', info.response);
+    }
+  });
+}
+ 
+// Route pour récupérer les commandes de l'utilisateur connecté
+app.get("/factures", protectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
+
+  if (utilisateur) {
+    const idUtilisateur = utilisateur.id;
+
+    // Requête SQL pour sélectionner les commandes de l'utilisateur connecté
+    db.query('SELECT * FROM valider WHERE id_utilisateur = ?', [idUtilisateur], (err, commandes) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des commandes de l\'utilisateur : ' + err.message);
+        return res.status(500).send('Erreur serveur');
+      }
+
+      // Renvoyer les commandes à la page facture.html
+      res.render("factures", { commandes });
+    });
+  } else {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    res.redirect("/connexion");
+  }
+});
+
+// Route pour afficher les détails de la commande
+app.get('/details-commande', (req, res) => {
+  // Récupérez la référence de commande depuis la session
+  const referenceCommande = req.session.referenceCommande;
+
+  // Requête SQL pour sélectionner les détails de la commande correspondante
+  db.query('SELECT * FROM commaande WHERE referenceCommande = ?', [referenceCommande], (err, detailsCommande) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des détails de la commande : ' + err.message);
+          return res.status(500).send('Erreur serveur');
+      }
+
+      // Afficher les détails de la commande sur la page details-commande.html
+      res.render('details-commande', { detailsCommande });
+  });
+});
 
 app.post("/deconnexion", (req, res) => {
   req.session.destroy((err) => {

@@ -1,0 +1,49 @@
+<!-- Dans votre fichier facture.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factures</title>
+</head>
+<body>
+    <h1>Liste des Factures</h1>
+
+    <!-- Affichage des commandes -->
+    <ul>
+        <% commandes.forEach(commande => { %>
+            <li>
+                <p>Référence de commande : <%= commande.referenceCommande %></p>
+                <p>Sous-total : <%= commande.subtotal %> DT</p>
+                <p>Frais de livraison : <%= commande.deliveryCost %> DT</p>
+                <p>Total : <%= commande.totalSum %> DT</p>
+                <button class="afficher-details" data-reference="<%= commande.referenceCommande %>">Afficher détails de commande</button>
+            </li>
+        <% }); %>
+    </ul>
+
+    <script>
+        // Dans votre fichier JavaScript (facture.js par exemple)
+document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionnez tous les boutons "Afficher détails de commande"
+    const buttons = document.querySelectorAll('.afficher-details');
+    
+    // Ajoutez un écouteur d'événements à chaque bouton
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Récupérez la référence de commande associée à ce bouton
+            const referenceCommande = button.dataset.reference;
+            
+            // Stockez la référence de commande dans une session
+            sessionStorage.setItem('referenceCommande', referenceCommande);
+            
+            // Redirigez l'utilisateur vers la page des détails de commande
+            window.location.href = '/details-commande';
+        });
+    });
+});
+
+   </script>
+    
+</body>
+</html>

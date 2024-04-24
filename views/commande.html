@@ -83,8 +83,7 @@
             </div>
         </div>
     </main>
-</body>
-</html>
+
 
 <!-- Les balises de liaison JavaScript -->
 <script>
@@ -133,6 +132,28 @@ fetch('/articles-commandes')
   })
   .catch(error => console.error('Erreur lors de la récupération des articles du panier :', error));
 };
+// Utiliser html2canvas pour capturer l'image de la facture
+html2canvas(document.querySelector('.order-summary')).then(canvas => {
+    // Convertir le canvas en image au format base64
+    const imageData = canvas.toDataURL();
+
+    // Envoyer l'image à la page admin et l'enregistrer dans la base de données
+    fetch('/enregistrer-image-facture', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imageData: imageData }),
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Image de facture envoyée et enregistrée avec succès.');
+        } else {
+            console.error('Erreur lors de l\'envoi et de l\'enregistrement de l\'image de facture.');
+        }
+    })
+    .catch(error => console.error('Erreur lors de l\'envoi et de l\'enregistrement de l\'image de facture :', error));
+});
 
 
   </script>
