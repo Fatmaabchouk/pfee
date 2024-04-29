@@ -1,21 +1,75 @@
-<!-- details-commande.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la commande</title>
+    <style>
+        /* Style de base pour le tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Style pour l'en-tête de tableau */
+        thead {
+            background-color: #f2f2f2;
+        }
+
+        /* Style pour les cellules de tableau */
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+
+        /* Style pour les cellules de tableau dans la première colonne */
+        td:first-child, th:first-child {
+            text-align: left;
+        }
+
+        /* Style pour les cellules de tableau dans la dernière colonne */
+        td:last-child, th:last-child {
+            text-align: right;
+        }
+
+        /* Style pour les lignes alternées du tableau */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Style pour la première ligne du tableau */
+        tbody tr:first-child {
+            font-weight: bold;
+            background-color: #e0e0e0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Détails de la commande</h1>
-
-    <% detailsCommande.forEach(detail => { %>
-        <p>Référence de commande : <%= detail.referenceCommande %></p>
-        <p>Quantité : <%= detail.quantite %></p>
-        <p>Titre : <%= detail.titre %></p>
-        <p>Prix par Kilo : <%= detail.prixParKilo %></p>
-        <p>Prix total : <%= detail.prix_total %></p>
-        <p>Date de commande : <%= detail.dateCommande %></p>
-    <% }); %>
+    <h1>Détails de la commande</h1> 
+    
+  <table>
+        <thead>
+            <tr>
+              
+                <th>Quantité</th>
+                <th>Titre</th>
+                <th>Prix par Kilo</th>
+                <th>Prix total</th>
+                <th>Date de commande</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% detailsCommande.forEach(detail => { %>
+                <tr>
+                   <td><%= detail.quantite %> Kg
+                </td>
+                    <td><%= detail.titre %></td>
+                    <td><%= detail.prixParKilo %></td>
+                    <td><%= detail.prix_total %></td>
+                    <td><%= detail.dateCommande %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 </body>
 </html>

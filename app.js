@@ -128,9 +128,9 @@ app.post("/connexion", async (req, res) => {
   if (email && password) {
     try {
       // Vérifier si l'utilisateur est l'administrateur
-      if (email.toLowerCase() === 'admin11@gmail.com' && password === 'Admin123456') {
-        // Rediriger vers la page d'administration
-        return res.redirect("/admin");
+      if (email === "admin1@gmail.com" && password === "Admin123456") {
+        // Si l'email et le mot de passe correspondent à ceux de l'administrateur, rediriger vers la page a.html
+        return res.redirect("/a");
       }
 
       // Si ce n'est pas l'administrateur, effectuez la vérification normale
@@ -450,10 +450,28 @@ app.get("/freshbox", (req, res) => {
   console.log(utilisateur);
   res.render("freshbox", { cours,utilisateur , em});
 });
-app.get("/admin", protectionRoute ,  (req, res) => {
+app.get("/admin", (req, res) => {
   const {utilisateur} = res.locals;
   res.render("admin", {utilisateur});
 });
+app.get("/a",  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("a", {utilisateur});
+});
+// Route pour récupérer les utilisateurs
+app.get('/get-users', (req, res) => {
+  // Requête SQL pour sélectionner les utilisateurs avec les champs spécifiés
+  db.query('SELECT nom, email,  phone, Adress1 , Adress2 FROM utulisateurs', (err, users) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des utilisateurs : ' + err.message);
+          return res.status(500).send('Erreur serveur');
+      }
+
+      // Envoyer les utilisateurs en tant que réponse JSON
+      res.json(users);
+  });
+});
+
 app.get("/modelivraison", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("modelivraison", {utilisateur});
@@ -755,20 +773,26 @@ app.get("/factures", protectionRoute, (req, res) => {
 
 // Route pour afficher les détails de la commande
 app.get('/details-commande', (req, res) => {
-  // Récupérez la référence de commande depuis la session
-  const referenceCommande = req.session.referenceCommande;
+  // Récupérer la référence de commande depuis les paramètres de requête
+  const referenceCommande = req.query.referenceCommande;
 
-  // Requête SQL pour sélectionner les détails de la commande correspondante
-  db.query('SELECT * FROM commaande WHERE referenceCommande = ?', [referenceCommande], (err, detailsCommande) => {
+  // Requête SQL paramétrée pour sélectionner les détails de la commande correspondante
+  db.query('SELECT * FROM commaande WHERE referenceCommande = ?', [referenceCommande], (err, rows) => {
       if (err) {
           console.error('Erreur lors de la récupération des détails de la commande : ' + err.message);
           return res.status(500).send('Erreur serveur');
       }
 
+      // Vérifier si des données ont été trouvées
+      if (rows.length === 0) {
+          return res.status(404).send('Commande non trouvée');
+      }
+
       // Afficher les détails de la commande sur la page details-commande.html
-      res.render('details-commande', { detailsCommande });
+      res.render('details-commande', { detailsCommande: rows });
   });
 });
+
 
 app.post("/deconnexion", (req, res) => {
   req.session.destroy((err) => {

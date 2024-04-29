@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 20px;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin-top: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li id="dashboard">Tableau de bord</li>
+            <li id="manage-users">Gestion des utilisateurs</li>
+            <li id="manage-products">Gestion des produits</li>
+            <li id="statistics">Statistiques</li>
+            <li id="logout">Déconnexion</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>Tableau de bord administrateur</h1>
+        <p>Bienvenue dans le tableau de bord administrateur.</p>
+        <p>Ici, vous pouvez gérer les utilisateurs, les produits, voir les statistiques, etc.</p>
+    </div>
+
+    <script>
+        const mainContent = document.querySelector('.main-content');
+        const manageUsers = document.getElementById('manage-users');
+
+        // Ajout de l'événement click sur "Gestion des utilisateurs"
+        manageUsers.addEventListener('click', function() {
+            // Barre de recherche
+            const searchHTML = `
+                <div>
+                    <input type="text" id="searchInput" placeholder="Rechercher par email...">
+                    <button id="searchButton">Rechercher</button>
+                </div>
+            `;
+
+            // Afficher la barre de recherche
+            mainContent.innerHTML = searchHTML;
+
+            // Récupérer les utilisateurs et les afficher
+            fetch('/get-users') // Envoyer une requête au serveur pour récupérer les utilisateurs
+            .then(response => response.json()) // Convertir la réponse en JSON
+            .then(users => {
+                // Générer le contenu HTML avec les utilisateurs récupérés
+                const usersHTML = `
+                    <h1>Gestion des utilisateurs</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Adresse 1</th>
+                                <th>Adresse 2</th>
+                                <th>Numero de telephone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${users.map(user => `
+                                <tr>
+                                    <td>${user.nom}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.Adress1}</td>
+                                    <td>${user.Adress2}</td>
+                                    <td>${user.phone}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                // Afficher le contenu HTML dans la partie principale du tableau de bord
+                mainContent.innerHTML += usersHTML; // Utilisation de "+=" pour ajouter au contenu existant
+
+                // Ajout de l'événement click sur le bouton de recherche
+                const searchButton = document.getElementById('searchButton');
+                searchButton.addEventListener('click', function() {
+                    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+                    const foundUser = users.find(user => user.email.toLowerCase() === searchInput);
+                    if (foundUser) {
+                        alert(`Utilisateur trouvé :\nNom: ${foundUser.nom}\nEmail: ${foundUser.email}\nAdresse 1: ${foundUser.Adress1}\nAdresse 2: ${foundUser.Adress2}\nNuméro de téléphone: ${foundUser.phone}`);
+                    } else {
+                        alert("Utilisateur introuvable.");
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des utilisateurs :', error);
+                alert("Erreur lors de la récupération des utilisateurs.");
+            });
+        });
+    </script>
+</body>
+</html>

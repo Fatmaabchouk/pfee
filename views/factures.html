@@ -36,10 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Stockez la référence de commande dans une session
             sessionStorage.setItem('referenceCommande', referenceCommande);
-            
-            // Redirigez l'utilisateur vers la page des détails de commande
-            window.location.href = '/details-commande';
-        });
+            window.location.href = '/details-commande?referenceCommande=' + referenceCommande;
+});
     });
 });
 
