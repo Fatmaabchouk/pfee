@@ -471,7 +471,33 @@ app.get('/get-users', (req, res) => {
       res.json(users);
   });
 });
+app.get('/get-products', (req, res) => {
+  db.query('SELECT * FROM cours', (err, results) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des produits depuis la base de données :', err);
+          return res.status(500).send('Erreur serveur');
+      }
+      res.json(results); // Envoyer les produits en tant que réponse JSON
+  });
+});
 
+// Route pour mettre à jour un produit
+app.post('/update-product', (req, res) => {
+  const { titre, minititre, prixParKilo, type, productId } = req.body;
+
+  // Effectuez la mise à jour du produit dans la base de données
+  db.query(
+      'UPDATE cours SET titre=?, minititre=?, prixParKilo=?, type=? WHERE id=?',
+      [titre, minititre, prixParKilo, type, productId],
+      (err, result) => {
+          if (err) {
+              console.error('Erreur lors de la mise à jour du produit :', err);
+              return res.status(500).send('Erreur serveur lors de la mise à jour du produit.');
+          }
+          res.send('Produit mis à jour avec succès.');
+      }
+  );
+});
 app.get("/modelivraison", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("modelivraison", {utilisateur});

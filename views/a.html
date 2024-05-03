@@ -18,7 +18,7 @@
             top: 0;
             width: 250px;
             height: 100%;
-            background-color: #333;
+            background-color: #eeaf90;
             padding-top: 20px;
         }
         
@@ -30,13 +30,13 @@
         
         .sidebar ul li {
             padding: 10px;
-            color: #fff;
+            color: #080404;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         
         .sidebar ul li:hover {
-            background-color: #555;
+            background-color: #e66e0d;
         }
         
         .main-content {
@@ -54,7 +54,7 @@
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #d58d53;
             padding: 8px;
             text-align: left;
         }
@@ -62,6 +62,64 @@
         th {
             background-color: #f2f2f2;
         }
+        #searchContainer {
+    margin-left: 900px;
+    color: orange;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff7300; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte */
+    border: none;
+    border-radius: 5px; /* Pour arrondir les coins du bouton */
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+     margin-left: 870px;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Couleur de fond du bouton au survol */
+}
+
+.button1 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6a00; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte */
+    border: none;
+    border-radius: 5px; /* Pour arrondir les coins du bouton */
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button1:hover {
+    background-color: #00b315; /* Couleur de fond du bouton au survol */
+}
+.button2 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff0000; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte */
+    border: none;
+    border-radius: 5px; /* Pour arrondir les coins du bouton */
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button2:hover {
+    background-color: #00b315; /* Couleur de fond du bouton au survol */
+}
+.selected {
+    background-color: #e66e0d;
+    color: #fff;
+}
+
+/* Le reste de vos styles CSS existants */
+
     </style>
 </head>
 <body>
@@ -81,14 +139,61 @@
     </div>
 
     <script>
+     window.addEventListener('DOMContentLoaded', (event) => {
+    const dashboard = document.getElementById('dashboard');
+    const mainContent = document.querySelector('.main-content');
+
+    // Fonction pour mettre en surbrillance l'élément "Tableau de bord" et afficher le contenu correspondant
+    function showDashboard() {
+        // Mettre en surbrillance l'élément "Tableau de bord"
+        dashboard.classList.add('selected');
+        // Afficher le contenu correspondant dans la partie principale
+        mainContent.innerHTML = `
+            <h1>Tableau de bord administrateur</h1>
+            <p>Bienvenue dans le tableau de bord administrateur.</p>
+            <p>Ici, vous pouvez gérer les utilisateurs, les produits, voir les statistiques, etc.</p>
+        `;
+    }
+
+    // Appeler la fonction pour afficher le tableau de bord lors du chargement de la page
+    showDashboard();
+
+    // Ajout de l'événement click sur "Tableau de bord"
+    dashboard.addEventListener('click', function() {
+        // Réinitialiser la mise en surbrillance de tous les éléments de la barre latérale
+        const sidebarItems = document.querySelectorAll('.sidebar ul li');
+        sidebarItems.forEach(item => {
+            item.classList.remove('selected');
+        });
+        // Mettre en surbrillance l'élément "Tableau de bord"
+        dashboard.classList.add('selected');
+        // Afficher le contenu correspondant dans la partie principale
+        showDashboard();
+    });
+});
+
+
+            // Fonction pour supprimer la classe "selected" de tous les éléments de la barre latérale
+            function clearSelected() {
+            const sidebarItems = document.querySelectorAll('.sidebar ul li');
+            sidebarItems.forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
+
+        // Fonction pour ajouter la classe "selected" à l'élément cliqué
+        function setSelected(element) {
+            clearSelected();
+            element.classList.add('selected');
+        }
         const mainContent = document.querySelector('.main-content');
         const manageUsers = document.getElementById('manage-users');
 
         // Ajout de l'événement click sur "Gestion des utilisateurs"
         manageUsers.addEventListener('click', function() {
-            // Barre de recherche
+            setSelected(manageUsers);
             const searchHTML = `
-                <div>
+                <div id="searchContainer">
                     <input type="text" id="searchInput" placeholder="Rechercher par email...">
                     <button id="searchButton">Rechercher</button>
                 </div>
@@ -132,7 +237,8 @@
 
                 // Ajout de l'événement click sur le bouton de recherche
                 const searchButton = document.getElementById('searchButton');
-                searchButton.addEventListener('click', function() {
+                searchButton.addEventListener('click', function() { 
+                    
                     const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
                     const foundUser = users.find(user => user.email.toLowerCase() === searchInput);
                     if (foundUser) {
@@ -147,6 +253,69 @@
                 alert("Erreur lors de la récupération des utilisateurs.");
             });
         });
+    </script>
+    <script>
+        const manageProducts = document.getElementById('manage-products');
+
+// Ajout de l'événement click sur "Gestion des produits"
+manageProducts.addEventListener('click', function() {
+    setSelected(manageProducts);
+    // Récupérer les produits et les afficher
+    fetch('/get-products') // Envoyer une requête au serveur pour récupérer les produits
+    .then(response => response.json()) // Convertir la réponse en JSON
+    .then(products => {
+        // Générer le contenu HTML avec les produits récupérés
+        const productsHTML = `
+            <h1>Gestion des produits</h1>
+            <a href="admin" class = "button">Ajouter un Produit  </a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Mini-titre</th>
+                        <th>Prix par kilo</th>
+                        <th>Image</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${products.map(product => `
+                        <tr>
+                            <td>${product.titre}</td>
+                            <td>${product.minititre}</td>
+                            <td>${product.prixParKilo}</td>
+                            <td><img src="${product.lienThumbnail}" alt="${product.titre}" style="max-width: 100px;"></td>
+                            <td>${product.type}</td>
+                            <td>
+                                <button class="button1"  onclick="modifierProduit(${JSON.stringify(product)})">Modifier</button>
+                                <button class="button2"  onclick="supprimerProduit(${JSON.stringify(product)})">Supprimer</button>
+                            
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        // Afficher le contenu HTML dans la partie principale du tableau de bord
+        mainContent.innerHTML = productsHTML; // Remplacer le contenu existant par les produits
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des produits :', error);
+        alert("Erreur lors de la récupération des produits.");
+    });
+});
+   // Ajout de l'événement click sur "Statistiques"
+   statistics.addEventListener('click', function() {
+            setSelected(statistics);
+            // Votre code de statistiques...
+        });
+
+        // Ajout de l'événement click sur "Déconnexion"
+        logout.addEventListener('click', function() {
+            setSelected(logout);
+            // Votre code de déconnexion...
+        });
+
     </script>
 </body>
 </html>

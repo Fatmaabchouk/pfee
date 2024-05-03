@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de la commande</title>
+    <title>Détails de la commande </title>
     <style>
         /* Style de base pour le tableau */
         table {
@@ -13,15 +13,21 @@
 
         /* Style pour l'en-tête de tableau */
         thead {
-            background-color: #f2f2f2;
+            background-color: #3f1602;
         }
 
         /* Style pour les cellules de tableau */
         td, th {
-            border: 1px solid #dddddd;
-            padding: 8px;
+            border: 1px solid #7b1717;
+            padding: 10px;
         }
-
+        th  {
+    color: orange; /* Changer la couleur du texte en orange */
+}
+ h1 {
+    color: rgb(255, 119, 0);
+     /* Changer la couleur du texte en orange */
+}
         /* Style pour les cellules de tableau dans la première colonne */
         td:first-child, th:first-child {
             text-align: left;
@@ -32,15 +38,31 @@
             text-align: right;
         }
 
-        /* Style pour les lignes alternées du tableau */
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
+       /* Style pour les lignes alternées du tableau */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Changer la couleur pour plus de contraste */
+}
         /* Style pour la première ligne du tableau */
         tbody tr:first-child {
-            font-weight: bold;
-            background-color: #e0e0e0;
+    font-weight: bold;
+    background-color: #e0e0e0;
+
+}
+.retour {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Style pour le survol du bouton */
+        .retour:hover {
+            background-color: #ff9900;
         }
     </style>
 </head>
@@ -71,5 +93,6 @@
             <% }); %>
         </tbody>
     </table>
+    <a href="factures" class="retour">Retour</a>
 </body>
 </html>

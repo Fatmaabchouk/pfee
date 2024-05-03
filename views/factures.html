@@ -1,47 +1,136 @@
-<!-- Dans votre fichier facture.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factures</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Styles pour l'en-tête */
+        header {
+            background-color: #f37814; /* Vert foncé */
+            color: #ffffff; /* Texte blanc */
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        /* Styles pour la liste de factures */
+        h1 {
+            color: #333; /* Texte noir */
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ajout pour positionner le bouton de suppression */
+        }
+
+        p {
+            margin: 0;
+        }
+
+        button.afficher-details, button.supprimer-commande {
+            background-color: #ec691e; /* Vert foncé */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px; /* Ajout de marge entre les boutons */
+        }
+
+        button.afficher-details:hover, button.supprimer-commande:hover {
+            background-color: #f27d2a; /* Vert clair au survol */
+        }
+
+        /* Styles pour le pied de page */
+        footer {
+            background-color: #333; /* Fond sombre */
+            color: #fff; /* Texte blanc */
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Liste des Factures</h1>
+    <header>
+        <h1>Historique des Commandes</h1>
+    </header>
 
-    <!-- Affichage des commandes -->
-    <ul>
-        <% commandes.forEach(commande => { %>
-            <li>
-                <p>Référence de commande : <%= commande.referenceCommande %></p>
-                <p>Sous-total : <%= commande.subtotal %> DT</p>
-                <p>Frais de livraison : <%= commande.deliveryCost %> DT</p>
-                <p>Total : <%= commande.totalSum %> DT</p>
-                <button class="afficher-details" data-reference="<%= commande.referenceCommande %>">Afficher détails de commande</button>
-            </li>
-        <% }); %>
-    </ul>
+    <div class="container">
+        <!-- Affichage des commandes -->
+        <ul>
+            <% commandes.forEach(commande => { %>
+                <li>
+                    <p>Référence de commande : <%= commande.referenceCommande %></p>
+                    <p>Sous-total : <%= commande.subtotal %> DT</p>
+                    <p>Frais de livraison : <%= commande.deliveryCost %> DT</p>
+                    <p>Total : <%= commande.totalSum %> DT</p>
+                    <button class="afficher-details" data-reference="<%= commande.referenceCommande %>">Afficher détails de commande</button>
+                    <button class="supprimer-commande" data-reference="<%= commande.referenceCommande %>">Supprimer commande</button>
+                </li>
+            <% }); %>
+            
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Votre entreprise</p>
+    </footer>
 
     <script>
-        // Dans votre fichier JavaScript (facture.js par exemple)
-document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionnez tous les boutons "Afficher détails de commande"
-    const buttons = document.querySelectorAll('.afficher-details');
+        document.addEventListener('DOMContentLoaded', function() {
+    const buttonsDetails = document.querySelectorAll('.afficher-details');
+    const buttonsDelete = document.querySelectorAll('.supprimer-commande');
     
-    // Ajoutez un écouteur d'événements à chaque bouton
-    buttons.forEach(button => {
+    buttonsDetails.forEach(button => {
         button.addEventListener('click', function() {
-            // Récupérez la référence de commande associée à ce bouton
             const referenceCommande = button.dataset.reference;
-            
-            // Stockez la référence de commande dans une session
             sessionStorage.setItem('referenceCommande', referenceCommande);
             window.location.href = '/details-commande?referenceCommande=' + referenceCommande;
-});
+        });
+    });
+
+    buttonsDelete.forEach(button => {
+        button.addEventListener('click', function() {
+            const referenceCommande = button.dataset.reference;
+            const liToRemove = button.closest('li');
+            liToRemove.remove();
+            // Vous pouvez ici envoyer une requête au serveur pour marquer la commande comme supprimée
+        });
     });
 });
 
-   </script>
-    
+  </script>
 </body>
 </html>
