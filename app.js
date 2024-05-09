@@ -441,14 +441,53 @@ app.get("/legumes", (req, res) => {
       // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
       return res.status(500).send('Erreur serveur');
     }
-    res.render("fruits", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+    res.render("legumes", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
+});
+app.get("/freshbox", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "box"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("freshbox", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
+});
+app.get("/mixbox", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "mix Box"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("mixbox", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
   });
 });
 
-app.get("/freshbox", (req, res) => {
-  const {utilisateur} = res.locals;
-  console.log(utilisateur);
-  res.render("freshbox", { cours,utilisateur , em});
+app.get("/fruitsbox", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "Fruits-Box"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("fruitsbox", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
+});
+app.get("/legumesbox", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "legumesbox"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("legumesbox", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
 });
 app.get("/admin", (req, res) => {
   const {utilisateur} = res.locals;
@@ -480,24 +519,88 @@ app.get('/get-products', (req, res) => {
       res.json(results); // Envoyer les produits en tant que réponse JSON
   });
 });
-
-// Route pour mettre à jour un produit
-app.post('/update-product', (req, res) => {
-  const { titre, minititre, prixParKilo, type, productId } = req.body;
-
-  // Effectuez la mise à jour du produit dans la base de données
-  db.query(
-      'UPDATE cours SET titre=?, minititre=?, prixParKilo=?, type=? WHERE id=?',
-      [titre, minititre, prixParKilo, type, productId],
-      (err, result) => {
-          if (err) {
-              console.error('Erreur lors de la mise à jour du produit :', err);
-              return res.status(500).send('Erreur serveur lors de la mise à jour du produit.');
-          }
-          res.send('Produit mis à jour avec succès.');
-      }
-  );
+app.get("/modifier", (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("modifier", {utilisateur});
 });
+// Route pour récupérer les détails d'un article par son ID
+app.get('/get-product/:id', (req, res) => {
+  const productId = req.params.id;
+  // Requête SQL pour sélectionner les détails de l'article par son ID
+  db.query('SELECT * FROM cours WHERE id = ?', [productId], (err, product) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des détails de l\'article :', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      if (product.length === 0) {
+          return res.status(404).json({ error: 'Article non trouvé' });
+      }
+      // Envoyer les détails de l'article en tant que réponse JSON
+      res.json(product[0]);
+  });
+});
+
+app.post('/update-product/:id', (req, res) => {
+  const productId = req.params.id;
+  const updatedData = req.body; // Données mises à jour du formulaire
+
+  // Effectuer la mise à jour dans la base de données
+  db.query('UPDATE cours SET ? WHERE id = ?', [updatedData, productId], (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la mise à jour de l\'article :', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      // Envoyer une réponse indiquant que la mise à jour a réussi
+      res.json({ message: 'Mise à jour réussie' });
+  });
+});
+app.delete('/delete-product/:id', (req, res) => {
+  const productId = req.params.id;
+  // Supprimer le produit avec l'ID correspondant de la base de données
+  db.query('DELETE FROM cours WHERE id = ?', [productId], (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la suppression du produit:', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      res.json({ message: 'Produit supprimé avec succès' });
+  });
+});
+app.get('/get-commandes', (req, res) => {
+  db.query('SELECT * FROM valider', (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des commandes :', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      // Renvoyer les commandes au format JSON
+      res.json(result);
+  });
+});
+app.get("/Fact",  (req, res) => {
+  const {utilisateur} = res.locals;
+  res.render("Fact", {utilisateur});
+});
+// Route pour récupérer les détails de la commande par référence
+app.get('/get-commande/:reference', (req, res) => {
+  const referenceCommande = req.params.reference; // Récupérer la référence de commande depuis les paramètres de requête
+  const query = `SELECT * FROM commaande WHERE referenceCommande = ?`; // Modifier la requête SQL pour sélectionner en fonction de la référence de commande
+
+  connection.query(query, [referenceCommande], (error, results, fields) => {
+    if (error) {
+      console.error('Erreur lors de la récupération des détails de la commande :', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des détails de la commande.' });
+    } else {
+      if (results.length > 0) {
+        res.json(results[0]); // Renvoyer les données de la commande trouvée
+      } else {
+        res.status(404).json({ error: 'Commande introuvable.' });
+      }
+    }
+  });
+});
+
+
+
+
 app.get("/modelivraison", protectionRoute ,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("modelivraison", {utilisateur});

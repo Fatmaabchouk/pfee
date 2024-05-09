@@ -6,11 +6,18 @@
       <h6 class="card-text"><%= cours.titre %></h6>
       <h5 class="cat-title"><%= cours.minititre %></h5>
       <div class="emm">
-        <input type="number" id="quantity<%= cours.id %>" min="1" max="10" value="1">kg
-        <h8 id="pricePerKilo"><%= cours.prixParKilo %></h8>
+        <h8 id="pricePerKilo"style=" color :red ; font-size: xx-large;"> <%= cours.prixParKilo %></h8> Dt
+        <p>nbr de kilo ou de Box</p>
+        <input type="number" id="quantity<%= cours.id %>" min="1" max="10" style="background-color: orange; box-shadow: 0 0 4px #de4904;" value="1">kg 'ou' Box 
+
       </div>
       <div class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
+        <div class="btn-group" style="
+        position: relative;
+        display: inline-flex;
+        vertical-align: middle;
+        box-shadow: 0 0 36px #10dc60;
+    ">
           <button onclick="addToCart('<%= utilisateur && utilisateur.id %>', '<%= cours.titre %>', '<%= cours.minititre %>', '<%= cours.lienThumbnail %>', '<%= cours.prixParKilo %>', '<%= cours.id %>')" class="btn btn-sm btn-outline-secondary">
             <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon> Panier
           </button>
@@ -21,7 +28,7 @@
   </div>
   <div id="customDialog" class="custom-dialog">
     <p>
-      Vous avez ajouté <span id="dialogQuantity"></span> kg de <span id="dialogProductTitle"></span> à votre panier.
+      Vous avez ajouté <span id="dialogQuantity"></span> kg (ou) Box  de <span id="dialogProductTitle"></span> à votre panier.
       Le total est de <span id="dialogTotalPrice"></span> DT.
       Que souhaitez-vous faire?
     </p>

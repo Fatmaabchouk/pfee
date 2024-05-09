@@ -10,75 +10,96 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f4f4f4;
 }
 
 h1 {
     text-align: center;
+    color: #f4a236; /* Couleur du titre */
 }
 
 form {
     max-width: 600px;
     margin: 0 auto;
+    background-color: #fff;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 22px; /* Coins arrondis */
+    box-shadow: 0 0 36px #de4904; /* Ombre douce */
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 16px;
+    color: #e96e39; /* Couleur du texte des labels */
+    font-size: 18px; /* Taille de police des labels */
 }
 
 input[type="text"],
 input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-input[type="radio"] {
-    margin-right: 5px;
+    width: calc(100% - 20px); /* Largeur du champ de saisie, moins les bordures */
+    padding: 10px;
+    border: 1px solid #ff5100; /* Bordure orange */
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
+    background-color: #e77747;
+    color: #FFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    padding: 14px 40px; /* Rembourrage ajusté */
     cursor: pointer;
+    display: block; /* Affichage en bloc pour centrer */
+    margin: 0 auto; /* Centrage horizontal */
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #48b300; /* Changement de couleur au survol */
 }
 
+/* Styles pour les messages d'alerte */
+.alert {
+    background-color: #f44336; /* Rouge */
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert.error {
+    background-color: #f44336; /* Rouge */
+}
+
+.alert.success {
+    background-color: #4CAF50; /* Vert */
+}
+
+/* Styles pour l'image téléchargée */
 #uploadedImage {
-    max-width: 100%;
-    margin-bottom: 10px;
+    max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du formulaire */
+    margin-bottom: 20px;
 }
 
+/* Styles pour le bouton "Remove Image" */
 #removeButton {
-    display: block;
-    background-color: #f44336;
+    background-color: #ff0000; /* Rouge */
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    margin-left: 10px; /* Espacement avec le bouton précédent */
 }
 
 #removeButton:hover {
-    background-color: #da190b;
+    background-color: #cc0000; /* Rouge plus foncé au survol */
 }
 
     </style>
 </head>
 <body>
-    <h1>Page d'admin</h1>
+    <h1>Ajouter</h1>
 
     <form id="addCourseForm" enctype="multipart/form-data">
         <label for="courseTitle">Titre du cours :</label>
@@ -105,8 +126,28 @@ button:hover {
             <input type="radio" id="fruits" name="type" value="fruits">
             <label for="fruits">Fruits</label>
         </div>
+        <div>
+            <input type="radio" id="box" name="type" value="box">
+            <label for="box">fresh Box</label>
+        </div>
+        <div> 
+        <input type="radio" id="mixbox" name="type" value="mixbox">
+        <label for="box">mix Box</label>
+    </div>
+    <div> 
+        <input type="radio" id="fruitsbox" name="type" value="fruitsbox">
+        <label for="fruitsbox">Fruits-Box</label>
+    </div>
+    <div> 
+        <input type="radio" id="legumesbox" name="type" value="legumesbox">
+        <label for="legumesbox">legumes-Box</label>
+    </div>
+    <div> 
+        <input type="radio" id="box-personalise" name="type" value="box-personalise">
+        <label for="box-personalise">Box-Personaliser</label>
+    </div>
     
-        <button type="button" onclick="addCourse()">Ajouter le cours</button>
+        <button type="button" onclick="addCourse()">Ajouter </button>
     </form>
 
     <script>
@@ -150,8 +191,15 @@ button:hover {
                 // Rediriger l'utilisateur en fonction du type sélectionné
                 if (selectedType === 'legumes') {
                     window.location.href = 'legumes';
-                } else {
+                }if (selectedType === 'fruits') {
                     window.location.href = 'fruits';
+                }if (selectedType === 'mixbox') {
+                    window.location.href = 'mixbox';
+                }if (selectedType === 'box-personalise') {
+                    window.location.href = 'box-personalise';
+                }
+                 else {
+                    window.location.href = 'freshbox';
                 }
             })
             .catch(error => {

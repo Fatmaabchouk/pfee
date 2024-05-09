@@ -117,6 +117,11 @@
     background-color: #e66e0d;
     color: #fff;
 }
+.delivered-row {
+    background-color: #8aff8a; /* Couleur de fond pour les commandes livrées */
+}
+
+
 
 /* Le reste de vos styles CSS existants */
 
@@ -128,6 +133,9 @@
             <li id="dashboard">Tableau de bord</li>
             <li id="manage-users">Gestion des utilisateurs</li>
             <li id="manage-products">Gestion des produits</li>
+            <li id="manage-Commandes">Gestion des Commandes</li>
+            <li id="manage-Facturs">Gestion des Factures</li>
+          
             <li id="statistics">Statistiques</li>
             <li id="logout">Déconnexion</li>
         </ul>
@@ -139,6 +147,7 @@
     </div>
 
     <script>
+        
      window.addEventListener('DOMContentLoaded', (event) => {
     const dashboard = document.getElementById('dashboard');
     const mainContent = document.querySelector('.main-content');
@@ -287,9 +296,12 @@ manageProducts.addEventListener('click', function() {
                             <td><img src="${product.lienThumbnail}" alt="${product.titre}" style="max-width: 100px;"></td>
                             <td>${product.type}</td>
                             <td>
-                                <button class="button1"  onclick="modifierProduit(${JSON.stringify(product)})">Modifier</button>
-                                <button class="button2"  onclick="supprimerProduit(${JSON.stringify(product)})">Supprimer</button>
-                            
+                             
+<button class="button1"  onclick="modifierProduit(${product.id})">Modifier</button>
+
+<button class="button2" onclick="supprimerProduit(${product.id})">Supprimer</button>
+
+
                             </td>
                         </tr>
                     `).join('')}
@@ -315,7 +327,164 @@ manageProducts.addEventListener('click', function() {
             setSelected(logout);
             // Votre code de déconnexion...
         });
+        const manageFacturs = document.getElementById('manage-Facturs');
+const manageCommandes = document.getElementById('manage-Commandes');
 
+// Ajout de l'événement click sur "Gestion des Factures"
+manageFacturs.addEventListener('click', function() {
+    setSelected(manageFacturs);
+    // Votre code de déconnexion...
+});
+// Ajout de l'événement click sur "Gestion des Commandes"
+manageCommandes.addEventListener('click', function() {
+    setSelected(manageCommandes);
+    // Effectuer une requête pour récupérer toutes les commandes depuis la base de données
+    fetch('/get-commandes')
+    .then(response => response.json())
+    .then(commandes => {
+        // Générer le contenu HTML avec les commandes récupérées
+        const commandesHTML = `
+            <h1>Gestion des Commandes</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Commande</th>
+                        <th>ID Utilisateur</th>
+                        <th>ReferenceCommande</th>
+                        <th>Sous-Total</th>
+                        <th>Frais</th>
+                        <th>Total</th>
+                        <th>  </th>
+                        <!-- Autres colonnes à ajouter si nécessaire -->
+                    </tr>
+                </thead>
+                <tbody>
+                    ${commandes.map(commande => `
+                        <tr>
+                            <td>${commande.id}</td>
+                            <td>${commande.id_utilisateur}</td>
+                            <td>${commande.referenceCommande}</td>
+                            <td>${commande.subtotal}</td>
+                            <td>${commande.deliveryCost}</td>
+                            <td>${commande.totalSum}</td>
+                            <td><button class="btn-details" data-reference="${commande.referenceCommande}">Afficher détails</button></td> <!-- Bouton "Afficher détails de la commande" -->
+                            <td><button class="btn-delivered" data-reference="${commande.referenceCommande}">Commande livré</button></td>
+
+                            <!-- Autres colonnes à ajouter si nécessaire -->
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        // Afficher le contenu HTML dans la partie principale du tableau de bord
+        mainContent.innerHTML = commandesHTML;
+
+        // Ajouter un gestionnaire d'événements aux boutons "Afficher détails"
+        document.querySelectorAll('.btn-details').forEach(button => {
+            button.addEventListener('click', function() {
+                const referenceCommande = this.getAttribute('data-reference');
+                // Redirection vers la page Fact.html en passant la référence de la commande comme paramètre
+                window.location.href = `/Fact?reference=${referenceCommande}`;
+            });
+        });
+        document.querySelectorAll('.btn-delivered').forEach(button => {
+    button.addEventListener('click', function() {
+        const referenceCommande = this.getAttribute('data-reference');
+        const row = this.parentElement.parentElement;
+        if (!row.classList.contains('delivered-row')) {
+            row.classList.add('delivered-row');
+            const deliveredOrders = JSON.parse(localStorage.getItem('deliveredOrders')) || [];
+            deliveredOrders.push(referenceCommande);
+            localStorage.setItem('deliveredOrders', JSON.stringify(deliveredOrders));
+        } else {
+            console.log("La commande est déjà livrée.");
+        }
+
+        // Changer la couleur de la colonne
+        const tdColumn = row.querySelector('td'); // Sélectionne la première colonne
+        if (tdColumn) {
+            tdColumn.style.backgroundColor = 'green'; // Change la couleur de fond en vert
+            tdColumn.style.color = '#fff'; // Change la couleur du texte en blanc
+        }
+    });
+});
+
+    
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des commandes :', error);
+        alert("Erreur lors de la récupération des commandes.");
+    });
+});
+
+
+    </script>
+    <script>
+  // Côté Client (JavaScript)
+
+  function modifierProduit(productId) {
+    // Redirection vers la page modifier.html avec les détails de l'article en tant que paramètres de requête
+    window.location.href = `/modifier?id=${productId}`;
+}
+function supprimerProduit(productId) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
+        fetch(`/delete-product/${productId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('La suppression a échoué.');
+            }
+            // Actualiser la page après la suppression réussie
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erreur lors de la suppression du produit:', error);
+            // Gérer les erreurs de suppression
+            alert("Erreur lors de la suppression du produit.");
+        });
+    }
+}
+
+
+    </script>
+    <script>
+        // Fonction pour vérifier les commandes livrées et appliquer les styles appropriés
+        function checkDeliveredOrders() {
+            const deliveredOrders = JSON.parse(localStorage.getItem('deliveredOrders')) || [];
+            deliveredOrders.forEach(orderId => {
+                const row = document.querySelector(`[data-reference="${orderId}"]`);
+                if (row) {
+                    row.classList.add('delivered-row');
+                    // Changer la couleur de la première colonne (optionnel)
+                    const tdColumn = row.querySelector('td');
+                    if (tdColumn) {
+                        tdColumn.style.backgroundColor = '#8aff8a'; // Couleur de fond pour les commandes livrées
+                        tdColumn.style.color = '#000'; // Couleur du texte
+                    }
+                }
+            });
+        }
+    
+        // Appel de la fonction pour vérifier les commandes livrées lors du chargement de la page
+        checkDeliveredOrders();
+    
+        // Événement click sur le bouton "Commande livrée"
+        document.querySelectorAll('.btn-delivered').forEach(button => {
+            button.addEventListener('click', function() {
+                const referenceCommande = this.getAttribute('data-reference');
+                const row = this.parentElement.parentElement;
+                if (!row.classList.contains('delivered-row')) {
+                    row.classList.add('delivered-row');
+                    // Enregistrement de l'identifiant de la commande dans le localStorage
+                    const deliveredOrders = JSON.parse(localStorage.getItem('deliveredOrders')) || [];
+                    deliveredOrders.push(referenceCommande);
+                    localStorage.setItem('deliveredOrders', JSON.stringify(deliveredOrders));
+                } else {
+                    console.log("La commande est déjà livrée.");
+                }
+            });
+        });
     </script>
 </body>
 </html>

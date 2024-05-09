@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Vos balises meta et autres en-têtes -->
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 22px;
+    box-shadow: 0 0 36px #de4904;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 16px;
+    color: #e96e39;
+    font-size: x-large;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ff5100;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    background-color: #e77747;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 20px 52px;
+    cursor: pointer;
+    margin-left: 233px;
+}
+
+button[type="submit"]:hover {
+    background-color: #48b300;
+}
+
+.alert {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Style supplémentaire pour le message d'erreur */
+.alert.error {
+    background-color: #f44336;
+}
+
+/* Style supplémentaire pour le message de succès */
+.alert.success {
+    background-color: #4CAF50;
+}
+h1{
+    color: #f4a236;
+}
+
+
+</style>
+<body>
+    <h1>Modifier l'article</h1>
+    <form id="updateForm">
+        <!-- Champs du formulaire pour la modification des détails de l'article -->
+        <label for="titre">Titre:</label>
+        <input type="text" id="titre" name="titre" required><br><br>
+
+        <label for="minititre">Titre:</label>
+        <input type="text" id="minititre" name="minititre" required><br><br>
+        <label for="prixParKilo">Prix par kilo:</label>
+        <input type="text" id="prixParKilo" name="prixParKilo" required><br><br>
+
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required><br><br>
+        <!-- Autres champs du formulaire pour d'autres détails de l'article -->
+
+        <button type="submit">Modifier</button>
+    </form>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Récupération des paramètres de requête de l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            // Récupération des détails de l'article par son ID
+            fetch(`/get-product/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                // Pré-remplissage des champs du formulaire avec les détails de l'article
+                document.getElementById('titre').value = product.titre;
+                document.getElementById('minititre').value = product.minititre;
+                document.getElementById('prixParKilo').value = product.prixParKilo;
+                document.getElementById('type').value = product.type;
+                
+                // Pré-remplir d'autres champs du formulaire avec d'autres détails de l'article
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des détails de l\'article :', error);
+                alert('Erreur lors de la récupération des détails de l\'article.');
+            });
+            document.getElementById('updateForm').addEventListener('submit', (event) => {
+    event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+    
+    // Récupérer les valeurs des champs du formulaire
+    const titre = document.getElementById('titre').value;
+    const minititre = document.getElementById('minititre').value;
+    const prixParKilo = document.getElementById('prixParKilo').value;
+    const type = document.getElementById('type').value;
+    
+    // Stocker les valeurs dans un objet
+    const articleData = { titre, minititre, prixParKilo, type };
+
+    // Envoyer une requête au serveur pour mettre à jour les données de l'article
+    fetch(`/update-product/${productId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(articleData)
+    })
+    .then(response => {
+        if (response.ok) {
+            // Mise à jour réussie, rediriger vers une page de confirmation
+            window.location.href = 'a';
+        } else {
+            // Mise à jour échouée, afficher un message d'erreur
+            alert('La mise à jour de l\'article a échoué.');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la mise à jour de l\'article :', error);
+        alert('Erreur lors de la mise à jour de l\'article.');
+    });
+});
+
+        });
+         
+    </script>
+</body>
+</html>
