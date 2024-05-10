@@ -14,7 +14,46 @@
    
   
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.2/dist/css/ionicons.min.css" integrity="...">
+<style>
+   .horizontal-scroll {
+  overflow-x: auto; /* Permet le défilement horizontal */
+  white-space: nowrap; /* Empêche le retour à la ligne des éléments enfants */
+  -webkit-overflow-scrolling: touch; /* Permet un défilement fluide sur les appareils tactiles */
+}
+div.row.categories.horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-top: 10px;
+    margin-right: 65px;
+}
 
+</style>
+<style>
+  .navigation {
+  display: flex;
+  align-items: center;
+  margin-left: 150px;
+  margin-top: 20px;
+}
+
+.navigation a {
+  margin: 0 10px; /* Pour ajouter un espace entre les liens */
+}
+
+.navigation span {
+  margin: 0 5px; /* Pour ajouter un espace entre les séparateurs */
+}
+.aa{
+  color:orange;
+  box-shadow: 0px 13px 22px 13px rgba(271, 192, 0, 0.8);
+}
+.box-categories{
+  margin-top: 50px;
+  margin-left: 150px;
+  color: black;
+}
+</style>
 </head>
 <body>
 
@@ -23,16 +62,27 @@
     <%- include("header.html",{utilisateur}) %>
     <main>
    
+
+  <div class="navigation">
+    <a href="/">Accueil</a> 
+    <span>|</span> 
+    <a  class="aa" href="freshbox">Nos Fresh Box</a>
+    <span>|</span>
+    
+</div>
 <div class="box-categories">
-    <p>القفة offre 3 types de box : vegital box, fruits box, mixbox</p>
-  </div>
+  <p>القفة offre Plusieur types de box : vegital box, fruits box, mixbox , ..
+
+  </p>
+</div>
   <div class="album py-5 bg-light">
    
-    <div class="ui centered container three column grid category-slider">
+    <div class="ui centered container three column grid category-slider horizontal-scroll">
       <div class="cat">
       <h3 class="categoris" style="font-size: 60px;
       color: black;">Categories</h3></div>
-  <div class="row categories-list">
+ <div class="row categories horizontal-scroll">
+
     <div class="center aligned colum" id="legumeDiv">
       <a class="card-img-text-box" href="legumesbox">
         <div class="img-container">
@@ -95,7 +145,7 @@
         window.location.href = "lgumes";
       });
     </script><div class="center aligned colum" id="fruitsDiv">
-    <a class="card-img-text-box" href="fruits">
+    <a class="card-img-text-box" href="fruitsbox">
       <div class="img-container">
         <img src="images/thumbnail/fruitsbox.jpg" alt loading="lazy">
       </div>

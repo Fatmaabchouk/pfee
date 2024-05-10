@@ -380,13 +380,15 @@ manageCommandes.addEventListener('click', function() {
         mainContent.innerHTML = commandesHTML;
 
         // Ajouter un gestionnaire d'événements aux boutons "Afficher détails"
-        document.querySelectorAll('.btn-details').forEach(button => {
-            button.addEventListener('click', function() {
-                const referenceCommande = this.getAttribute('data-reference');
-                // Redirection vers la page Fact.html en passant la référence de la commande comme paramètre
-                window.location.href = `/Fact?reference=${referenceCommande}`;
-            });
-        });
+       // Modify the event listener for "Afficher détails" buttons
+document.querySelectorAll('.btn-details').forEach(button => {
+    button.addEventListener('click', function() {
+        const referenceCommande = this.getAttribute('data-reference');
+        // Store the reference in localStorage or use a URL parameter
+        window.location.href = `/Fact?reference=${encodeURIComponent(referenceCommande)}`;
+    });
+});
+
         document.querySelectorAll('.btn-delivered').forEach(button => {
     button.addEventListener('click', function() {
         const referenceCommande = this.getAttribute('data-reference');

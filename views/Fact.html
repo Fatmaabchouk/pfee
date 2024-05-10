@@ -2,52 +2,105 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facture</title>
+    <style>
+     /* CSS styles for invoice */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#commande-details {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+/* Styling for headings */
+h2 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* Styling for individual details */
+.details-label {
+    font-weight: bold;
+}
+
+/* Styling for total */
+.total {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Styling for address */
+.address {
+    margin-top: 10px;
+}
+
+/* Styling for date */
+.date {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+    </style>
 </head>
 <body>
-    <div id="facture"></div>
+    <h1>Détails de la Commande</h1>
+    <div id="commande-details"></div>
 
     <script>
-        // Récupérer les paramètres de requête contenant les données de la commande
+        // Extract `reference` from the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
-        const idCommande = urlParams.get('id_commande');
-        const utilisateurId = urlParams.get('utilisateur_id');
-        const quantite = urlParams.get('quantite');
-        const titre = urlParams.get('titre');
-        const prixParKilo = urlParams.get('prixParKilo');
-        const prixTotal = urlParams.get('prix_total');
-        const nomUtilisateur = urlParams.get('nomUtilisateur');
-        const numeroUtilisateur = urlParams.get('numeroUtilisateur');
-        const adresseUtilisateur = urlParams.get('adresseUtilisateur');
-        const referenceCommande = urlParams.get('referenceCommande');
-        const moyenPaiement = urlParams.get('moyenPaiement');
-        const dateCommande = urlParams.get('dateCommande');
-        const subtotal = urlParams.get('subtotal');
-        const fraisLivraison = urlParams.get('frais_livraison');
-        const total = urlParams.get('total');
+        const reference = urlParams.get('reference');
 
-        // Afficher les données de la commande dans la page Facture
-        const factureHTML = `
-            <h1>Facture</h1>
-            <p>ID Commande : ${idCommande}</p>
-            <p>ID Utilisateur : ${utilisateurId}</p>
-            <p>Quantité : ${quantite}</p>
-            <p>Titre : ${titre}</p>
-            <p>Prix par Kilo : ${prixParKilo}</p>
-            <p>Prix Total : ${prixTotal}</p>
-            <p>Nom de l'utilisateur : ${nomUtilisateur}</p>
-            <p>Numéro de téléphone : ${numeroUtilisateur}</p>
-            <p>Adresse : ${adresseUtilisateur}</p>
-            <p>Référence de commande : ${referenceCommande}</p>
-            <p>Moyen de paiement : ${moyenPaiement}</p>
-            <p>Date de commande : ${dateCommande}</p>
-            <p>Sous-total : ${subtotal}</p>
-            <p>Frais de livraison : ${fraisLivraison}</p>
-            <p>Total : ${total}</p>
-            <!-- Ajoutez d'autres détails de la commande ici selon votre besoin -->
-        `;
-        document.getElementById('facture').innerHTML = factureHTML;
+        if (reference) {
+            // Fetch the details of the specified commande from the server
+            fetch(`/get-Facture-details?reference=${encodeURIComponent(reference)}`)
+                .then(response => response.json())
+                .then(commande => {
+                    // Render the details in a structured format
+                    const detailsDiv = document.getElementById('commande-details');
+                    detailsDiv.innerHTML = `
+                        <h2>Commande ${commande.referenceCommande}</h2>
+                        <p>ID Utilisateur: ${commande.utilisateur_id}</p>
+                        
+                        <p>quantite: ${commande.quantite}</p>
+                        <p>Titre: ${commande.titre}</p>
+                        <p>prixParKilo: ${commande.prixParKilo}</p>
+                        <p>nomUtilisateur: ${commande.nomUtilisateur}</p>
+                        
+                        <p>numeroUtilisateur: ${commande.numeroUtilisateur}</p>
+                        <p>adresseUtilisateur: ${commande.adresseUtilisateur}</p>
+                        <p>moyenPaiement: ${commande.moyenPaiement}</p>
+                        <p>dateCommande: ${commande.dateCommande}</p>
+                        <p>Sous-Total: ${commande.subtotal}</p>
+                        <p>frais_livraison: ${commande.frais_livraison}</p>
+                        <p>total: ${commande.total}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des détails de la commande :', error);
+                });
+        } else {
+            alert("Référence de la commande manquante.");
+        }
     </script>
 </body>
 </html>

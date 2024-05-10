@@ -457,7 +457,7 @@ app.get("/freshbox", (req, res) => {
 });
 app.get("/mixbox", (req, res) => {
   const { utilisateur } = res.locals;
-  db.query('SELECT * FROM cours WHERE type = "mix Box"', (err, results) => {
+  db.query('SELECT * FROM cours WHERE type = "mixbox"', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
       // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
@@ -469,7 +469,7 @@ app.get("/mixbox", (req, res) => {
 
 app.get("/fruitsbox", (req, res) => {
   const { utilisateur } = res.locals;
-  db.query('SELECT * FROM cours WHERE type = "Fruits-Box"', (err, results) => {
+  db.query('SELECT * FROM cours WHERE type = "fruitsbox"', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
       // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
@@ -487,6 +487,17 @@ app.get("/legumesbox", (req, res) => {
       return res.status(500).send('Erreur serveur');
     }
     res.render("legumesbox", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
+});
+app.get("/boxpersonaliser", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "box-personalise"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("boxpersonaliser", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
   });
 });
 app.get("/admin", (req, res) => {
@@ -598,7 +609,23 @@ app.get('/get-commande/:reference', (req, res) => {
   });
 });
 
+// Example: Node.js with Express
+app.get('/get-Facture-details', (req, res) => {
+  const referenceCommande = req.query.reference;
 
+  // Query the database to get the specific commande details
+  db.query('SELECT * FROM commaande WHERE referenceCommande = ? ', [referenceCommande], (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la récupération de la commande :', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      if (result.length === 0) {
+          return res.status(404).json({ error: 'Commande non trouvée' });
+      }
+      // Return the commande details as JSON
+      res.json(result[0]);
+  });
+});
 
 
 app.get("/modelivraison", protectionRoute ,  (req, res) => {
