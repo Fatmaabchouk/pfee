@@ -4,103 +4,208 @@
     <meta charset="UTF-8">
     <title>Facture</title>
     <style>
-     /* CSS styles for invoice */
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f7f7f7;
-}
+        /* CSS styles for invoice */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-#commande-details {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 5px;
-}
+        .invoice-header h1 {
+            margin-bottom: 39px;
+    margin-left: -1110px;
+        }
 
-p {
-    margin: 5px 0;
-}
+        .invoice-header h2 {
+            margin-bottom: 5px;
+        }
 
-/* Styling for headings */
-h2 {
-    color: #333;
-    font-size: 22px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-}
+        .invoice-header p {
+            margin: 31px;
+   
+   
+        }
 
-/* Styling for individual details */
-.details-label {
-    font-weight: bold;
-}
+        #commande-details {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
 
-/* Styling for total */
-.total {
-    margin-top: 20px;
-    font-weight: bold;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-/* Styling for address */
-.address {
-    margin-top: 10px;
-}
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-/* Styling for date */
-.date {
-    margin-top: 10px;
+        th {
+            background-color: rgb(255 165 0 / 25%);
+            color: orange;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+            margin-left: 1200px;
+            color: #5b0707;
+        }
+
+        .thanks {
+            margin-top: 20px;
     font-style: italic;
-}
+    font-size: xxx-large;
+    text-align: center;
+    color: orange;
+        }
+        p.koff{
+            color: orange;
+    font-size: -webkit-xxx-large;
+    box-shadow: 0px -8px 31px 19px rgba(258, 165, 0, 0.8);
+        }
+        p.koo{
+            margin-left: 1200px;
+        }
+        tr.ref{
+            background-color: #0000004d;
+        }
+        td.ref{
+            font-size: x-large;
+    font-style: italic;
+    color: #075b33;
 
+        }
+        button.imprimee{
+            margin-left: 1300px;
+            color: orange;
+            font-size: xx-large;
+            margin-top: 20px;
+            box-shadow: 0px -8px 31px 6px rgba(258, 165, 0, 0.8);
+     
+        }
     </style>
 </head>
 <body>
-    <h1>Détails de la Commande</h1>
-    <div id="commande-details"></div>
+<div class="invoice-header">
+    <h1>Facture</h1>
+    
+    <p class="koff"> القفة</p>
+    <p class="koo">Numero de telephone : +21652086967</p>
+    <p class="koo">Email : elKoffa@gmail.com</p>
+    <table id="destinataire-info">
+        <tr>
+            <th>Envoiyeé A :</th>
+        </tr>
+    </table>
+</div>
 
-    <script>
-        // Extract `reference` from the URL query parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const reference = urlParams.get('reference');
 
-        if (reference) {
-            // Fetch the details of the specified commande from the server
-            fetch(`/get-Facture-details?reference=${encodeURIComponent(reference)}`)
-                .then(response => response.json())
-                .then(commande => {
-                    // Render the details in a structured format
-                    const detailsDiv = document.getElementById('commande-details');
-                    detailsDiv.innerHTML = `
-                        <h2>Commande ${commande.referenceCommande}</h2>
-                        <p>ID Utilisateur: ${commande.utilisateur_id}</p>
-                        
-                        <p>quantite: ${commande.quantite}</p>
-                        <p>Titre: ${commande.titre}</p>
-                        <p>prixParKilo: ${commande.prixParKilo}</p>
-                        <p>nomUtilisateur: ${commande.nomUtilisateur}</p>
-                        
-                        <p>numeroUtilisateur: ${commande.numeroUtilisateur}</p>
-                        <p>adresseUtilisateur: ${commande.adresseUtilisateur}</p>
-                        <p>moyenPaiement: ${commande.moyenPaiement}</p>
-                        <p>dateCommande: ${commande.dateCommande}</p>
-                        <p>Sous-Total: ${commande.subtotal}</p>
-                        <p>frais_livraison: ${commande.frais_livraison}</p>
-                        <p>total: ${commande.total}</p>
+<div id="commande-details"> </div>
+
+
+<button  class="imprimee" onclick="printInvoice()">Imprimer</button>
+ 
+<script>
+    // Extract `reference` from the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const reference = urlParams.get('reference');
+
+    if (reference) {
+        fetch(`/get-Facture-details?reference=${encodeURIComponent(reference)}`)
+            .then(response => response.json())
+            .then(commandes => {
+                const detailsDiv = document.getElementById('commande-details');
+                detailsDiv.innerHTML = '';
+
+                // Initialize table with header
+                let tableHTML = `
+                    <table>
+                        <tr>
+                            <th>Quantité</th>
+                            <th>Désignation</th>
+                            <th>Prix UniT</th>
+                        </tr>
+                `;
+
+                // Populate table with command details
+                commandes.forEach(commande => {
+                    tableHTML += `
+                        <tr>
+                            <td>${commande.quantite} kg ou box</td>
+                            <td>${commande.titre}</td>
+                            <td>${commande.prixParKilo} DT</td>
+                        </tr>
                     `;
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération des détails de la commande :', error);
                 });
-        } else {
-            alert("Référence de la commande manquante.");
-        }
-    </script>
+
+                // Close table
+                tableHTML += '</table>';
+
+                // Append table to detailsDiv
+                detailsDiv.innerHTML = tableHTML;
+
+                // Display total and payment method
+                detailsDiv.innerHTML += `
+                    <div class="total">
+                        <p>Sous-Total: ${commandes[0].subtotal} DT</p>
+                        <p>Frais de livraison: ${commandes[0].frais_livraison} DT</p>
+                        <p>Total: ${commandes[0].total}DT</p>
+                    </div>
+                    <p>Moyen de paiement: ${commandes[0].moyenPaiement}</p>
+                    <p class="thanks">Merci</p>
+                `;
+
+                // Populate destinataire-info table
+                const destinataireTable = document.getElementById('destinataire-info');
+                destinataireTable.innerHTML += `
+                    <tr class="ref">
+                        <td class="ref">Reference Commande :</td>
+                        <td class="ref">${commandes[0].referenceCommande}</td>
+                    </tr>
+                    <tr>
+                        <td>Nom du destinataire:</td>
+                        <td>${commandes[0].nomUtilisateur}</td>
+                    </tr>
+                    <tr>
+                        <td>Numero de téléphone du destinataire:</td>
+                        <td>${commandes[0].numeroUtilisateur}</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse du destinataire:</td>
+                        <td>${commandes[0].adresseUtilisateur}</td>
+                    </tr>
+                    <tr>
+                        <td>Date de la commande:</td>
+                        <td>${commandes[0].dateCommande}</td>
+                    </tr>
+                `;
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des détails de la commande :', error);
+            });
+    }
+</script>
+<script>
+    // Votre code JavaScript ici
+
+    // Fonction pour imprimer la facture
+    function printInvoice() {
+        window.print(); // Appel de la fonction d'impression du navigateur
+    }
+
+    // Votre autre code JavaScript ici
+</script>
 </body>
 </html>

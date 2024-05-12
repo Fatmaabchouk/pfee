@@ -590,30 +590,13 @@ app.get("/Fact",  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("Fact", {utilisateur});
 });
-// Route pour récupérer les détails de la commande par référence
-app.get('/get-commande/:reference', (req, res) => {
-  const referenceCommande = req.params.reference; // Récupérer la référence de commande depuis les paramètres de requête
-  const query = `SELECT * FROM commaande WHERE referenceCommande = ?`; // Modifier la requête SQL pour sélectionner en fonction de la référence de commande
 
-  connection.query(query, [referenceCommande], (error, results, fields) => {
-    if (error) {
-      console.error('Erreur lors de la récupération des détails de la commande :', error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des détails de la commande.' });
-    } else {
-      if (results.length > 0) {
-        res.json(results[0]); // Renvoyer les données de la commande trouvée
-      } else {
-        res.status(404).json({ error: 'Commande introuvable.' });
-      }
-    }
-  });
-});
-
+// Example: Node.js with Express
 // Example: Node.js with Express
 app.get('/get-Facture-details', (req, res) => {
   const referenceCommande = req.query.reference;
 
-  // Query the database to get the specific commande details
+  // Query the database to get all the commandes details matching the referenceCommande
   db.query('SELECT * FROM commaande WHERE referenceCommande = ? ', [referenceCommande], (err, result) => {
       if (err) {
           console.error('Erreur lors de la récupération de la commande :', err);
@@ -622,8 +605,8 @@ app.get('/get-Facture-details', (req, res) => {
       if (result.length === 0) {
           return res.status(404).json({ error: 'Commande non trouvée' });
       }
-      // Return the commande details as JSON
-      res.json(result[0]);
+      // Return the commandes details as JSON
+      res.json(result);
   });
 });
 
