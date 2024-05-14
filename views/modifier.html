@@ -75,6 +75,20 @@ button[type="submit"]:hover {
 h1{
     color: #f4a236;
 }
+.details {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ff5100;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* Ajouter des barres de défilement horizontales et verticales */
+    overflow-x: auto; /* Utiliser "auto" pour activer la barre de défilement uniquement si nécessaire */
+    overflow-y: auto; /* Utiliser "auto" pour activer la barre de défilement uniquement si nécessaire */
+    max-width: 100%; /* Taille maximale du champ */
+    max-height: 200px; /* Hauteur maximale du champ */
+}
+
+
 
 
 </style>
@@ -89,7 +103,9 @@ h1{
         <input type="text" id="minititre" name="minititre" required><br><br>
         <label for="prixParKilo">Prix par kilo:</label>
         <input type="text" id="prixParKilo" name="prixParKilo" required><br><br>
-
+        <label for="details">Plus de détails :</label>
+        <textarea class="details" id="details" name="details"></textarea>
+        
         <label for="type">Type:</label>
         <input type="text" id="type" name="type" required><br><br>
         <!-- Autres champs du formulaire pour d'autres détails de l'article -->
@@ -113,6 +129,8 @@ h1{
                 document.getElementById('prixParKilo').value = product.prixParKilo;
                 document.getElementById('type').value = product.type;
                 
+                document.getElementById('details').value = product.details;
+                
                 // Pré-remplir d'autres champs du formulaire avec d'autres détails de l'article
             })
             .catch(error => {
@@ -127,9 +145,10 @@ h1{
     const minititre = document.getElementById('minititre').value;
     const prixParKilo = document.getElementById('prixParKilo').value;
     const type = document.getElementById('type').value;
+    const details = document.getElementById('details').value;
     
     // Stocker les valeurs dans un objet
-    const articleData = { titre, minititre, prixParKilo, type };
+    const articleData = { titre, minititre, prixParKilo, type, details };
 
     // Envoyer une requête au serveur pour mettre à jour les données de l'article
     fetch(`/update-product/${productId}`, {

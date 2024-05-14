@@ -95,6 +95,19 @@ button:hover {
 #removeButton:hover {
     background-color: #cc0000; /* Rouge plus foncé au survol */
 }
+.details {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ff5100;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* Ajouter des barres de défilement horizontales et verticales */
+    overflow-x: auto; /* Défilement horizontal */
+    overflow-y: auto; /* Défilement vertical */
+    max-width: 100%; /* Taille maximale du champ */
+    max-height: 200px; /* Hauteur maximale du champ */
+}
+
 
     </style>
 </head>
@@ -110,9 +123,12 @@ button:hover {
         <label for="minititre">Mini-titre :</label>
         <input type="text" id="minititre" name="minititre">
       
-        <label for="prixParKilo">Prix par kilo :</label>
+        <label for="prixParKilo">Prix par kilo ou d'un Box :</label>
         <input type="text" id="prixParKilo" name="prixParKilo"> DT /kg
-
+        
+        <label for="details">Plus de détails :</label>
+        <textarea class="details" id="details" name="details"></textarea>
+        
         <input type="file" id="selectedImage"  name="selectedImage"  accept="image/jpeg, image/png, image/jpg">
         <img id="uploadedImage">
         <button id="removeButton">Remove Image</button>
@@ -168,12 +184,20 @@ button:hover {
             fileInput.value = ""; // Reset the file input
         });
         function addCourse() {
+
             const form = document.getElementById('addCourseForm');
             const formData = new FormData(form);
 
             // Récupérer la valeur du bouton radio sélectionné
             const selectedType = document.querySelector('input[name="type"]:checked').value;
-
+   const detailsInput = document.getElementById('details');
+            const defaultText = "Aucun détail spécifié";
+    
+            // Vérifier si le champ est vide
+            if (detailsInput.value.trim() === "") {
+                // Si c'est le cas, remplir avec le texte par défaut
+                detailsInput.value = defaultText;
+            }
             // Effectuer une requête AJAX pour envoyer les données du formulaire au serveur
             fetch('/addcourse', {
                 method: 'POST',
@@ -196,7 +220,7 @@ button:hover {
                 }if (selectedType === 'mixbox') {
                     window.location.href = 'mixbox';
                 }if (selectedType === 'box-personalise') {
-                    window.location.href = 'box-personalise';
+                    window.location.href = 'boxpersonaliser';
                 }
                  else {
                     window.location.href = 'freshbox';
@@ -208,5 +232,6 @@ button:hover {
             });
         }
     </script>
+   
 </body>
 </html>

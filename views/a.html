@@ -121,6 +121,18 @@
     background-color: #8aff8a; /* Couleur de fond pour les commandes livrées */
 }
 
+td.details {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ff5100;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* Ajouter des barres de défilement horizontales et verticales */
+    overflow-x: auto; /* Défilement horizontal */
+    overflow-y: auto; /* Défilement vertical */
+    max-width: 100%; /* Taille maximale du champ */
+    max-height: 200px; /* Hauteur maximale du champ */
+}
 
 
 /* Le reste de vos styles CSS existants */
@@ -284,6 +296,7 @@ manageProducts.addEventListener('click', function() {
                         <th>Mini-titre</th>
                         <th>Prix par kilo</th>
                         <th>Image</th>
+                        <th>Details</th>
                         <th>Type</th>
                     </tr>
                 </thead>
@@ -294,7 +307,12 @@ manageProducts.addEventListener('click', function() {
                             <td>${product.minititre}</td>
                             <td>${product.prixParKilo}</td>
                             <td><img src="${product.lienThumbnail}" alt="${product.titre}" style="max-width: 100px;"></td>
+                            <td>
+    <textarea class="details" readonly>${product.details}</textarea>
+</td>
+
                             <td>${product.type}</td>
+
                             <td>
                              
 <button class="button1"  onclick="modifierProduit(${product.id})">Modifier</button>

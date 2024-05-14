@@ -200,16 +200,16 @@ const upload = multer({ storage: storage });
 
 // Route pour ajouter un cours
 app.post('/addcourse', upload.single('selectedImage'), (req, res) => {
-  const { courseTitle, minititre,  prixParKilo,type } = req.body;
+  const { courseTitle, minititre,  prixParKilo,type,details } = req.body;
   const selectedImage = req.file ? '/images/thumbnail/' + req.file.filename : '';
 
   // Enregistrez les données du formulaire dans la session
-  req.session.formData = { courseTitle, minititre,  prixParKilo, selectedImage,type };
+  req.session.formData = { courseTitle, minititre,  prixParKilo, selectedImage,type,details };
   req.session.selectedImage = selectedImage;
   // Enregistrez les données dans la base de données
   db.query(
-      'INSERT INTO cours (titre, minititre,  prixParKilo, lienThumbnail,type) VALUES (?,?, ?, ?, ?)',
-      [courseTitle, minititre,  prixParKilo, selectedImage,type],
+      'INSERT INTO cours (titre, minititre,  prixParKilo, lienThumbnail,type, details) VALUES (?,?, ?, ?, ?,?)',
+      [courseTitle, minititre,  prixParKilo, selectedImage,type,details],
       (err, result) => {
           if (err) {
               console.error('Erreur lors de l\'ajout du cours à la base de données :', err);
@@ -229,9 +229,7 @@ app.post('/addcourse', upload.single('selectedImage'), (req, res) => {
 app.post('/enregistrerLegumes', (req, res) => {
   const data = req.body;
 
-  // Traitement pour enregistrer les données dans la base de données ou dans un fichier, etc.
-
-  // Réponse de confirmation
+  
   res.send('Données des légumes enregistrées avec succès.');
 });
 
@@ -444,6 +442,37 @@ app.get("/legumes", (req, res) => {
     res.render("legumes", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
   });
 });
+app.get("/details", (req, res) => {
+  const { utilisateur } = res.locals;
+  db.query('SELECT * FROM cours WHERE type = "legumes"', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des cours depuis la base de données : ' + err.message);
+      // Vous pouvez gérer l'erreur en rendant une page d'erreur ou en renvoyant une réponse adaptée
+      return res.status(500).send('Erreur serveur');
+    }
+    res.render("details", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
+  });
+});
+// Route pour récupérer les détails d'un cours par son identifiant
+app.get('/api/courses/:id', (req, res) => {
+  const courseId = req.params.id;
+
+  // Effectuez une requête SQL pour récupérer les détails du cours depuis la base de données
+  db.query('SELECT * FROM cours WHERE id = ?', [courseId], (err, result) => {
+      if (err) {
+          console.error('Erreur lors de la récupération des détails du cours :', err);
+          return res.status(500).json({ error: 'Erreur serveur' });
+      }
+
+      if (result.length === 0) {
+          return res.status(404).json({ error: 'Aucun cours trouvé avec cet identifiant' });
+      }
+
+      const course = result[0];
+      res.json(course);
+  });
+});
+
 app.get("/freshbox", (req, res) => {
   const { utilisateur } = res.locals;
   db.query('SELECT * FROM cours WHERE type = "box"', (err, results) => {
@@ -1140,8 +1169,8 @@ app.post("/update-password", async (req, res) => {
   }
 });
 
-app.get("/reset-password1", (req, res) => {
-  res.render("reset-password1");
+app.get("/detail_item", (req, res) => {
+  res.render("detail_item");
 });
 
 // ...

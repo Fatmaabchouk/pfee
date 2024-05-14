@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du cours</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ff840e1a;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c69a10; }
+
+        h1 {
+            color:rgb(246 88 7);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #courseDetails {
+            padding: 20px;
+    border: 1px solid #c69a10;
+    border-radius: 8px;
+    background-color: rgb(246 88 7 / 8%);
+    box-shadow: 0 0 28px rgb(246 88 7);
+
+        }
+
+        h2 {
+            color: #f00;
+    margin-bottom: 30px;
+    box-shadow: 0 0 69px #00b915;
+    margin-right: 465px;
+    font-family: cursive;
+        }
+
+        p {
+            color: #000;
+    margin-bottom: 18px;
+    font-style: normal;
+    font-family: fantasy;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            max-width: 300px; /* Ajustez la largeur maximale de l'image */
+            max-height: 200px; /* Ajustez la hauteur maximale de l'image */
+        }
+
+        .navigation {
+            display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 38px;
+    margin-top: 28px;
+}
+
+.navigation a,
+.navigation button {
+    background-color: #f5f5f5;
+    color: #ff840e;
+    border: none;
+    border-radius: 52px;
+    padding: 8px 50px;
+    cursor: pointer;
+    text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+}
+
+.navigation a:hover,
+.navigation button:hover {
+    background-color: #0056b3;
+}
+
+.navigation span {
+    margin: 0 10px; /* Ajout pour un espacement entre Accueil et Retour */
+}
+button.commander{
+    margin-left: 700px;
+    margin-top: 10px;
+    background-color: rgb(246 88 7 / 55%);
+    font-family: fantasy;
+    color: green;
+
+}
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <a href="/"><i class="fas fa-home"></i> Accueil</a>
+        <span>|</span>
+        <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Retour</button>
+    </div>
+    
+    <div class="container">
+        
+        <h1>Détails </h1>
+        <div id="courseDetails">
+            <!-- Les détails du cours seront affichés ici -->
+        </div>
+        <button  class="commander" onclick="goBack()"><i class="fas fa-arrow-left"></i> Commander</button>
+    </div>
+
+    <script>
+        // Fonction pour extraire l'identifiant du cours de l'URL
+        function getCourseIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        function loadCourseDetails(courseId) {
+            fetch('/api/courses/' + courseId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la récupération des détails du cours');
+                    }
+                    return response.json();
+                })
+                .then(course => {
+                    displayCourseDetails(course);
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+        }
+
+        // Fonction pour afficher les détails du cours sur la page
+        function displayCourseDetails(cours) {
+            const courseDetailsDiv = document.getElementById('courseDetails');
+            courseDetailsDiv.innerHTML = `
+                <h2>${cours.titre}</h2>
+                <p>Unité : 1Kg</p>
+                <p>Prix par kilo : ${cours.prixParKilo} DT</p>
+                <img src="${cours.lienThumbnail}" alt="Thumbnail">
+                <p> ${cours.details}
+</>                <!-- Ajoutez d'autres détails du cours ici -->
+            `;
+        }
+
+        // Chargez les détails du cours lorsque la page est chargée
+        document.addEventListener('DOMContentLoaded', function() {
+            const courseId = getCourseIdFromUrl();
+            if (courseId) {
+                loadCourseDetails(courseId);
+            } else {
+                console.error('Identifiant du cours non trouvé dans l\'URL.');
+            }
+        });
+
+        // Fonction pour retourner à la page précédente
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

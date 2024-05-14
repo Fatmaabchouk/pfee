@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 14 avr. 2024 à 22:38
+-- Généré le : mer. 15 mai 2024 à 00:12
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Version de PHP : 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,7 +68,161 @@ INSERT INTO `commaande` (`id_commande`, `utilisateur_id`, `quantite`, `titre`, `
 (16, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414213244', 'Comptant à la livraison', '2024-04-14 20:32:44', 36.00, 5.00, 41.00),
 (17, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414213244', 'Comptant à la livraison', '2024-04-14 20:32:44', 36.00, 5.00, 41.00),
 (18, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414213244', 'Comptant à la livraison', '2024-04-14 20:32:44', 36.00, 5.00, 41.00),
-(19, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414213244', 'Comptant à la livraison', '2024-04-14 20:32:44', 36.00, 5.00, 41.00);
+(19, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414213244', 'Comptant à la livraison', '2024-04-14 20:32:44', 36.00, 5.00, 41.00),
+(20, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214640', 'Comptant à la livraison', '2024-04-14 20:46:40', 36.00, 5.00, 41.00),
+(21, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214640', 'Comptant à la livraison', '2024-04-14 20:46:40', 36.00, 5.00, 41.00),
+(22, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214640', 'Comptant à la livraison', '2024-04-14 20:46:40', 36.00, 5.00, 41.00),
+(23, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214640', 'Comptant à la livraison', '2024-04-14 20:46:40', 36.00, 5.00, 41.00),
+(24, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214742', 'Comptant à la livraison', '2024-04-14 20:47:42', 36.00, 5.00, 41.00),
+(25, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214742', 'Comptant à la livraison', '2024-04-14 20:47:42', 36.00, 5.00, 41.00),
+(26, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214742', 'Comptant à la livraison', '2024-04-14 20:47:42', 36.00, 5.00, 41.00),
+(27, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214742', 'Comptant à la livraison', '2024-04-14 20:47:42', 36.00, 5.00, 41.00),
+(28, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214941', 'Comptant à la livraison', '2024-04-14 20:49:41', 36.00, 5.00, 41.00),
+(29, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214941', 'Comptant à la livraison', '2024-04-14 20:49:41', 36.00, 5.00, 41.00),
+(30, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214941', 'Comptant à la livraison', '2024-04-14 20:49:41', 36.00, 5.00, 41.00),
+(31, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414214941', 'Comptant à la livraison', '2024-04-14 20:49:41', 36.00, 5.00, 41.00),
+(32, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414215943', 'Comptant à la livraison', '2024-04-14 20:59:43', 36.00, 5.00, 41.00),
+(33, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414215943', 'Comptant à la livraison', '2024-04-14 20:59:43', 36.00, 5.00, 41.00),
+(34, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414215943', 'Comptant à la livraison', '2024-04-14 20:59:43', 36.00, 5.00, 41.00),
+(35, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414215943', 'Comptant à la livraison', '2024-04-14 20:59:43', 36.00, 5.00, 41.00),
+(36, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220139', 'Comptant à la livraison', '2024-04-14 21:01:39', 36.00, 5.00, 41.00),
+(37, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220139', 'Comptant à la livraison', '2024-04-14 21:01:39', 36.00, 5.00, 41.00),
+(38, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220139', 'Comptant à la livraison', '2024-04-14 21:01:39', 36.00, 5.00, 41.00),
+(39, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220139', 'Comptant à la livraison', '2024-04-14 21:01:39', 36.00, 5.00, 41.00),
+(40, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220539', 'Comptant à la livraison', '2024-04-14 21:05:39', 36.00, 5.00, 41.00),
+(41, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220539', 'Comptant à la livraison', '2024-04-14 21:05:39', 36.00, 5.00, 41.00),
+(42, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220539', 'Comptant à la livraison', '2024-04-14 21:05:39', 36.00, 5.00, 41.00),
+(43, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220539', 'Comptant à la livraison', '2024-04-14 21:05:39', 36.00, 5.00, 41.00),
+(44, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220737', 'Comptant à la livraison', '2024-04-14 21:07:37', 36.00, 5.00, 41.00),
+(45, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220737', 'Comptant à la livraison', '2024-04-14 21:07:37', 36.00, 5.00, 41.00),
+(46, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220737', 'Comptant à la livraison', '2024-04-14 21:07:37', 36.00, 5.00, 41.00),
+(47, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220737', 'Comptant à la livraison', '2024-04-14 21:07:37', 36.00, 5.00, 41.00),
+(48, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220818', 'Comptant à la livraison', '2024-04-14 21:08:18', 36.00, 5.00, 41.00),
+(49, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220818', 'Comptant à la livraison', '2024-04-14 21:08:18', 36.00, 5.00, 41.00),
+(50, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220818', 'Comptant à la livraison', '2024-04-14 21:08:18', 36.00, 5.00, 41.00),
+(51, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414220818', 'Comptant à la livraison', '2024-04-14 21:08:18', 36.00, 5.00, 41.00),
+(52, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221007', 'Comptant à la livraison', '2024-04-14 21:10:07', 36.00, 5.00, 41.00),
+(53, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221007', 'Comptant à la livraison', '2024-04-14 21:10:07', 36.00, 5.00, 41.00),
+(54, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221007', 'Comptant à la livraison', '2024-04-14 21:10:07', 36.00, 5.00, 41.00),
+(55, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221007', 'Comptant à la livraison', '2024-04-14 21:10:07', 36.00, 5.00, 41.00),
+(56, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221346', 'Comptant à la livraison', '2024-04-14 21:13:46', 36.00, 5.00, 41.00),
+(57, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221346', 'Comptant à la livraison', '2024-04-14 21:13:46', 36.00, 5.00, 41.00),
+(58, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221346', 'Comptant à la livraison', '2024-04-14 21:13:46', 36.00, 5.00, 41.00),
+(59, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221346', 'Comptant à la livraison', '2024-04-14 21:13:46', 36.00, 5.00, 41.00),
+(60, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221608', 'Comptant à la livraison', '2024-04-14 21:16:08', 36.00, 5.00, 41.00),
+(61, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221608', 'Comptant à la livraison', '2024-04-14 21:16:08', 36.00, 5.00, 41.00),
+(62, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221608', 'Comptant à la livraison', '2024-04-14 21:16:08', 36.00, 5.00, 41.00),
+(63, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221608', 'Comptant à la livraison', '2024-04-14 21:16:08', 36.00, 5.00, 41.00),
+(64, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221645', 'Comptant à la livraison', '2024-04-14 21:16:45', 36.00, 5.00, 41.00),
+(65, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221645', 'Comptant à la livraison', '2024-04-14 21:16:45', 36.00, 5.00, 41.00),
+(66, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221645', 'Comptant à la livraison', '2024-04-14 21:16:45', 36.00, 5.00, 41.00),
+(67, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221645', 'Comptant à la livraison', '2024-04-14 21:16:45', 36.00, 5.00, 41.00),
+(68, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221738', 'Comptant à la livraison', '2024-04-14 21:17:38', 36.00, 5.00, 41.00),
+(69, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221738', 'Comptant à la livraison', '2024-04-14 21:17:38', 36.00, 5.00, 41.00),
+(70, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221738', 'Comptant à la livraison', '2024-04-14 21:17:38', 36.00, 5.00, 41.00),
+(71, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414221738', 'Comptant à la livraison', '2024-04-14 21:17:38', 36.00, 5.00, 41.00),
+(72, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222005', 'Comptant à la livraison', '2024-04-14 21:20:05', 36.00, 5.00, 41.00),
+(73, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222005', 'Comptant à la livraison', '2024-04-14 21:20:05', 36.00, 5.00, 41.00),
+(74, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222005', 'Comptant à la livraison', '2024-04-14 21:20:05', 36.00, 5.00, 41.00),
+(75, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222005', 'Comptant à la livraison', '2024-04-14 21:20:05', 36.00, 5.00, 41.00),
+(76, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222355', 'Comptant à la livraison', '2024-04-14 21:23:55', 36.00, 5.00, 41.00),
+(77, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222355', 'Comptant à la livraison', '2024-04-14 21:23:55', 36.00, 5.00, 41.00),
+(78, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222355', 'Comptant à la livraison', '2024-04-14 21:23:55', 36.00, 5.00, 41.00),
+(79, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222355', 'Comptant à la livraison', '2024-04-14 21:23:55', 36.00, 5.00, 41.00),
+(80, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222531', 'Comptant à la livraison', '2024-04-14 21:25:31', 36.00, 5.00, 41.00),
+(81, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222531', 'Comptant à la livraison', '2024-04-14 21:25:31', 36.00, 5.00, 41.00),
+(82, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222531', 'Comptant à la livraison', '2024-04-14 21:25:31', 36.00, 5.00, 41.00),
+(83, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240414222531', 'Comptant à la livraison', '2024-04-14 21:25:31', 36.00, 5.00, 41.00),
+(84, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415122715', 'Comptant à la livraison', '2024-04-15 11:27:15', 36.00, 10.00, 46.00),
+(85, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415122715', 'Comptant à la livraison', '2024-04-15 11:27:15', 36.00, 10.00, 46.00),
+(86, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415122715', 'Comptant à la livraison', '2024-04-15 11:27:15', 36.00, 10.00, 46.00),
+(87, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415122715', 'Comptant à la livraison', '2024-04-15 11:27:15', 36.00, 10.00, 46.00),
+(88, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123404', 'Comptant à la livraison', '2024-04-15 11:34:04', 36.00, 5.00, 41.00),
+(89, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123404', 'Comptant à la livraison', '2024-04-15 11:34:04', 36.00, 5.00, 41.00),
+(90, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123404', 'Comptant à la livraison', '2024-04-15 11:34:04', 36.00, 5.00, 41.00),
+(91, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123404', 'Comptant à la livraison', '2024-04-15 11:34:04', 36.00, 5.00, 41.00),
+(92, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123606', 'Comptant à la livraison', '2024-04-15 11:36:06', 36.00, 5.00, 41.00),
+(93, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123606', 'Comptant à la livraison', '2024-04-15 11:36:06', 36.00, 5.00, 41.00),
+(94, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123606', 'Comptant à la livraison', '2024-04-15 11:36:06', 36.00, 5.00, 41.00),
+(95, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123606', 'Comptant à la livraison', '2024-04-15 11:36:06', 36.00, 5.00, 41.00),
+(96, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123708', 'Comptant à la livraison', '2024-04-15 11:37:08', 36.00, 5.00, 41.00),
+(97, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123708', 'Comptant à la livraison', '2024-04-15 11:37:08', 36.00, 5.00, 41.00),
+(98, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123708', 'Comptant à la livraison', '2024-04-15 11:37:08', 36.00, 5.00, 41.00),
+(99, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240415123708', 'Comptant à la livraison', '2024-04-15 11:37:08', 36.00, 5.00, 41.00),
+(100, 4, 8, 'aaaaemna', 9.00, 72.00, 'hasna', '+21652086967', 'rue ebn akhil  gafsa, gafsa', 'CMD20240415124038', 'Comptant à la livraison', '2024-04-15 11:40:38', 81.00, 10.00, 91.00),
+(101, 4, 1, 'tomate', 9.00, 9.00, 'hasna', '+21652086967', 'rue ebn akhil  gafsa, gafsa', 'CMD20240415124038', 'Comptant à la livraison', '2024-04-15 11:40:38', 81.00, 10.00, 91.00),
+(102, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418194040', 'Comptant à la livraison', '2024-04-18 18:40:40', 36.00, 10.00, 46.00),
+(103, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418194040', 'Comptant à la livraison', '2024-04-18 18:40:40', 36.00, 10.00, 46.00),
+(104, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418194040', 'Comptant à la livraison', '2024-04-18 18:40:40', 36.00, 10.00, 46.00),
+(105, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418194040', 'Comptant à la livraison', '2024-04-18 18:40:40', 36.00, 10.00, 46.00),
+(106, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200657', 'Comptant à la livraison', '2024-04-18 19:06:57', 36.00, 5.00, 41.00),
+(107, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200657', 'Comptant à la livraison', '2024-04-18 19:06:57', 36.00, 5.00, 41.00),
+(108, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200657', 'Comptant à la livraison', '2024-04-18 19:06:57', 36.00, 5.00, 41.00),
+(109, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200657', 'Comptant à la livraison', '2024-04-18 19:06:57', 36.00, 5.00, 41.00),
+(110, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200810', 'Comptant à la livraison', '2024-04-18 19:08:10', 36.00, 5.00, 41.00),
+(111, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200810', 'Comptant à la livraison', '2024-04-18 19:08:10', 36.00, 5.00, 41.00),
+(112, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200810', 'Comptant à la livraison', '2024-04-18 19:08:10', 36.00, 5.00, 41.00),
+(113, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418200810', 'Comptant à la livraison', '2024-04-18 19:08:10', 36.00, 5.00, 41.00),
+(114, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418201630', 'Comptant à la livraison', '2024-04-18 19:16:30', 36.00, 5.00, 41.00),
+(115, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418201630', 'Comptant à la livraison', '2024-04-18 19:16:30', 36.00, 5.00, 41.00),
+(116, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418201630', 'Comptant à la livraison', '2024-04-18 19:16:30', 36.00, 5.00, 41.00),
+(117, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418201630', 'Comptant à la livraison', '2024-04-18 19:16:30', 36.00, 5.00, 41.00),
+(118, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418202031', 'Comptant à la livraison', '2024-04-18 19:20:31', 36.00, 5.00, 41.00),
+(119, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418202031', 'Comptant à la livraison', '2024-04-18 19:20:31', 36.00, 5.00, 41.00),
+(120, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418202031', 'Comptant à la livraison', '2024-04-18 19:20:31', 36.00, 5.00, 41.00),
+(121, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418202031', 'Comptant à la livraison', '2024-04-18 19:20:31', 36.00, 5.00, 41.00),
+(122, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210044', 'Comptant à la livraison', '2024-04-18 20:00:44', 36.00, 5.00, 41.00),
+(123, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210044', 'Comptant à la livraison', '2024-04-18 20:00:44', 36.00, 5.00, 41.00),
+(124, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210044', 'Comptant à la livraison', '2024-04-18 20:00:44', 36.00, 5.00, 41.00),
+(125, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210044', 'Comptant à la livraison', '2024-04-18 20:00:44', 36.00, 5.00, 41.00),
+(126, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210321', 'Comptant à la livraison', '2024-04-18 20:03:21', 36.00, 5.00, 41.00),
+(127, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210321', 'Comptant à la livraison', '2024-04-18 20:03:21', 36.00, 5.00, 41.00),
+(128, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210321', 'Comptant à la livraison', '2024-04-18 20:03:21', 36.00, 5.00, 41.00),
+(129, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418210321', 'Comptant à la livraison', '2024-04-18 20:03:21', 36.00, 5.00, 41.00),
+(130, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418211518', 'Comptant à la livraison', '2024-04-18 20:15:18', 36.00, 5.00, 41.00),
+(131, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418211518', 'Comptant à la livraison', '2024-04-18 20:15:18', 36.00, 5.00, 41.00),
+(132, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418211518', 'Comptant à la livraison', '2024-04-18 20:15:18', 36.00, 5.00, 41.00),
+(133, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240418211518', 'Comptant à la livraison', '2024-04-18 20:15:18', 36.00, 5.00, 41.00),
+(134, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420113516', 'Comptant à la livraison', '2024-04-20 10:35:16', 9.00, 5.00, 14.00),
+(135, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420115212', 'Comptant à la livraison', '2024-04-20 10:52:12', 9.00, 5.00, 14.00),
+(136, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420123703', 'Comptant à la livraison', '2024-04-20 11:37:03', 9.00, 10.00, 19.00),
+(137, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420124101', 'Comptant à la livraison', '2024-04-20 11:41:01', 9.00, 5.00, 14.00),
+(138, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420124429', 'Comptant à la livraison', '2024-04-20 11:44:29', 9.00, 5.00, 14.00),
+(139, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420124811', 'Comptant à la livraison', '2024-04-20 11:48:11', 9.00, 5.00, 14.00),
+(140, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420130451', 'Comptant à la livraison', '2024-04-20 12:04:51', 9.00, 5.00, 14.00),
+(141, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420132716', 'Comptant à la livraison', '2024-04-20 12:27:16', 9.00, 5.00, 14.00),
+(142, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240420132831', 'Comptant à la livraison', '2024-04-20 12:28:31', 9.00, 5.00, 14.00),
+(143, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240423201210', 'Comptant à la livraison', '2024-04-23 19:12:10', 18.00, 5.00, 23.00),
+(144, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240423201210', 'Comptant à la livraison', '2024-04-23 19:12:10', 18.00, 5.00, 23.00),
+(145, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240423203051', 'Comptant à la livraison', '2024-04-23 19:30:51', 18.00, 5.00, 23.00),
+(146, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240423203051', 'Comptant à la livraison', '2024-04-23 19:30:51', 18.00, 5.00, 23.00),
+(147, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240424122835', 'Comptant à la livraison', '2024-04-24 11:28:35', 18.00, 5.00, 23.00),
+(148, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240424122835', 'Comptant à la livraison', '2024-04-24 11:28:35', 18.00, 5.00, 23.00),
+(149, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240428122037', 'Comptant à la livraison', '2024-04-28 11:20:37', 9.00, 5.00, 14.00),
+(150, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240428123013', 'Comptant à la livraison', '2024-04-28 11:30:13', 81.00, 5.00, 86.00),
+(151, 2, 1, 'aaaaemna', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240428123013', 'Comptant à la livraison', '2024-04-28 11:30:13', 81.00, 5.00, 86.00),
+(152, 2, 4, 'tomate', 9.00, 36.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240428123013', 'Comptant à la livraison', '2024-04-28 11:30:13', 81.00, 5.00, 86.00),
+(153, 2, 3, 'tomate', 9.00, 27.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240428123013', 'Comptant à la livraison', '2024-04-28 11:30:13', 81.00, 5.00, 86.00),
+(154, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502214636', 'Comptant à la livraison', '2024-05-02 20:46:36', 83.00, 5.00, 88.00),
+(155, 2, 1, 'aaaaemna', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502214636', 'Comptant à la livraison', '2024-05-02 20:46:36', 83.00, 5.00, 88.00),
+(156, 2, 4, 'tomate', 9.00, 36.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502214636', 'Comptant à la livraison', '2024-05-02 20:46:36', 83.00, 5.00, 88.00),
+(157, 2, 3, 'tomate', 9.00, 27.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502214636', 'Comptant à la livraison', '2024-05-02 20:46:36', 83.00, 5.00, 88.00),
+(158, 2, 1, 'tomatee', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502214636', 'Comptant à la livraison', '2024-05-02 20:46:36', 83.00, 5.00, 88.00),
+(159, 2, 1, 'tomatee', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502221444', 'Comptant à la livraison', '2024-05-02 21:14:44', 9.00, 5.00, 14.00),
+(160, 2, 1, 'Poivre', 3.00, 3.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502221444', 'Comptant à la livraison', '2024-05-02 21:14:44', 9.00, 5.00, 14.00),
+(161, 2, 2, 'orange', 2.00, 4.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240502221444', 'Comptant à la livraison', '2024-05-02 21:14:44', 9.00, 5.00, 14.00),
+(162, 2, 1, 'tomatee', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240505134145', 'Comptant à la livraison', '2024-05-05 12:41:45', 15.00, 10.00, 25.00),
+(163, 2, 1, 'Poivre', 3.00, 3.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240505134145', 'Comptant à la livraison', '2024-05-05 12:41:45', 15.00, 10.00, 25.00),
+(164, 2, 2, 'orange', 2.00, 4.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240505134145', 'Comptant à la livraison', '2024-05-05 12:41:45', 15.00, 10.00, 25.00),
+(165, 2, 1, 'orange', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240505134145', 'Comptant à la livraison', '2024-05-05 12:41:45', 15.00, 10.00, 25.00),
+(166, 2, 2, 'orange', 2.00, 4.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240505134145', 'Comptant à la livraison', '2024-05-05 12:41:45', 15.00, 10.00, 25.00),
+(167, 2, 1, 'tomatee', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(168, 2, 1, 'Poivre', 3.00, 3.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(169, 2, 2, 'orange', 2.00, 4.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(170, 2, 1, 'orange', 2.00, 2.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(171, 2, 2, 'orange', 2.00, 4.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(172, 2, 1, 'tomate', 9.00, 9.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00),
+(173, 2, 1, 'Veggieboc Small', 21950.00, 21950.00, 'emna', '+21652086967', 'tunis, tuniss', 'CMD20240509221929', 'Comptant à la livraison', '2024-05-09 21:19:29', 21974.00, 10.00, 21984.00);
 
 -- --------------------------------------------------------
 
@@ -283,17 +437,51 @@ CREATE TABLE `cours` (
   `minititre` varchar(225) NOT NULL,
   `prixParKilo` int(11) NOT NULL,
   `lienThumbnail` varchar(225) NOT NULL,
-  `type` varchar(225) NOT NULL
+  `type` varchar(225) NOT NULL,
+  `details` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `cours`
 --
 
-INSERT INTO `cours` (`id`, `titre`, `minititre`, `prixParKilo`, `lienThumbnail`, `type`) VALUES
-(1, 'aaaaemna', 'prix', 9, '/images/thumbnail/1711889513143-La fraise, fruit rouge parfumÃ© - Accords de saveurs _ Julie Andrieu.jpg', 'fruits'),
-(2, 'tomate', 'prix', 9, '/images/thumbnail/1712056275666-Capture d\'Ã©cran 2024-02-13 130928.png', 'legumes'),
-(3, 'tomate', 'prix', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', 'legumes');
+INSERT INTO `cours` (`id`, `titre`, `minititre`, `prixParKilo`, `lienThumbnail`, `type`, `details`) VALUES
+(1, 'Fraise', 'prix', 4, '/images/thumbnail/1711889513143-La fraise, fruit rouge parfumÃ© - Accords de saveurs _ Julie Andrieu.jpg', 'fruits', ''),
+(3, 'tomate', 'prix', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', 'legumes', ''),
+(4, 'fraise', 'prix', 4, '/images/thumbnail/1713611558470-La fraise, fruit rouge parfumÃ© - Accords de saveurs _ Julie Andrieu.jpg', 'fruits', ''),
+(5, 'orange', 'prix', 2, '/images/thumbnail/1714684160829-Punch aux fruits sans alcool.png', 'fruits', ''),
+(6, 'Poivre', 'prix', 3, '/images/thumbnail/1714684261074-Large Green Bell Peppers.png', 'legumes', ''),
+(16, 'MixBox small', 'prix de Box ', 37, '/images/thumbnail/1715547139545-tÃ©lÃ©chargement (17).jpg', 'mixbox', ''),
+(17, 'MixBox Large', 'prix de Box ', 74655, '/images/thumbnail/1715547319791-Kula Fields Produce.jpg', 'mixbox', ''),
+(18, 'MixBox medium', 'prix de Box ', 56345, '/images/thumbnail/1715547374331-Happy colors.jpg', 'mixbox', ''),
+(20, 'Small Box personnaliser', 'prix de Box ', 10, '/images/thumbnail/1715547516891-ÐÐ»ÑÐ±Ð½Ð¸ÐºÐ°.jpg', 'box-personalise', ''),
+(21, 'medium box-personaliser', 'prix de Box ', 30, '/images/thumbnail/1715547855306-tÃ©lÃ©chargement (18).jpg', 'box-personalise', ''),
+(22, 'large box-personaliser', 'prix de Box ', 70, '/images/thumbnail/1715547989813-tÃ©lÃ©chargement (21).jpg', 'box-personalise', ''),
+(23, 'small box-personaliser', 'prix de Box ', 55, '/images/thumbnail/1715548055244-ð«ð¾ð_ ðððð¹ðð½ðððð ð.jpg', 'box', ''),
+(26, 'small veggiebox', 'prix de Box ', 21, '/images/thumbnail/1715548783954-Noah\'s Travel_ vegetables.jpg', 'legumesbox', ''),
+(27, 'medium veggiebox', 'prix de Box ', 32, '/images/thumbnail/1715548819027-tÃ©lÃ©chargement (22).jpg', 'legumesbox', 'Une sélection de légumes essentiels\n.Tomate 1kg\n.Piment MESKI 1 kg\n.Oignon 1Kg\n.Pommes de Terre 2 Kg\n.Concombre  1 kg\n.Carotte 500 g\n.Aubergine 500g \n.Courgette 1kg\n.Citron 500 g\n.Ail 4 têtesPersil \n.1 botte\n\nApproximativement 9Kg\n'),
+(29, 'large veggiebox', 'prix de Box ', 52, '/images/thumbnail/1715548914831-tÃ©lÃ©chargement (23).jpg', 'legumesbox', ''),
+(30, 'small fruit-box', 'prix de Box ', 23, '/images/thumbnail/1715549113366-tÃ©lÃ©chargement (20).jpg', 'fruitsbox', ''),
+(31, ' large fruit-box', 'prix de Box ', 35, '/images/thumbnail/1715549141452-tÃ©lÃ©chargement (17).jpg', 'fruitsbox', ''),
+(32, ' medium  fruit-box', 'prix de Box ', 35, '/images/thumbnail/1715549168216-tÃ©lÃ©chargement (15).jpg', 'fruitsbox', ''),
+(34, ' medium  fruit-box', 'prix de Box ', 35, '/images/thumbnail/1715549199102-tÃ©lÃ©chargement (15).jpg', 'box', ''),
+(35, 'small veggiebox', 'prix de Box ', 21, '/images/thumbnail/1715549404222-Noah\'s Travel_ vegetables.jpg', 'box', ''),
+(36, 'Small Box personnaliser', 'prix de Box ', 21, '/images/thumbnail/1715549575444-tÃ©lÃ©chargement (24).jpg', 'box', ''),
+(37, 'Small Box personnaliser', 'prix de Box ', 21, '/images/thumbnail/1715549586494-tÃ©lÃ©chargement (24).jpg', 'box-personalise', ''),
+(38, 'large Box personnaliser', 'prix de Box ', 58, '/images/thumbnail/1715549698497-tÃ©lÃ©chargement (25).jpg', 'box', ''),
+(39, 'large Box personnaliser', 'prix de Box ', 58, '/images/thumbnail/1715549710074-tÃ©lÃ©chargement (25).jpg', 'box-personalise', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `images_factures`
+--
+
+CREATE TABLE `images_factures` (
+  `id` int(11) NOT NULL,
+  `image_data` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -319,10 +507,17 @@ CREATE TABLE `panier` (
 
 INSERT INTO `panier` (`id`, `utilisateur_id`, `produit_id`, `quantite`, `titre`, `prix_total`, `lienThumbnail`, `date_added`, `commande_id`) VALUES
 (31, 3, 3, 4, 'tomate', 36, '/images/thumbnail/1712056407083-tomatoes.jpg', '0000-00-00 00:00:00', NULL),
-(38, 2, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '0000-00-00 00:00:00', NULL),
-(39, 2, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '0000-00-00 00:00:00', NULL),
-(40, 2, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '0000-00-00 00:00:00', NULL),
-(43, 2, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '0000-00-00 00:00:00', NULL);
+(53, 4, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '2024-04-15 11:39:30', NULL),
+(54, 4, 1, 8, 'aaaaemna', 72, '/images/thumbnail/1711889513143-La fraise, fruit rouge parfumÃ© - Accords de saveurs _ Julie Andrieu.jpg', '2024-04-15 11:39:48', NULL),
+(59, 2, 4, 1, 'tomatee', 2, '/images/thumbnail/1713611558470-La fraise, fruit rouge parfumÃ© - Accords de saveurs _ Julie Andrieu.jpg', '2024-05-01 11:01:35', NULL),
+(61, 2, 6, 1, 'Poivre', 3, '/images/thumbnail/1714684261074-Large Green Bell Peppers.png', '2024-05-02 21:11:27', NULL),
+(62, 2, 7, 2, 'orange', 4, '/images/thumbnail/1714684377438-Punch aux fruits sans alcool.png', '2024-05-02 21:13:03', NULL),
+(63, 2, 5, 1, 'orange', 2, '/images/thumbnail/1714684160829-Punch aux fruits sans alcool.png', '2024-05-05 12:41:14', NULL),
+(64, 2, 5, 2, 'orange', 4, '/images/thumbnail/1714684160829-Punch aux fruits sans alcool.png', '2024-05-05 12:41:28', NULL),
+(65, 2, 3, 1, 'tomate', 9, '/images/thumbnail/1712056407083-tomatoes.jpg', '2024-05-09 08:27:30', NULL),
+(66, 2, 13, 1, 'Veggieboc Small', 21950, '/images/thumbnail/1715289024494-tÃ©lÃ©chargement (17).jpg', '2024-05-09 21:19:11', NULL),
+(67, 2, 13, 1, 'Veggieboc Small', 21950, '/images/thumbnail/1715289024494-tÃ©lÃ©chargement (17).jpg', '2024-05-09 21:25:31', NULL),
+(68, 2, 13, 5, 'Veggieboc Small', 109750, '/images/thumbnail/1715289024494-tÃ©lÃ©chargement (17).jpg', '2024-05-09 21:48:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -342,7 +537,9 @@ CREATE TABLE `reset_codes` (
 --
 
 INSERT INTO `reset_codes` (`id`, `email`, `code`, `expirationDate`) VALUES
-(1, 'dhraiefanes8@gmail.com', '8b643ce8e7', '2024-04-04 13:56:53');
+(1, 'dhraiefanes8@gmail.com', '8b643ce8e7', '2024-04-04 13:56:53'),
+(2, 'abchoukfatma18@gmail.com', '565a5f0939', '2024-05-01 13:25:16'),
+(3, 'abchoukfatma18@gmail.com', '44954bc26d', '2024-05-01 13:46:46');
 
 -- --------------------------------------------------------
 
@@ -368,122 +565,10 @@ CREATE TABLE `utulisateurs` (
 INSERT INTO `utulisateurs` (`id`, `nom`, `email`, `password`, `phone`, `Adress1`, `Adress2`, `zip`) VALUES
 (1, 'admin', 'admin1@gmail.com', '$2b$10$r8sA9OjWJfMy9ymFvJHK3Ow7soUe7y7.l7dhdieJtNdPUDKZJQKLy', '+21652086967', 'sousse', 'bouzed', '14704542'),
 (2, 'emna', 'abchoukfatma18@gmail.com', '$2b$10$0Gsu8iBc7z9Q.4OQVfx5iuDdCy46LvdtfeQFOUDxeTbG3uF06q.my', '+21652086967', 'tunis', 'tuniss', '14704542'),
-(3, 'mohsen', 'dhraiefanes8@gmail.com', '$2b$10$Pw6bMnEhr6KZSVk9m4.oN.F68KLqEa4t1Gmhem7MzFTlpNQqnsqtO', '93709987', 'rue ebn akhil  gafsa', 'gafsa', '123456');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `valide`
---
-
-CREATE TABLE `valide` (
-  `id_valide` int(11) NOT NULL,
-  `id_commande` int(11) DEFAULT NULL,
-  `utilisateur_id` int(11) DEFAULT NULL,
-  `prix_total` int(11) DEFAULT NULL,
-  `frais` int(11) DEFAULT NULL,
-  `sous_total` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `valide`
---
-
-INSERT INTO `valide` (`id_valide`, `id_commande`, `utilisateur_id`, `prix_total`, `frais`, `sous_total`) VALUES
-(91, 1, 2, NULL, NULL, NULL),
-(92, 1, 2, NULL, NULL, NULL),
-(93, 1, 2, NULL, NULL, NULL),
-(94, 1, 2, NULL, NULL, NULL),
-(95, 1, 2, NULL, NULL, NULL),
-(96, 1, 2, NULL, NULL, NULL),
-(97, 1, 2, NULL, NULL, NULL),
-(98, 1, 2, NULL, NULL, NULL),
-(99, 2, 2, NULL, NULL, NULL),
-(100, 2, 2, NULL, NULL, NULL),
-(101, 2, 2, NULL, NULL, NULL),
-(102, 2, 2, NULL, NULL, NULL),
-(103, 2, 2, NULL, NULL, NULL),
-(104, 2, 2, NULL, NULL, NULL),
-(105, 2, 2, NULL, NULL, NULL),
-(106, 2, 2, NULL, NULL, NULL),
-(107, 0, 2, NULL, NULL, NULL),
-(108, 0, 2, NULL, NULL, NULL),
-(109, 0, 2, NULL, NULL, NULL),
-(110, 0, 2, NULL, NULL, NULL),
-(111, 0, 2, NULL, NULL, NULL),
-(112, 0, 2, NULL, NULL, NULL),
-(113, 0, 2, NULL, NULL, NULL),
-(114, 0, 2, NULL, NULL, NULL),
-(115, 0, 2, 77, 5, 72),
-(116, 0, 2, NULL, NULL, NULL),
-(117, 0, 2, NULL, NULL, NULL),
-(118, 0, 2, NULL, NULL, NULL),
-(119, 0, 2, NULL, NULL, NULL),
-(120, 0, 2, NULL, NULL, NULL),
-(121, 0, 2, NULL, NULL, NULL),
-(122, 0, 2, NULL, NULL, NULL),
-(123, 0, 2, NULL, NULL, NULL),
-(124, 0, 2, NULL, NULL, NULL),
-(125, 0, 2, NULL, NULL, NULL),
-(126, 0, 2, NULL, NULL, NULL),
-(127, 0, 2, NULL, NULL, NULL),
-(128, 0, 2, NULL, NULL, NULL),
-(129, 0, 2, NULL, NULL, NULL),
-(130, 0, 2, NULL, NULL, NULL),
-(131, 0, 2, NULL, NULL, NULL),
-(132, 0, 2, NULL, NULL, NULL),
-(133, 0, 2, NULL, NULL, NULL),
-(134, 0, 2, NULL, NULL, NULL),
-(135, 0, 2, NULL, NULL, NULL),
-(136, 0, 2, NULL, NULL, NULL),
-(137, 0, 2, NULL, NULL, NULL),
-(138, 0, 2, NULL, NULL, NULL),
-(139, 0, 2, NULL, NULL, NULL),
-(140, 1, 2, NULL, NULL, NULL),
-(141, 1, 2, NULL, NULL, NULL),
-(142, 1, 2, NULL, NULL, NULL),
-(143, 1, 2, NULL, NULL, NULL),
-(144, 1, 2, NULL, NULL, NULL),
-(145, 1, 2, NULL, NULL, NULL),
-(146, 1, 2, NULL, NULL, NULL),
-(147, 1, 2, NULL, NULL, NULL),
-(148, 0, 2, NULL, NULL, NULL),
-(149, 0, 2, NULL, NULL, NULL),
-(150, 0, 2, NULL, NULL, NULL),
-(151, 0, 2, NULL, NULL, NULL),
-(152, 0, 2, NULL, NULL, NULL),
-(153, 0, 2, NULL, NULL, NULL),
-(154, 0, 2, NULL, NULL, NULL),
-(155, 0, 2, NULL, NULL, NULL),
-(156, 1, 2, NULL, NULL, NULL),
-(157, 1, 2, NULL, NULL, NULL),
-(158, 1, 2, NULL, NULL, NULL),
-(159, 1, 2, NULL, NULL, NULL),
-(160, 1, 2, NULL, NULL, NULL),
-(161, 1, 2, NULL, NULL, NULL),
-(162, 1, 2, NULL, NULL, NULL),
-(163, 1, 2, NULL, NULL, NULL),
-(164, NULL, NULL, 72, 5, 77),
-(165, 0, 2, NULL, NULL, NULL),
-(166, 0, 2, NULL, NULL, NULL),
-(167, 0, 2, NULL, NULL, NULL),
-(168, 0, 2, NULL, NULL, NULL),
-(169, 0, 2, NULL, NULL, NULL),
-(170, 0, 2, NULL, NULL, NULL),
-(171, 0, 2, NULL, NULL, NULL),
-(172, 0, 2, NULL, NULL, NULL),
-(173, 0, 2, NULL, NULL, NULL),
-(174, 0, 2, NULL, NULL, NULL),
-(175, 0, 2, NULL, NULL, NULL),
-(176, 0, 2, NULL, NULL, NULL),
-(177, 0, 2, NULL, NULL, NULL),
-(178, 0, 2, NULL, NULL, NULL),
-(179, 0, 2, NULL, NULL, NULL),
-(180, 0, 2, NULL, NULL, NULL),
-(181, 0, 2, NULL, NULL, NULL),
-(182, 0, 2, NULL, NULL, NULL),
-(183, 0, 2, NULL, NULL, NULL),
-(184, 0, 2, NULL, NULL, NULL);
+(3, 'mohsen', 'dhraiefanes8@gmail.com', '$2b$10$Pw6bMnEhr6KZSVk9m4.oN.F68KLqEa4t1Gmhem7MzFTlpNQqnsqtO', '93709987', 'rue ebn akhil  gafsa', 'gafsa', '123456'),
+(4, 'hasna', 'hasna@gmail.com', '$2b$10$VxcEZ9bo8TJniEqd/GQ5BeYFQlvbaAOB52ZPLuvmqjvooFjR52Fo2', '+21652086967', 'rue ebn akhil  gafsa', 'gafsa', '565655'),
+(5, 'admin', 'admin11@gmail.com', '$2b$10$bBnB2xTFtJqkoWwg3T0JpuNqAPd2K2wSYiGvycsYDKowGRs2k/Wku', '', '', '', ''),
+(6, 'fotna', 'Fotna@gmail.com', '$2b$10$hGwXH3uz41tgmVcxJKfUcuUEjdZLG1QQEthC61Vi3NyQ17R6VxdCe', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -505,51 +590,36 @@ CREATE TABLE `valider` (
 --
 
 INSERT INTO `valider` (`id`, `referenceCommande`, `id_utilisateur`, `subtotal`, `deliveryCost`, `totalSum`) VALUES
-(61, 'CMD20240413195700', 2, 0.00, 0.00, 0.00),
-(62, 'CMD20240413195758', 2, 0.00, 0.00, 0.00),
-(63, 'CMD20240413200046', 2, 0.00, 0.00, 0.00),
-(64, 'CMD20240413200551', 2, 0.00, 0.00, 0.00),
-(65, 'CMD20240413200727', 2, 0.00, 0.00, 0.00),
-(66, 'CMD20240413202547', 2, 0.00, 0.00, 0.00),
-(67, 'CMD20240413204636', 2, 0.00, 0.00, 0.00),
-(68, 'CMD20240413205315', 2, 0.00, 0.00, 0.00),
-(69, 'CMD20240413210038', 2, 0.00, 0.00, 0.00),
-(70, 'CMD20240413210038', 2, 0.00, 0.00, 0.00),
-(71, 'CMD20240413210038', 2, 0.00, 0.00, 0.00),
-(72, 'CMD20240413210921', 2, 0.00, 0.00, 0.00),
-(73, 'CMD20240413210921', 2, 0.00, 0.00, 0.00),
-(74, 'CMD20240413211005', 2, 0.00, 0.00, 0.00),
-(75, NULL, 2, 0.00, 0.00, 0.00),
-(76, 'CMD20240413211716', 2, 0.00, 0.00, 0.00),
-(77, NULL, 2, 0.00, 0.00, 0.00),
-(78, NULL, 2, 0.00, 0.00, 0.00),
-(79, 'CMD20240413211924', 2, 0.00, 0.00, 0.00),
-(80, 'CMD20240414113624', 2, 0.00, 0.00, 0.00),
-(81, 'CMD20240414115936', 2, 0.00, 0.00, 0.00),
-(82, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(83, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(84, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(85, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(86, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(87, 'CMD20240414120621', 2, 0.00, 0.00, 0.00),
-(88, 'CMD20240414122032', 2, 0.00, 0.00, 0.00),
-(89, 'CMD20240414122032', 2, 0.00, 0.00, 0.00),
-(90, 'CMD20240414122032', 2, 0.00, 0.00, 0.00),
-(91, 'CMD20240414122032', 2, 0.00, 0.00, 0.00),
-(92, 'CMD20240414122435', 2, 0.00, 0.00, 0.00),
-(93, 'CMD20240414123742', 2, 0.00, 0.00, 0.00),
-(94, 'CMD20240414193201', 2, 0.00, 0.00, 0.00),
-(95, 'CMD20240414193201', 2, 0.00, 0.00, 0.00),
-(96, 'CMD20240414193644', 2, 0.00, 0.00, 0.00),
-(97, 'CMD20240414201043', 2, 0.00, 0.00, 0.00),
-(98, 'CMD20240414201043', 2, 0.00, 0.00, 0.00),
-(99, 'CMD20240414201043', 2, 0.00, 0.00, 0.00),
-(100, 'CMD20240414201316', 2, 0.00, 0.00, 0.00),
-(101, 'CMD20240414201640', 2, 0.00, 0.00, 0.00),
-(102, 'CMD20240414201852', 2, 0.00, 0.00, 0.00),
-(103, 'CMD20240414202139', 2, 0.00, 0.00, 0.00),
-(104, 'CMD20240414202658', 2, 0.00, 0.00, 0.00),
-(105, 'CMD20240414202735', 2, 0.00, 0.00, 0.00);
+(110, 'CMD20240415123404', 2, 36.00, 5.00, 41.00),
+(111, 'CMD20240415123606', 2, 36.00, 5.00, 41.00),
+(112, 'CMD20240415123708', 2, 36.00, 5.00, 41.00),
+(113, 'CMD20240415124038', 4, 81.00, 10.00, 91.00),
+(114, 'CMD20240418194040', 2, 36.00, 10.00, 46.00),
+(115, 'CMD20240418200657', 2, 36.00, 5.00, 41.00),
+(116, 'CMD20240418200810', 2, 36.00, 5.00, 41.00),
+(117, 'CMD20240418201630', 2, 36.00, 5.00, 41.00),
+(118, 'CMD20240418202031', 2, 36.00, 5.00, 41.00),
+(119, 'CMD20240418210044', 2, 36.00, 5.00, 41.00),
+(120, 'CMD20240418210321', 2, 36.00, 5.00, 41.00),
+(121, 'CMD20240418211518', 2, 36.00, 5.00, 41.00),
+(122, 'CMD20240420113516', 2, 9.00, 5.00, 14.00),
+(123, 'CMD20240420115212', 2, 9.00, 5.00, 14.00),
+(124, 'CMD20240420123703', 2, 9.00, 10.00, 19.00),
+(125, 'CMD20240420124101', 2, 9.00, 5.00, 14.00),
+(126, 'CMD20240420124101', 2, 9.00, 5.00, 14.00),
+(127, 'CMD20240420124429', 2, 9.00, 5.00, 14.00),
+(128, 'CMD20240420124811', 2, 9.00, 5.00, 14.00),
+(129, 'CMD20240420132831', 2, 9.00, 5.00, 14.00),
+(130, 'CMD20240423201210', 2, 18.00, 5.00, 23.00),
+(131, 'CMD20240423203051', 2, 18.00, 5.00, 23.00),
+(132, 'CMD20240423203051', 2, 18.00, 5.00, 23.00),
+(133, 'CMD20240424122835', 2, 18.00, 5.00, 23.00),
+(134, 'CMD20240428122037', 2, 9.00, 5.00, 14.00),
+(135, 'CMD20240428123013', 2, 81.00, 5.00, 86.00),
+(136, 'CMD20240502214636', 2, 83.00, 5.00, 88.00),
+(137, 'CMD20240502221444', 2, 9.00, 5.00, 14.00),
+(138, 'CMD20240505134145', 2, 15.00, 10.00, 25.00),
+(139, 'CMD20240509221929', 2, 21974.00, 10.00, 21984.00);
 
 --
 -- Index pour les tables déchargées
@@ -574,6 +644,12 @@ ALTER TABLE `cours`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `images_factures`
+--
+ALTER TABLE `images_factures`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `panier`
 --
 ALTER TABLE `panier`
@@ -595,13 +671,6 @@ ALTER TABLE `utulisateurs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `valide`
---
-ALTER TABLE `valide`
-  ADD PRIMARY KEY (`id_valide`),
-  ADD KEY `utilisateur_id` (`utilisateur_id`);
-
---
 -- Index pour la table `valider`
 --
 ALTER TABLE `valider`
@@ -616,7 +685,7 @@ ALTER TABLE `valider`
 -- AUTO_INCREMENT pour la table `commaande`
 --
 ALTER TABLE `commaande`
-  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT pour la table `commande`
@@ -628,37 +697,37 @@ ALTER TABLE `commande`
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT pour la table `images_factures`
+--
+ALTER TABLE `images_factures`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
 ALTER TABLE `panier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT pour la table `reset_codes`
 --
 ALTER TABLE `reset_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `utulisateurs`
 --
 ALTER TABLE `utulisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT pour la table `valide`
---
-ALTER TABLE `valide`
-  MODIFY `id_valide` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `valider`
 --
 ALTER TABLE `valider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- Contraintes pour les tables déchargées
@@ -670,12 +739,6 @@ ALTER TABLE `valider`
 ALTER TABLE `panier`
   ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utulisateurs` (`id`),
   ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`produit_id`) REFERENCES `cours` (`id`);
-
---
--- Contraintes pour la table `valide`
---
-ALTER TABLE `valide`
-  ADD CONSTRAINT `valide_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utulisateurs` (`id`);
 
 --
 -- Contraintes pour la table `valider`
