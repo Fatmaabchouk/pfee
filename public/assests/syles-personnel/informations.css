@@ -12,7 +12,7 @@ body {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 14px rgb(41 213 47 / 62%);
+    box-shadow: 0 0 14px rgba(250, 122, 2, 0.62);
 }
 main{
     display: flex;
@@ -49,7 +49,7 @@ a:hover {
     margin-top: 28px;
     margin-right: 10px;
     text-decoration: none;
-    color: #34db87;
+    color: #ff9101;
 }
 
 .next-link {
@@ -82,7 +82,7 @@ a:hover {
     line-height: 30px; /* Centrez verticalement le texte */
     margin-right: 10px; /* Ajustez la marge entre le cercle et le texte */
 }
-.circle-icon-1 { background-color: #63d35f; }
+.circle-icon-1 { background-color: #f16806; }
 .circle-icon-2 { background-color: #ccc; }
 .circle-icon-3 { background-color: #ccc; }
 .h2-color-1 { color:#333; }
@@ -95,7 +95,7 @@ a:hover {
     background-color: #fff;
     padding: 44px;
     border-radius: 59px;
-    box-shadow: 0 0 14px rgb(41 213 47 / 62%);
+    box-shadow: 0 0 14px rgba(235, 134, 1, 0.62);
     margin-top: 51px;
 
 }

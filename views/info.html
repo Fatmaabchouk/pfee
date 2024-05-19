@@ -5,11 +5,35 @@
     <link href="/assests/syles-personnel/footer.css" rel="stylesheet">
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
+    <style>
+    
+        .navigation button {
+            background-color: #4dff00;
+            color: #ff840e;
+            border: none;
+            border-radius: 52px;
+            padding: 8px 50px;
+            cursor: pointer;
+            text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+        }
+        
+        .navigation a:hover,
+        .navigation button:hover {
+            background-color: #0e6900;
+        }
+        
+        .navigation span {
+            margin: 0 10px; /* Ajout pour un espacement entre Accueil et Retour */
+        }
+        </style>
     <!-- Les balises meta et le titre restent les mêmes -->
 </head>
 <body>
     <main>
-        
+        <div class="navigation">
+            
+            <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Retour</button>
+        </div>
         <!-- Le reste du code HTML de votre page -->
         <div class="account-details-form">
             <a href="acc" class="edit-link"><ion-icon name="create"></ion-icon> Modifier</a>
@@ -35,5 +59,10 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        function goBack() {
+               window.history.back();
+           }
+    </script>
 </body>
 </html>

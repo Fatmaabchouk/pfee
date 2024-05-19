@@ -81,12 +81,38 @@
             width: 100%;
         }
     </style>
+    <style>
+    
+        .navigation button {
+            background-color: #4dff00;
+            color: #ff840e;
+            border: none;
+            border-radius: 52px;
+            padding: 8px 50px;
+            cursor: pointer;
+            text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+        }
+        
+        .navigation a:hover,
+        .navigation button:hover {
+            background-color: #0e6900;
+        }
+        
+        .navigation span {
+            margin: 0 10px; /* Ajout pour un espacement entre Accueil et Retour */
+        }
+        </style>
 </head>
 <body>
+   
     <header>
         <h1>Historique des Commandes</h1>
+        
     </header>
-
+    <div class="navigation">
+            
+        <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Retour</button>
+    </div>
     <div class="container">
         <!-- Affichage des commandes -->
         <ul>
@@ -132,5 +158,10 @@
 });
 
   </script>
+  <script>
+    function goBack() {
+           window.history.back();
+       }
+</script>
 </body>
 </html>

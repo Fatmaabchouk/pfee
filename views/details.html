@@ -61,7 +61,8 @@
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             max-width: 300px; /* Ajustez la largeur maximale de l'image */
-            max-height: 200px; /* Ajustez la hauteur maximale de l'image */
+            max-height: 200px;
+          /* Ajustez la hauteur maximale de l'image */
         }
 
         .navigation {
@@ -99,6 +100,7 @@ button.commander{
     color: green;
 
 }
+
     </style>
 </head>
 <body>
@@ -112,7 +114,7 @@ button.commander{
         
         <h1>Détails </h1>
         <div id="courseDetails">
-            <!-- Les détails du cours seront affichés ici -->
+           
         </div>
         <button  class="commander" onclick="goBack()"><i class="fas fa-arrow-left"></i> Commander</button>
     </div>
@@ -146,9 +148,10 @@ button.commander{
             courseDetailsDiv.innerHTML = `
                 <h2>${cours.titre}</h2>
                 <p>Unité : 1Kg</p>
-                <p>Prix par kilo : ${cours.prixParKilo} DT</p>
+                <p>Prix par kilo  ou box : ${cours.prixParKilo} DT</p>
                 <img src="${cours.lienThumbnail}" alt="Thumbnail">
-                <p> ${cours.details}
+               
+                <h3 > ${cours.details}</h3> 
 </>                <!-- Ajoutez d'autres détails du cours ici -->
             `;
         }

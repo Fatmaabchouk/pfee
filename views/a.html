@@ -133,7 +133,19 @@ td.details {
     max-width: 100%; /* Taille maximale du champ */
     max-height: 200px; /* Hauteur maximale du champ */
 }
+.highlight-column {
+    background-color: red;
+    color: white;
+}
+#searchInput{
+    color: #080404;
+    background-color: #ff83003d;
+}
+#searchButton{
+    color: #080404;
+    background-color: orange;
 
+}
 
 /* Le reste de vos styles CSS existants */
 
@@ -149,7 +161,11 @@ td.details {
             <li id="manage-Facturs">Gestion des Factures</li>
           
             <li id="statistics">Statistiques</li>
-            <li id="logout">Déconnexion</li>
+            <li id="logout">
+                <a href="#" onclick="logout(event)">
+                  <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
+              </li>
         </ul>
     </div>
     <div class="main-content">
@@ -288,14 +304,18 @@ manageProducts.addEventListener('click', function() {
         // Générer le contenu HTML avec les produits récupérés
         const productsHTML = `
             <h1>Gestion des produits</h1>
+            <div id="searchproduits">
+                <input type="text" id="searchInput" placeholder="Rechercher par Nom...">
+                <button id="searchButton">Rechercher</button>
+            </div>
             <a href="admin" class = "button">Ajouter un Produit  </a>
             <table>
                 <thead>
                     <tr>
-                        <th>Titre</th>
+                        <th>Nom produit</th>
                         <th>Mini-titre</th>
                         <th>Prix par kilo</th>
-                        <th>Image</th>
+                        <th>Produits</th>
                         <th>Details</th>
                         <th>Type</th>
                     </tr>
@@ -327,7 +347,28 @@ manageProducts.addEventListener('click', function() {
             </table>
         `;
         // Afficher le contenu HTML dans la partie principale du tableau de bord
+      
         mainContent.innerHTML = productsHTML; // Remplacer le contenu existant par les produits
+        const searchButton = document.getElementById('searchButton');
+      searchButton.addEventListener('click', function() {
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.classList.remove('highlight-row');
+                row.querySelectorAll('td').forEach(td => td.classList.remove('highlight-column')); // Supprime la classe de coloration rouge des colonnes
+            });
+
+            const foundRows = [...rows].filter(row => row.children[0].textContent.toLowerCase().includes(searchInput)); // Recherche par nom de produit
+            if (foundRows.length > 0) {
+                foundRows.forEach(row => {
+                    row.classList.add('highlight-row');
+                    row.children[0].classList.add('highlight-column'); // Colore la colonne en rouge
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Dirige la vue vers la ligne trouvée
+                });
+            } else {
+                alert("Produit introuvable.");
+            }
+        });
     })
     .catch(error => {
         console.error('Erreur lors de la récupération des produits :', error);
@@ -356,6 +397,7 @@ manageFacturs.addEventListener('click', function() {
 // Ajout de l'événement click sur "Gestion des Commandes"
 manageCommandes.addEventListener('click', function() {
     setSelected(manageCommandes);
+  
     // Effectuer une requête pour récupérer toutes les commandes depuis la base de données
     fetch('/get-commandes')
     .then(response => response.json())
@@ -363,6 +405,10 @@ manageCommandes.addEventListener('click', function() {
         // Générer le contenu HTML avec les commandes récupérées
         const commandesHTML = `
             <h1>Gestion des Commandes</h1>
+            <div id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Rechercher par référence...">
+                <button id="searchButton">Rechercher</button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -428,8 +474,28 @@ document.querySelectorAll('.btn-details').forEach(button => {
         }
     });
 });
+// Ajout de l'événement click sur le bouton de recherche
+const searchButton = document.getElementById('searchButton');
+searchButton.addEventListener('click', function() { 
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+        row.classList.remove('highlight-row');
+        row.querySelectorAll('td').forEach(td => td.classList.remove('highlight-column')); // Supprime la classe de coloration rouge des colonnes
+    });
 
-    
+    const foundRows = [...rows].filter(row => row.children[2].textContent.toLowerCase().includes(searchInput));
+    if (foundRows.length > 0) {
+        foundRows.forEach(row => {
+            row.classList.add('highlight-row');
+            row.children[2].classList.add('highlight-column'); // Colore la colonne en rouge
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Dirige la vue vers la ligne trouvée
+        });
+    } else {
+        alert("Commande introuvable.");
+    }
+});
+
     })
     .catch(error => {
         console.error('Erreur lors de la récupération des commandes :', error);
@@ -505,6 +571,29 @@ function supprimerProduit(productId) {
                 }
             });
         });
+        function logout(event) {
+  event.preventDefault();
+  
+  fetch('/deconnexion', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      window.location.href = '/connexion'; // Rediriger vers la page de connexion après la déconnexion
+    } else {
+      alert('Échec de la déconnexion. Veuillez réessayer.');
+    }
+  })
+  .catch(error => {
+    console.error('Erreur lors de la déconnexion:', error);
+    alert('Erreur lors de la déconnexion. Veuillez réessayer.');
+  });
+}
+
     </script>
+    
 </body>
 </html>

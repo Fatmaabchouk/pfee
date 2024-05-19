@@ -86,6 +86,16 @@ if(!req.session.idUtilisateur){
 }
 
 };
+const adminProtectionRoute = (req, res, next) => {
+  const { idUtilisateur, email } = req.session;
+  
+  if (!idUtilisateur || email !== "admin1@gmail.com") {
+    return res.redirect("/connexion");  // Ou une autre page d'erreur si vous préférez
+  }
+  
+  next();
+};
+
 app.use((req, res, next) => {
   const { idUtilisateur } = req.session;
   
@@ -130,7 +140,9 @@ app.post("/connexion", async (req, res) => {
       // Vérifier si l'utilisateur est l'administrateur
       if (email === "admin1@gmail.com" && password === "Admin123456") {
         // Si l'email et le mot de passe correspondent à ceux de l'administrateur, rediriger vers la page a.html
-        return res.redirect("/a");
+        req.session.idUtilisateur = "admin";
+        req.session.email = email;
+        return res.redirect("/a"); // Rediriger vers la page admin
       }
 
       // Si ce n'est pas l'administrateur, effectuez la vérification normale
@@ -147,6 +159,8 @@ app.post("/connexion", async (req, res) => {
 
           if (validPw) {
             req.session.idUtilisateur = utilisateur.id;
+            
+            req.session.email = utilisateur.email;
             console.log('Session après connexion:', req.session);
 
             // Rediriger vers la page d'accueil normale
@@ -529,14 +543,16 @@ app.get("/boxpersonaliser", (req, res) => {
     res.render("boxpersonaliser", { cours: results, utilisateur }); // Passer les données cours à la vue fruits.html
   });
 });
-app.get("/admin", (req, res) => {
-  const {utilisateur} = res.locals;
-  res.render("admin", {utilisateur});
+app.get("/admin", adminProtectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
+  res.render("admin", { utilisateur });
 });
-app.get("/a",  (req, res) => {
-  const {utilisateur} = res.locals;
-  res.render("a", {utilisateur});
+
+app.get("/a", adminProtectionRoute, (req, res) => {
+  const { utilisateur } = res.locals;
+  res.render("a", { utilisateur });
 });
+
 // Route pour récupérer les utilisateurs
 app.get('/get-users', (req, res) => {
   // Requête SQL pour sélectionner les utilisateurs avec les champs spécifiés
@@ -559,7 +575,7 @@ app.get('/get-products', (req, res) => {
       res.json(results); // Envoyer les produits en tant que réponse JSON
   });
 });
-app.get("/modifier", (req, res) => {
+app.get("/modifier",adminProtectionRoute, (req, res) => {
   const {utilisateur} = res.locals;
   res.render("modifier", {utilisateur});
 });
@@ -615,7 +631,7 @@ app.get('/get-commandes', (req, res) => {
       res.json(result);
   });
 });
-app.get("/Fact",  (req, res) => {
+app.get("/Fact",adminProtectionRoute,  (req, res) => {
   const {utilisateur} = res.locals;
   res.render("Fact", {utilisateur});
 });
@@ -1010,7 +1026,7 @@ app.post("/update-account", async (req, res) => {
             }
 
             req.flash("success", "Mise à jour du compte réussie");
-            return res.redirect("/acc");
+            return res.redirect("/info");
           }
         );
       } else {

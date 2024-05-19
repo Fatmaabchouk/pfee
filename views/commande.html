@@ -33,15 +33,37 @@
             border-top: 2px solid #000;
             font-weight: bold;
         }
+        .navigation button {
+    background-color: #f5f5f5;
+    color: #ff840e;
+    border: none;
+    border-radius: 52px;
+    padding: 8px 50px;
+    cursor: pointer;
+    text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+}
+
+.navigation a:hover,
+.navigation button:hover {
+    background-color: #0e6900;
+}
+
     </style>
 </head>
 <body>
     <main>
+        <div class="navigation">
+            <button onclick="goToHome()">
+                <i class="fas fa-arrow-left"></i> Accueil
+            </button>
+        </div>
+        
         <div class="abcd">
             <div class="order-summary">
                 <h2>Facture</h2>
                 <!-- Informations sur l'utilisateur -->
-                <p><strong>القفة</strong>  email : abchoukfatma18@gmail.com , numero : +21652086967</p>
+                <p><strong>القفة</strong> </p> 
+                 <p>email :koffa18@gmail.com , numero : +21652086967</p>
                 <p>Facture envoyée à : <span id="nomUtilisateur"></span></p>
                 <p> téléphone : <span id="numeroUtilisateur"></span></p> 
                <p>  adresse:<span id="adresseUtilisateur"></span> </p>
@@ -155,9 +177,12 @@ html2canvas(document.querySelector('.order-summary')).then(canvas => {
     .catch(error => console.error('Erreur lors de l\'envoi et de l\'enregistrement de l\'image de facture :', error));
 });
 
+function goToHome() {
+    window.location.href = "/";
+}
 
   </script>
   
-  
+
 </body>
 </html>

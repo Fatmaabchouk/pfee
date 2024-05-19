@@ -18,17 +18,19 @@
       <h6 class="card-text"><%= cours.titre %></h6>
       <h5 class="cat-title"><%= cours.minititre %></h5>
       <div class="emm">
-        <h8 id="pricePerKilo"style=" color :red ; font-size: xx-large;"> <%= cours.prixParKilo %></h8> Dt
-        <p>nbr de kilo ou de Box</p>
-        <input type="number" id="quantity<%= cours.id %>" min="1" max="10" style="background-color: orange; box-shadow: 0 0 4px #de4904;" value="1">
-      </div>
+        <h8  id="pricePerKilo"style=" color :red ; font-size: xx-large;"> <%= cours.prixParKilo.toFixed(3) %></h8> dt
+       </div>
       </div>   </div>
       <div class="d-flex justify-content-between align-items-center">
+        <p>nbr de kilo ou de Box</p>
+        <input type="number"  id="quantity<%= cours.id %>" min="1" max="20" style="background-color: orange; box-shadow: 0 0 4px #de4904;     margin-top: 10px;" value="1">
+     
         <div class="btn-group" style="
         position: relative;
         display: inline-flex;
         vertical-align: middle;
         box-shadow: 0 0 36px #10dc60;
+        margin-top: 10px;
     ">
           <button onclick="addToCart('<%= utilisateur && utilisateur.id %>', '<%= cours.titre %>', '<%= cours.minititre %>', '<%= cours.lienThumbnail %>', '<%= cours.prixParKilo %>', '<%= cours.id %>')" class="btn btn-sm btn-outline-secondary">
             <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon> Panier
@@ -62,7 +64,7 @@ document.getElementById('continuerBtn').addEventListener('click', function () {
   const totalPrice = document.getElementById("dialogTotalPrice").innerText;
   // Stocker le montant total dans une session
   sessionStorage.setItem("totalPrice", totalPrice);
-  window.location.href = '/#';
+  window.location.href = '#';
 });
 
 function addToCart(userId, productTitle, minititre, lienThumbnail, prixParKilo, courseId) {
@@ -100,7 +102,7 @@ function addToCart(userId, productTitle, minititre, lienThumbnail, prixParKilo, 
 
     document.getElementById("dialogQuantity").innerText = quantity;
     document.getElementById("dialogProductTitle").innerText = productTitle;
-    document.getElementById("dialogTotalPrice").innerText = totalPrice.toFixed(2) + " DT";
+    document.getElementById("dialogTotalPrice").innerText = totalPrice.toFixed(3) + " DT";
     document.getElementById("dialogImage").src = lienThumbnail;
 
     showDialog();

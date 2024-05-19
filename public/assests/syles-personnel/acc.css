@@ -22,7 +22,7 @@ body {
 /* Styles des boutons et liens */
 .wrapper_tabcontent.customer button {
     margin-bottom: 10px;
-    background-color: #b5e9c4;
+    background-color: #ebd1ac;
     color: #0c0303;
     padding: 10px;
     border: none;
@@ -34,7 +34,7 @@ body {
 }
 
 .wrapper_tabcontent.customer button:hover {
-    background-color: #75fd48;
+    background-color: #fdac48;
 }
 
 .wrapper_tabcontent.customer i {
@@ -74,7 +74,7 @@ body {
 }
 
 .account-content.col button {
-    background-color: #c8fcc7;
+    background-color: #ffcc9c;
     color: #160f0f;
     padding: 10px;
     border: none;
@@ -83,7 +83,7 @@ body {
 }
 
 .account-content.col button:hover {
-    background-color: #48fd78;
+    background-color: #fdac48;
 }
 
 .account-content p.title-customer {
@@ -130,7 +130,7 @@ body {
 }
 
 .order-history p.none :hover {
-    color: rgb(101, 229, 152);
+    color: rgb(229, 154, 101);
 }
 
 /* Styles de la section Account Details */

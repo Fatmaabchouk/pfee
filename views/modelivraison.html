@@ -6,6 +6,27 @@
     <link href="/assests/syles-personnel/service.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.0.1/dist/css/ionicons.min.css" integrity="sha384-JvT5Wj4Tgcvzr5fO2GOj3D9t+8BfOQypThNNFvAch5P7S6iZ8iSnqG0d9IfiZDE5" crossorigin="anonymous">
 <!-- Les balises meta et les liens CSS restent les mêmes -->
+<style>
+    
+.navigation button {
+    background-color: #45ff07;
+    color: #ff840e;
+    border: none;
+    border-radius: 52px;
+    padding: 8px 50px;
+    cursor: pointer;
+    text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+}
+
+.navigation a:hover,
+.navigation button:hover {
+    background-color: #0e6900;
+}
+
+.navigation span {
+    margin: 0 10px; /* Ajout pour un espacement entre Accueil et Retour */
+}
+</style>
 <script>
     window.onload = function () {
         // Récupérer le montant total depuis sessionStorage
@@ -13,7 +34,7 @@
         // Mettre à jour le sous-total avec le montant total récupéré
         const subtotalSpan = document.getElementById("subtotal");
         if (subtotalSpan) {
-            subtotalSpan.textContent = `Sous-total: ${totalPrice.toFixed(2)} DT`;
+            subtotalSpan.textContent = `Sous-total: ${totalPrice.toFixed(3)} dT`;
         }
         
         // Appeler la fonction pour mettre à jour le total basé sur la livraison
@@ -29,7 +50,7 @@
         const subtotalValue = parseFloat(document.getElementById("subtotal").textContent.replace("Sous-total: ", ""));
 
         if (deliveryCostElement) {
-            deliveryCostElement.textContent = `Frais de livraison: ${deliveryCost.toFixed(2)} DT`;
+            deliveryCostElement.textContent = `Frais de livraison: ${deliveryCost.toFixed(3)} dT`;
             deliveryCostElement.dataset.value = deliveryCost; // Mettre à jour la valeur du dataset
         }
 
@@ -37,12 +58,12 @@
         const totalSum = subtotalValue + deliveryCost;
         // Afficher la somme totale
         const totalSumElement = document.getElementById("totalSum");
-        totalSumElement.textContent = `Total: ${totalSum.toFixed(2)} DT`;
+        totalSumElement.textContent = `Total: ${totalSum.toFixed(3)} dT`;
 
         // Stocker la somme totale dans la session
-        sessionStorage.setItem("totalSum", totalSum.toFixed(2));
-        sessionStorage.setItem("subtotal", subtotalValue.toFixed(2));
-    sessionStorage.setItem("deliveryCost", deliveryCost.toFixed(2));
+        sessionStorage.setItem("totalSum", totalSum.toFixed(3));
+        sessionStorage.setItem("subtotal", subtotalValue.toFixed(3));
+    sessionStorage.setItem("deliveryCost", deliveryCost.toFixed(3));
     }
 
     function redirectToPaiement() {
@@ -63,6 +84,10 @@
 </head>
 <body>
     <main>
+        <div class="navigation">
+            
+            <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Retour</button>
+        </div>
         <div class="abcd">
             <!-- Le reste du code HTML de votre page -->
             <div class="account-details-form">
@@ -79,15 +104,15 @@
                     <label>
                         <!-- Ajoutez l'attribut checked ici -->
                         <input type="radio" name="deliveryMethod" value="standard" data-cost="5.00" checked onchange="updateTotalSumBasedOnDelivery()">
-                        Livraison Standard - 5.00 DT
+                        Livraison Standard - 5.000 dT
                     </label>
                     <label>
                         <input type="radio" name="deliveryMethod" value="express" data-cost="10.00" onchange="updateTotalSumBasedOnDelivery()">
-                        Livraison Express - 10.00 DT
+                        Livraison Express - 10.000 dT
                     </label>
                 </form>
             </div>
-            <button onclick="redirectToPaiement()">Payer maintenant</button>
+            <button  style="    background-color: orange;" onclick="redirectToPaiement()">Payer maintenant</button>
 
 
 
@@ -110,5 +135,10 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        function goBack() {
+               window.history.back();
+           }
+   </script>
 </body>
 </html>

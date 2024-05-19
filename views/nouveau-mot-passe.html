@@ -27,18 +27,34 @@ body {
 }
 
 h1 {
-  text-align: center;
-  margin-top: 50px;
   color: #333;
+    font-family: system-ui;
+    font-size: 45px;
+    margin-left: 235px;
 }
+h2{
+  font-family: monospace;
+    font-style: oblique;
+    color: #ff6a00;
 
+}
+main {
+  max-width: 512px;
+    margin: 63px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 33px;
+    box-shadow: 0 0 10px rgb(255 96 0);
+}
 form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          background-color: #ff830045;
+      box-shadow: 0 0 10px rgb(92 37 5 / 35) ; border-radius: 10px;
 }
 
 label {
@@ -80,13 +96,18 @@ button[type="submit"]:hover {
   </style>
 </head>
 <body>
-  <h1>Nouveau Mot de Passe</h1>
+  
+  <main>
+    <h1>القفة</h1>
   <form action="/update-password" method="post" onsubmit="return validatePassword()">
-    <label for="newPassword">Nouveau Mot de Passe :</label>
+    <h2>Nouveau Mot de Passe :</h2>
+    <label for="newPassword"></label>
     <input type="password" id="newPassword" name="newPassword" required>
     <input type="hidden" name="email" value="<%= email %>">
     <br>
     <button type="submit">Enregistrer le Nouveau Mot de Passe</button>
-  </form>
-</body>
+  
+    <a href="connexion">Annuler</a>
+</form>
+</body> </main>
 </html>

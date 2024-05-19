@@ -18,11 +18,35 @@
             document.getElementById("totalSumValue").textContent = totalSum;
         };
     </script>
+<style>
+    
+.navigation button {
+    background-color: #2afe00;
+    color: #ff840e;
+    border: none;
+    border-radius: 52px;
+    padding: 8px 50px;
+    cursor: pointer;
+    text-decoration: none;/* Ajout pour enlever le soulignement des liens */
+}
 
+.navigation a:hover,
+.navigation button:hover {
+    background-color: #0e6900;
+}
+
+.navigation span {
+    margin: 0 10px; /* Ajout pour un espacement entre Accueil et Retour */
+}
+</style>
    
 </head>
 <body>
     <main>
+        <div class="navigation">
+            
+            <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Retour</button>
+        </div>
         <div class="abcd">
             <!-- Le reste du code HTML de votre page -->
             <div class="account-details-form">
@@ -49,7 +73,7 @@
                 <p>Payer en argent comptant à la livraison.</p>
             </div>
             
-            <button id="commandButton" onclick="redirectToCommande()">
+            <button style="    background-color: orange;" id="commandButton" onclick="redirectToCommande()">
                 Commander
             </button>
         
@@ -137,4 +161,9 @@ function redirectToCommande() {
 }
 
 
+</script>
+<script>
+    function goBack() {
+           window.history.back();
+       }
 </script>
